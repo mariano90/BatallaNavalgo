@@ -1,5 +1,7 @@
 package main.model.naves;
 
+import main.model.disparos.Disparo;
+
 public class Buque extends Nave {
 
 	@Override
