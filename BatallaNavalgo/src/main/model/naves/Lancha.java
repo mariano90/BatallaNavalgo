@@ -1,4 +1,4 @@
-package model;
+package main.model.naves;
 
 public class Lancha extends Nave {
 	
