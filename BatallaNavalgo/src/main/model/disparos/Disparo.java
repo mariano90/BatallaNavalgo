@@ -1,13 +1,15 @@
 package main.model.disparos;
 
-public class Disparo {
+public abstract class Disparo {
+	
+	private Integer costo;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public void disparar(){
+		
 	}
-
+	
+	public Integer getCosto() {
+		return costo;
+	}
+	
 }
