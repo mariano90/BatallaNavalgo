@@ -1,15 +1,31 @@
 package main.model.naves;
 
+import java.util.ArrayList;
+
 import main.model.disparos.Disparo;
+import main.model.naves.EnumDirecciones.DireccionMovimiento;
+import main.model.naves.EnumDirecciones.DireccionSentido;
+import main.model.tablero.Coordenada;
 
 public class Buque extends Nave {
 
-	@Override
+	protected final Integer CANTIDAD_PARTES = 4;
+	
+	public Buque(){
+		this.partes = new ArrayList<Parte> ();
+	}
+	
+	public Buque(Coordenada coordenadaInicio, DireccionSentido sentido, DireccionMovimiento movimiento){
+		this.partes = new ArrayList<Parte> ();
+		this.direccionSentido = sentido;
+		this.direccionMovimiento = movimiento;
+		this.agregarPartes(coordenadaInicio, this.CANTIDAD_PARTES);
+	}
+	
 	public void recibirDisparo(Disparo disparo, Parte parte){
-
-		for( int i = 0 ; i < partes.size() ; i++ ){
-			partes.get(i).recibirDisparo();
-			partes.get(i).destruir();
+		for (Parte parteAfectada : this.partes) {
+			parteAfectada.recibirDisparo();
+			parteAfectada.destruir();
 		}
 	}
 }

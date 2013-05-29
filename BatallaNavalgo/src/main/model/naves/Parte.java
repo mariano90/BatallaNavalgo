@@ -34,4 +34,9 @@ public class Parte {
 	public void destruir(){
 		this.destruida = true;
 	}
+
+	public Coordenada getPosicion() {
+		return posicion;
+	}
+	
 }
