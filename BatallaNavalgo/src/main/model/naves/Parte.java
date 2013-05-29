@@ -12,6 +12,12 @@ public class Parte {
 		this.destruida = false;
 		this.recibioDisparo = false;
 	}
+	
+	public Parte(Coordenada coordenada){
+		this.destruida = false;
+		this.recibioDisparo = false;
+		this.posicion = coordenada;
+	}
 
 	public boolean estaDestruida(){
 		return destruida;
