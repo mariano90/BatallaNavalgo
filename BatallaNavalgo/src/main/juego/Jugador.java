@@ -1,16 +1,19 @@
 package main.juego;
 
 public class Jugador {
-	private int puntuacion;
+	private Integer puntuacion;
+	
+	public Jugador() {
+		this.puntuacion = 10000;
+	}
 
-	public int getPuntuacion() {
+	public Integer getPuntuacion() {
 		return puntuacion;
 	}
 
-	public void setPuntuacion(int puntuacion) {
-		this.puntuacion = puntuacion;
+	public void restarPuntos (Integer puntos){
+		if ((this.puntuacion != 0) && (puntos>0)){
+			this.puntuacion = this.puntuacion - puntos;
+		}
 	}
-	
-	
-
 }
