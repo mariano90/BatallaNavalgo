@@ -2,9 +2,10 @@ package main.juego;
 
 public class Jugador {
 	private Integer puntuacion;
+	final Integer PUNTAJE_INICIAL = 10000;
 	
 	public Jugador() {
-		this.puntuacion = 10000;
+		this.puntuacion = PUNTAJE_INICIAL;
 	}
 
 	public Integer getPuntuacion() {
