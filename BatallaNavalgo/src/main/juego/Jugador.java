@@ -16,6 +16,11 @@ public class Jugador {
 	 * Numero entero que indica la puntuacion del jugador.
 	 */
 	private Integer puntuacion;
+	
+	/**
+	 * Booleano que indica si el jugador gano el juego o no.
+	 */	
+	private boolean gano;
 
 	/**
 	 * Constructor por defecto.
@@ -43,4 +48,13 @@ public class Jugador {
 			this.puntuacion = this.puntuacion - puntos;
 		}
 	}
+
+	public boolean isGano() {
+		return gano;
+	}
+
+	public void setGano(boolean gano) {
+		this.gano = gano;
+	}
+	
 }

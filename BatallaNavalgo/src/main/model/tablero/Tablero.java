@@ -39,6 +39,20 @@ public class Tablero {
 	}
 
 	/**
+	 * Devuelve True si el Tablero tiene barcos aun sin destruir.
+	 * 
+	 * @return boolean
+	 */
+	public boolean tieneBarcosNoDestruidos(){
+		for (int fila = 0; fila < FILAS_TABLERO; fila++) {
+			for(int columna = 0; columna < COLUMNAS_TABLERO; columna++) {
+				if(!casilleros[fila][columna].tieneBarcosNoDestruidos()) return true; 
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Devuelve la matriz de Casilleros del Tablero.
 	 *
 	 * @return casilleros Matriz de Casilleros.

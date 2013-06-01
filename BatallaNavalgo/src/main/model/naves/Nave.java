@@ -83,10 +83,8 @@ public abstract class Nave {
 	 * @return True si esta destruida. False en caso contrario. 
 	 */
 	public boolean estaDestruida(){
-		boolean naveDestruida;
 		for (Parte parte : this.partes) {
-			naveDestruida = parte.estaDestruida();
-			if (!naveDestruida) return false;			
+			if (!parte.estaDestruida()) return false;			
 		}
 		return true;
 	}

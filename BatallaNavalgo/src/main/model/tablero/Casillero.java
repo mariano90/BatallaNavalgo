@@ -56,6 +56,18 @@ public class Casillero {
 	}
 
 	/**
+	 * Devuelve True si el casillero tiene barcos aun sin destruir.
+	 * 
+	 * @return boolean
+	 */
+	public boolean tieneBarcosNoDestruidos(){
+		for (Nave nave : this.naves) {
+			if(!nave.estaDestruida()) return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Devuelve las naves que se encuentran en el casillero.
 	 * 
 	 * @return naves Una ArrayList con las naves que se encuentran en el casillero.

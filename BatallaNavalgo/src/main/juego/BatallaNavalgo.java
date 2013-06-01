@@ -2,12 +2,12 @@ package main.juego;
 
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
-import main.model.naves.EnumDirecciones.DireccionMovimiento;
-import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.naves.Lancha;
 import main.model.naves.Nave;
 import main.model.naves.Portaaviones;
 import main.model.naves.RompeHielos;
+import main.model.naves.EnumDirecciones.DireccionMovimiento;
+import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
 import main.model.tablero.Tablero;
 
@@ -22,6 +22,7 @@ public class BatallaNavalgo {
 	/*
 	 * Definicion de constantes.
 	 */
+	private final static Integer PUNTOS_POR_TURNO = 10;
 	private final static Integer CANT_LANCHAS = 2;
 	private final static Integer CANT_DESTRUCTORES = 2;
 	private final static Integer CANT_BUQUES = 1;
@@ -43,10 +44,32 @@ public class BatallaNavalgo {
 	 * @param args Array de Strings con atributos recibidos por consola.
 	 */
 	public static void main(String[] args) {
+		Jugador jugador = new Jugador();
 		Tablero tablero = new Tablero();
 		colocarBarcosEnTablero(tablero);
+		jugar(jugador, tablero);
+		verResultado(jugador, tablero);
 	}
 
+	private static void jugar(Jugador jugador, Tablero tablero){
+		while(jugador.getPuntuacion() > 0 && tablero.tieneBarcosNoDestruidos()){
+			jugador.restarPuntos(PUNTOS_POR_TURNO);
+			// FALTA QUE MANDEN LAS CLASES QUE DIJERON PARA IMPLEMENTAR LOS TURNOS 
+			
+		}
+	}
+	
+	private static void verResultado(Jugador jugador,Tablero tablero){
+		if(tablero.tieneBarcosNoDestruidos()){
+			jugador.setGano(false);
+			System.out.println("El jugador perdio");
+		}
+		else {
+			jugador.setGano(true);
+			System.out.println("El jugador gano");
+		}
+	}
+	
 	/**
 	 * Crea y coloca todos las naves en el Tablero.
 	 * 
