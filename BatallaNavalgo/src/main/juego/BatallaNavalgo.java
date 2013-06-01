@@ -5,6 +5,7 @@ import main.model.naves.Destructor;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.naves.Lancha;
+import main.model.naves.Nave;
 import main.model.naves.Portaaviones;
 import main.model.naves.RompeHielos;
 import main.model.tablero.Coordenada;
@@ -12,7 +13,7 @@ import main.model.tablero.Tablero;
 
 /**
  * Clase principal del Juego BatallaNavalgo.
- * Se encarga de manejar la l—gica del juego.
+ * Se encarga de manejar la lï¿½gica del juego.
  * 
  * @author daniel.pilla
  */
@@ -69,7 +70,7 @@ public class BatallaNavalgo {
 			Coordenada coordenada = crearCoordenada();
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
-			Lancha lancha = new Lancha(coordenada, sentido, movimiento);
+			Nave lancha = new Lancha(coordenada, sentido, movimiento);
 			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(lancha);
 		}
@@ -85,7 +86,7 @@ public class BatallaNavalgo {
 			Coordenada coordenada = crearCoordenada();
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
-			Destructor destructor = new Destructor(coordenada,
+			Nave destructor = new Destructor(coordenada,
 				sentido, movimiento);
 			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(destructor);
@@ -102,7 +103,7 @@ public class BatallaNavalgo {
 			Coordenada coordenada = crearCoordenada();
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
-			Buque buque = new Buque(coordenada, sentido, movimiento);
+			Nave buque = new Buque(coordenada, sentido, movimiento);
 			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(buque);
 		}
@@ -118,7 +119,7 @@ public class BatallaNavalgo {
 			Coordenada coordenada = crearCoordenada();
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
-			Portaaviones portaAviones = new Portaaviones(coordenada,
+			Nave portaAviones = new Portaaviones(coordenada,
 				sentido, movimiento);
 			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
 					.agregarNave(portaAviones);
@@ -135,7 +136,7 @@ public class BatallaNavalgo {
 			Coordenada coordenada = crearCoordenada();
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
-			RompeHielos rompeHielos = new RompeHielos(coordenada,
+			Nave rompeHielos = new RompeHielos(coordenada,
 				sentido, movimiento);
 			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(rompeHielos);
