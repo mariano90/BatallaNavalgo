@@ -1,9 +1,11 @@
 package test.model.naves;
 
 import junit.framework.Assert;
+import main.model.disparos.Disparo;
 import main.model.disparos.DisparoConvencional;
 import main.model.disparos.PuntualConRetardo;
 import main.model.naves.Lancha;
+import main.model.naves.Nave;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
@@ -16,7 +18,7 @@ public class LanchaTest {
 		Coordenada coordenada = new Coordenada(5,8);
 		DireccionSentido sentido = DireccionSentido.VERTICAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.SUR;
-		Lancha lancha = new Lancha(coordenada, sentido, movimiento);
+		Nave lancha = new Lancha(coordenada, sentido, movimiento);
 
 		Assert.assertTrue(lancha.getPartes().size() == 2);
 	}
@@ -26,8 +28,8 @@ public class LanchaTest {
 		Coordenada coordenada = new Coordenada(5,8);
 		DireccionSentido sentido = DireccionSentido.VERTICAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.SUR;
-		Lancha lancha = new Lancha(coordenada, sentido, movimiento);
-		PuntualConRetardo disparo = new PuntualConRetardo();
+		Nave lancha = new Lancha(coordenada, sentido, movimiento);
+		Disparo disparo = new PuntualConRetardo();
 		lancha.recibirDisparo(disparo, lancha.getPartes().get(0));
 
 		Assert.assertTrue(lancha.getPartes().get(0).estaDestruida());
@@ -38,8 +40,8 @@ public class LanchaTest {
 		Coordenada coordenada = new Coordenada(5,8);
 		DireccionSentido sentido = DireccionSentido.VERTICAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.SUR;
-		Lancha lancha = new Lancha(coordenada, sentido, movimiento);
-		DisparoConvencional disparo = new DisparoConvencional();
+		Nave lancha = new Lancha(coordenada, sentido, movimiento);
+		Disparo disparo = new DisparoConvencional();
 		lancha.recibirDisparo(disparo, lancha.getPartes().get(0));
 
 		Assert.assertTrue(lancha.getPartes().get(0).estaDestruida());

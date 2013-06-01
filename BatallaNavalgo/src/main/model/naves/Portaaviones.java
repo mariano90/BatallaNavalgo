@@ -2,7 +2,6 @@ package main.model.naves;
 
 import java.util.ArrayList;
 
-import main.model.disparos.Disparo;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
@@ -22,8 +21,4 @@ public class Portaaviones extends Nave {
 		this.agregarPartes(coordenadaInicio, this.CANTIDAD_PARTES);
 	}
 	
-	public void recibirDisparo(Disparo disparo, Parte parte){
-		parte.recibirDisparo();
-		parte.destruir();
-	}
 }

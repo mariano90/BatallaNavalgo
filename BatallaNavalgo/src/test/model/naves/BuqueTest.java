@@ -1,9 +1,11 @@
 package test.model.naves;
 
 import junit.framework.Assert;
+import main.model.disparos.Disparo;
 import main.model.disparos.DisparoConvencional;
 import main.model.disparos.TripleConRetardo;
 import main.model.naves.Buque;
+import main.model.naves.Nave;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
@@ -16,7 +18,7 @@ public class BuqueTest {
 		Coordenada coordenada = new Coordenada(4,2);
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.OESTE;
-		Buque buque = new Buque(coordenada, sentido, movimiento);
+		Nave buque = new Buque(coordenada, sentido, movimiento);
 
 		Assert.assertTrue(buque.getPartes().size() == 4);
 	}
@@ -26,8 +28,8 @@ public class BuqueTest {
 		Coordenada coordenada = new Coordenada(4,2);
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.OESTE;
-		Buque buque = new Buque(coordenada, sentido, movimiento);
-		TripleConRetardo disparo = new TripleConRetardo();
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Disparo disparo = new TripleConRetardo();
 		buque.recibirDisparo(disparo, buque.getPartes().get(0));
 
 		Assert.assertTrue(buque.getPartes().get(0).estaDestruida());
@@ -39,8 +41,8 @@ public class BuqueTest {
 		Coordenada coordenada = new Coordenada(4,2);
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.OESTE;
-		Buque buque = new Buque(coordenada, sentido, movimiento);
-		DisparoConvencional disparo = new DisparoConvencional();
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Disparo disparo = new DisparoConvencional();
 		buque.recibirDisparo(disparo, buque.getPartes().get(0));
 
 		Assert.assertTrue(buque.getPartes().get(0).estaDestruida());

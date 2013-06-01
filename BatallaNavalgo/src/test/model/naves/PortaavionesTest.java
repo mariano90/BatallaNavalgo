@@ -1,8 +1,10 @@
 package test.model.naves;
 
 import junit.framework.Assert;
+import main.model.disparos.Disparo;
 import main.model.disparos.DisparoConvencional;
 import main.model.disparos.PorContacto;
+import main.model.naves.Nave;
 import main.model.naves.Portaaviones;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
@@ -16,7 +18,7 @@ public class PortaavionesTest {
 		Coordenada coordenada = new Coordenada(9,0);
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.NORTE;
-		Portaaviones portaaviones = new Portaaviones(coordenada, sentido, movimiento);
+		Nave portaaviones = new Portaaviones(coordenada, sentido, movimiento);
 
 		Assert.assertTrue(portaaviones.getPartes().size() == 5);
 	}
@@ -26,8 +28,8 @@ public class PortaavionesTest {
 		Coordenada coordenada = new Coordenada(9,0);
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.NORTE;
-		Portaaviones portaaviones = new Portaaviones(coordenada, sentido, movimiento);
-		PorContacto disparo = new PorContacto();
+		Nave portaaviones = new Portaaviones(coordenada, sentido, movimiento);
+		Disparo disparo = new PorContacto();
 		portaaviones.recibirDisparo(disparo, portaaviones.getPartes().get(0));
 
 		Assert.assertTrue(portaaviones.getPartes().get(0).estaDestruida());
@@ -38,8 +40,8 @@ public class PortaavionesTest {
 		Coordenada coordenada = new Coordenada(9,0);
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.NORTE;
-		Portaaviones portaaviones = new Portaaviones(coordenada, sentido, movimiento);
-		DisparoConvencional disparo = new DisparoConvencional();
+		Nave portaaviones = new Portaaviones(coordenada, sentido, movimiento);
+		Disparo disparo = new DisparoConvencional();
 		portaaviones.recibirDisparo(disparo, portaaviones.getPartes().get(0));
 
 		Assert.assertTrue(portaaviones.getPartes().get(0).estaDestruida());

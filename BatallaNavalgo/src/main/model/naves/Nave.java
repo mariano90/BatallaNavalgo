@@ -2,6 +2,7 @@ package main.model.naves;
 
 import java.util.ArrayList;
 
+import main.model.disparos.Disparo;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
@@ -90,6 +91,16 @@ public abstract class Nave {
 		return true;
 	}
 
+	public void recibirDisparo(Disparo disparo, Parte parte){
+		parte.recibirDisparo();
+		parte.destruir();
+	}
+	
+	public void recibirDisparoDeMinaSubmarina(Disparo disparo, Parte parte) {
+		parte.recibirDisparo();
+		parte.destruir();
+	}
+	
 	/**
 	 * Devuelve la direccion de movimiento de la nave.
 	 *
