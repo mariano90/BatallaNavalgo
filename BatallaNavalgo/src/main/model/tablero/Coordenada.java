@@ -28,6 +28,15 @@ public class Coordenada {
 		this.y = y;
 	}
 
+	@Override
+	public boolean equals(Object a){
+		Coordenada coordenada = (Coordenada) a;
+		if(this.x == coordenada.getX() && this.y == coordenada.getY()){
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Devuelve la posicion sobre el eje X.
 	 * 
