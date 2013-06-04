@@ -1,5 +1,9 @@
 package main.model.disparos;
 
+import main.model.naves.Nave;
+import main.model.naves.Parte;
+import main.model.tablero.Coordenada;
+
 /**
  * Clase Abstracta que representa un Disparo.
  * 
@@ -7,6 +11,8 @@ package main.model.disparos;
  */
 public abstract class Disparo {
 
+	protected Coordenada coordenada;
+	
 	/**
 	 * Numero entero que indica el costo de cada disparo. Se debe redefinir en las subclases.
 	 */
@@ -22,7 +28,7 @@ public abstract class Disparo {
 	 * Se debe redefinir en las subclases.
 	 */
 	protected Integer cantTurnos = 0;
-
+	
 	/**
 	 * Realiza un disparo.
 	 */
@@ -30,6 +36,18 @@ public abstract class Disparo {
 		
 	}
 
+	public void accionarMina(Nave nave, Parte parte){
+		nave.recibirDisparo(this, parte);
+	}
+	
+	public boolean debeExplotar(Parte parte){
+		this.cantTurnos = cantTurnos -1;
+		if(this.cantTurnos <= 0){
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Devuelve el costo de un disparo.
 	 * 

@@ -29,7 +29,7 @@ public class RompeHielosTests {
 		DireccionSentido sentido = DireccionSentido.VERTICAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.ESTE;
 		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
-		Disparo disparo = new DobleConRetardo();
+		Disparo disparo = new DobleConRetardo(coordenada);
 		rompeHielos.recibirDisparo(disparo, rompeHielos.getPartes().get(0));
 
 		Assert.assertTrue(rompeHielos.getPartes().get(0).recibioDisparo());
@@ -42,7 +42,7 @@ public class RompeHielosTests {
 		DireccionSentido sentido = DireccionSentido.VERTICAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.ESTE;
 		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
-		Disparo disparo = new DisparoConvencional();
+		Disparo disparo = new DisparoConvencional(coordenada);
 		rompeHielos.recibirDisparo(disparo, rompeHielos.getPartes().get(0));
 
 		Assert.assertFalse(rompeHielos.getPartes().get(0).estaDestruida());
@@ -55,9 +55,9 @@ public class RompeHielosTests {
 		DireccionSentido sentido = DireccionSentido.VERTICAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.ESTE;
 		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
-		Disparo disparo = new DisparoConvencional();
+		Disparo disparo = new DisparoConvencional(coordenada);
 		rompeHielos.recibirDisparo(disparo, rompeHielos.getPartes().get(1));
-		Disparo disparo2 = new PuntualConRetardo();
+		Disparo disparo2 = new PuntualConRetardo(coordenada);
 		rompeHielos.recibirDisparo(disparo2, rompeHielos.getPartes().get(1));
 
 		Assert.assertTrue(rompeHielos.getPartes().get(1).recibioDisparo());

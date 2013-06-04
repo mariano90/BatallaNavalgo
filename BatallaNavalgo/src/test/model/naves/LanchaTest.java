@@ -29,7 +29,7 @@ public class LanchaTest {
 		DireccionSentido sentido = DireccionSentido.VERTICAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.SUR;
 		Nave lancha = new Lancha(coordenada, sentido, movimiento);
-		Disparo disparo = new PuntualConRetardo();
+		Disparo disparo = new PuntualConRetardo(coordenada);
 		lancha.recibirDisparo(disparo, lancha.getPartes().get(0));
 
 		Assert.assertTrue(lancha.getPartes().get(0).estaDestruida());
@@ -41,7 +41,7 @@ public class LanchaTest {
 		DireccionSentido sentido = DireccionSentido.VERTICAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.SUR;
 		Nave lancha = new Lancha(coordenada, sentido, movimiento);
-		Disparo disparo = new DisparoConvencional();
+		Disparo disparo = new DisparoConvencional(coordenada);
 		lancha.recibirDisparo(disparo, lancha.getPartes().get(0));
 
 		Assert.assertTrue(lancha.getPartes().get(0).estaDestruida());

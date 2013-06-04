@@ -1,5 +1,7 @@
 package main.model.disparos;
 
+import main.model.tablero.Coordenada;
+
 /**
  * Representa un Disparo Doble con Retardo.
  * 
@@ -14,7 +16,8 @@ public class DobleConRetardo extends MinaSubmarina{
 	/**
 	 * Constructor por defecto.
 	 */
-	public DobleConRetardo(){
+	public DobleConRetardo(Coordenada coordenada){
+		this.coordenada = coordenada;
 		this.costo = COSTO;
 		this.radio = RADIO;
 		this.cantTurnos = CANTIDAD_TURNOS;

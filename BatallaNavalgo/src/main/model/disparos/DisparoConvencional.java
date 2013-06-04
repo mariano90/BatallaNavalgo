@@ -1,5 +1,7 @@
 package main.model.disparos;
 
+import main.model.tablero.Coordenada;
+
 /**
  * Representa un Disparo Convencional.
  *
@@ -14,9 +16,11 @@ public class DisparoConvencional extends Disparo{
 	/**
 	 * Constructor por defecto.
 	 */
-	public DisparoConvencional(){
+	public DisparoConvencional(Coordenada coordenada){
+		this.coordenada = coordenada;
 		this.costo = COSTO;
 		this.radio = RADIO;
 		this.cantTurnos = CANTIDAD_TURNOS;
 	}
+
 }

@@ -29,7 +29,7 @@ public class DestructorTest {
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.ESTE;
 		Nave destructor = new Destructor(coordenada, sentido, movimiento);
-		Disparo disparo = new DobleConRetardo();
+		Disparo disparo = new DobleConRetardo(coordenada);
 		destructor.recibirDisparoDeMinaSubmarina(disparo, destructor.getPartes().get(0));
 
 		Assert.assertFalse(destructor.getPartes().get(0).estaDestruida());
@@ -41,7 +41,7 @@ public class DestructorTest {
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.ESTE;
 		Nave destructor = new Destructor(coordenada, sentido, movimiento);
-		Disparo disparo = new DisparoConvencional();
+		Disparo disparo = new DisparoConvencional(coordenada);
 		destructor.recibirDisparo(disparo, destructor.getPartes().get(0));
 
 		Assert.assertTrue(destructor.getPartes().get(0).estaDestruida());

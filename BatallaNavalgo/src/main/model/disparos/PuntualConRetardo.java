@@ -1,5 +1,7 @@
 package main.model.disparos;
 
+import main.model.tablero.Coordenada;
+
 /**
  * Representa una Mina Submarina Puntual con Retardo
  *
@@ -14,9 +16,11 @@ public class PuntualConRetardo extends MinaSubmarina{
 	/**
 	 * Constructor por defecto.
 	 */
-	public PuntualConRetardo(){
+	public PuntualConRetardo(Coordenada coordenada){
+		this.coordenada = coordenada;
 		this.costo = COSTO;
 		this.radio = RADIO;
 		this.cantTurnos = CANTIDAD_TURNOS;
 	}
+	
 }

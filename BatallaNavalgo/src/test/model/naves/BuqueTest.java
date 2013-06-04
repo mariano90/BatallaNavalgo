@@ -29,7 +29,7 @@ public class BuqueTest {
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.OESTE;
 		Nave buque = new Buque(coordenada, sentido, movimiento);
-		Disparo disparo = new TripleConRetardo();
+		Disparo disparo = new TripleConRetardo(coordenada);
 		buque.recibirDisparo(disparo, buque.getPartes().get(0));
 
 		Assert.assertTrue(buque.getPartes().get(0).estaDestruida());
@@ -42,7 +42,7 @@ public class BuqueTest {
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.OESTE;
 		Nave buque = new Buque(coordenada, sentido, movimiento);
-		Disparo disparo = new DisparoConvencional();
+		Disparo disparo = new DisparoConvencional(coordenada);
 		buque.recibirDisparo(disparo, buque.getPartes().get(0));
 
 		Assert.assertTrue(buque.getPartes().get(0).estaDestruida());

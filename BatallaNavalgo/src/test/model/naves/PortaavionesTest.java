@@ -29,7 +29,7 @@ public class PortaavionesTest {
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.NORTE;
 		Nave portaaviones = new Portaaviones(coordenada, sentido, movimiento);
-		Disparo disparo = new PorContacto();
+		Disparo disparo = new PorContacto(coordenada);
 		portaaviones.recibirDisparo(disparo, portaaviones.getPartes().get(0));
 
 		Assert.assertTrue(portaaviones.getPartes().get(0).estaDestruida());
@@ -41,7 +41,7 @@ public class PortaavionesTest {
 		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
 		DireccionMovimiento movimiento = DireccionMovimiento.NORTE;
 		Nave portaaviones = new Portaaviones(coordenada, sentido, movimiento);
-		Disparo disparo = new DisparoConvencional();
+		Disparo disparo = new DisparoConvencional(coordenada);
 		portaaviones.recibirDisparo(disparo, portaaviones.getPartes().get(0));
 
 		Assert.assertTrue(portaaviones.getPartes().get(0).estaDestruida());
