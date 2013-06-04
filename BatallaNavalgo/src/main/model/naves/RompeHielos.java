@@ -22,6 +22,7 @@ public class RompeHielos extends Nave {
 		this.agregarPartes(coordenadaInicio, this.CANTIDAD_PARTES);
 	}
 	
+	@Override
 	public void recibirDisparo(Disparo disparo , Parte parte){
 		if (parte.recibioDisparo()) {
 			parte.destruir();
