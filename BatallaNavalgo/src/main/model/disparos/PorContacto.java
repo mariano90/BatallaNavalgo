@@ -6,13 +6,16 @@ package main.model.disparos;
  * @author mariano.sanchez
  */
 public class PorContacto extends MinaSubmarina{
+	
+	protected final Integer COSTO = 150;
+	protected final Integer RADIO = 0;
 
 	/**
 	 * Constructor por defecto.
 	 */
 	public PorContacto(){
-		this.costo = 150;
-		this.radio = 0;
+		this.costo = COSTO;
+		this.radio = RADIO;
 	}
 	
 }

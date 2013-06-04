@@ -7,9 +7,14 @@ package main.model.disparos;
  */
 public class TripleConRetardo extends MinaSubmarina{
 	
+	protected final Integer COSTO = 125;
+	protected final Integer RADIO = 2;
+	protected final Integer CANTIDAD_TURNOS = 3;
+	
 	public TripleConRetardo(){
-		this.costo = 125;
-		this.radio = 2;
+		this.costo = COSTO;
+		this.radio = RADIO;
+		this.cantTurnos = CANTIDAD_TURNOS;
 	}
 
 }

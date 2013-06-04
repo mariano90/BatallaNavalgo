@@ -10,13 +10,18 @@ public abstract class Disparo {
 	/**
 	 * Numero entero que indica el costo de cada disparo. Se debe redefinir en las subclases.
 	 */
-	protected Integer costo;
+	protected Integer costo = 0;
 
 	/**
 	 * Numero entero que indica el radio de alcance de cada disparo. Se debe redefinir en las subclases.
 	 */
-	protected Integer radio;
-//	protected Integer cantTurnos;
+	protected Integer radio = 0;
+	
+	/**
+	 * Numero entero que indica la cantidad de turnos de cada disparo antes de ser ejecutado.
+	 * Se debe redefinir en las subclases.
+	 */
+	protected Integer cantTurnos = 0;
 
 	/**
 	 * Realiza un disparo.
@@ -42,4 +47,14 @@ public abstract class Disparo {
 	public Integer getRadio() {
 		return radio;
 	}
+
+	/**
+	 * Devuelve la cantidad de turnos restantes de un disparo.
+	 * 
+	 * @return Numero entero indicando la cantidad de turnos restantes del disparo.
+	 */
+	public Integer getCantTurnos() {
+		return cantTurnos;
+	}
+	
 }

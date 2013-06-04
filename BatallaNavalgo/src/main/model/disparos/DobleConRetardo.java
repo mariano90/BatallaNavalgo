@@ -7,12 +7,17 @@ package main.model.disparos;
  */
 public class DobleConRetardo extends MinaSubmarina{
 
+	protected final Integer COSTO = 100;
+	protected final Integer RADIO = 1;
+	protected final Integer CANTIDAD_TURNOS = 3;
+	
 	/**
 	 * Constructor por defecto.
 	 */
 	public DobleConRetardo(){
-		this.costo = 100;
-		this.radio = 1;
+		this.costo = COSTO;
+		this.radio = RADIO;
+		this.cantTurnos = CANTIDAD_TURNOS;
 	}
 	
 }
