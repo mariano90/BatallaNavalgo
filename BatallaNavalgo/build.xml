@@ -4,18 +4,24 @@
   	<property name="build.dir" value="bin/" /> 
   	<property name="src.dir" value="src/" /> 
   	<property name="lib.dir" value="lib/" />
+	<property name="report.dir"  value="${build.dir}/junitreport"/>
   	<property name="doc.dir" value="documentacion/javadoc" />
   	<property name="zip.name" value="Entrega.zip" />
-	
+
 	<target name="clean">
 		<delete dir = "${build.dir}" />
 		<delete dir = "${doc.dir}" />
 		<delete file= "${zip.name}" />
 	</target>
+
+	<path id="classpath">
+    		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+   		<path location="[LocalPath]/junit.jar"/>
+	</path>
 	
 	<target name="compile" depends="clean">
   		<mkdir dir="${build.dir}" /> 
-		<javac srcdir="${src.dir}" classpath="${lib.dir}" destdir="${build.dir}" />
+		<javac srcdir="${src.dir}" classpathref="classpath" destdir="${build.dir}" />
  	</target>
 
 	<target name="run" depends="compile">
@@ -30,19 +36,27 @@
   	</target>
 	
 	<target name="tests" depends="compile">	
-		<junit>
+		<mkdir dir="${report.dir}"/>
+		<junit printsummary="yes" haltonfailure="yes" showoutput="yes">
 			<classpath>	
 				<pathelement path="${build.dir}" />
 				<fileset dir="lib">
 					<include name="**/*.jar"/>
 				</fileset>
 			</classpath>
-			<formatter type="brief" usefile="false" />
-			<batchtest>
+			<formatter type="xml" />
+			<batchtest fork="yes">
 				<fileset dir="${build.dir}" includes="**/*Test.class" />
 			</batchtest>
 		</junit>
   	</target>
+
+	<target name="junitreport" depends="tests">
+  	  	<junitreport todir="${report.dir}">
+       			<fileset dir="${report.dir}" includes="TEST-*.xml"/>
+        		<report todir="${report.dir}"/>
+    		</junitreport>
+	</target>
 
 	<target name="generarjavadocs" depends="clean">	
 	  <javadoc packagenames="*"
