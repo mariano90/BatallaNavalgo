@@ -2,6 +2,9 @@ package main.model.naves;
 
 import java.util.ArrayList;
 
+import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
+import fiuba.algo3.titiritero.modelo.ObjetoVivo;
+
 import main.model.disparos.Disparo;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
@@ -12,8 +15,13 @@ import main.model.tablero.Coordenada;
  * 
  * @author melisa.poleschi
  */
-public abstract class Nave {
+public abstract class Nave implements ObjetoVivo, ObjetoPosicionable{
 
+	/**
+	 * Indica la coordenanda donde empieza la nave.
+	 */
+	protected Coordenada coordenadaInicio;
+	
 	/**
 	 * Indica la direccion de movimiento de la nave.
 	 */
@@ -97,6 +105,22 @@ public abstract class Nave {
 	public void recibirDisparoDeMinaSubmarina(Disparo disparo, Parte parte) {
 		parte.recibirDisparo();
 		parte.destruir();
+	}
+	
+	@Override
+	public void vivir() {
+		System.out.println("VIVE LA NAVE");
+		
+	}
+
+	@Override
+	public int getX() {
+		return 0;
+	}
+
+	@Override
+	public int getY() {
+		return 0;
 	}
 	
 	/**

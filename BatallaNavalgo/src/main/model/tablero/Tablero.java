@@ -1,11 +1,13 @@
 package main.model.tablero;
 
+import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
+
 /**
  * Representa el Tablero de juego.
  * 
  * @author daniel.pilla
  */
-public class Tablero {
+public class Tablero implements ObjetoPosicionable{
 
 	/*
 	 * Declaracion de constantes
@@ -59,5 +61,15 @@ public class Tablero {
 	 */
 	public Casillero[][] getCasilleros() {
 		return casilleros;
+	}
+
+	@Override
+	public int getX() {
+		return 0;
+	}
+
+	@Override
+	public int getY() {
+		return 0;
 	}
 }
