@@ -1,9 +1,16 @@
 package main.juego.view.tablero;
 
-public class VistaTablero {
-	public void dibujar(Integer ancho, Integer alto){
-		for (int i = 0; i < ancho+alto; i++) {
-			
-		}
+import java.io.IOException;
+import java.net.URL;
+
+import fiuba.algo3.titiritero.dibujables.Imagen;
+
+import main.model.tablero.Tablero;
+
+public class VistaTablero extends Imagen{
+	
+	public VistaTablero(URL urlImagen, Tablero tablero) throws IOException {
+		super(urlImagen, tablero);
 	}
+
 }

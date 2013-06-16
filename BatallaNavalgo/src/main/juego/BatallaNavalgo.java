@@ -1,10 +1,6 @@
 package main.juego;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -13,29 +9,24 @@ import java.net.URL;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import fiuba.algo3.titiritero.dibujables.Cuadrado;
-import fiuba.algo3.titiritero.dibujables.Imagen;
-import fiuba.algo3.titiritero.dibujables.SuperficiePanel;
-import fiuba.algo3.titiritero.modelo.GameLoop;
-import fiuba.algo3.titiritero.modelo.SuperficieDeDibujo;
 
 import main.juego.view.naves.VistaNave;
-import main.juego.view.naves.VistaParte;
+import main.juego.view.tablero.VistaTablero;
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
 import main.model.naves.Lancha;
 import main.model.naves.Nave;
-import main.model.naves.Parte;
 import main.model.naves.Portaaviones;
 import main.model.naves.RompeHielos;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
 import main.model.tablero.Tablero;
+import fiuba.algo3.titiritero.dibujables.Imagen;
+import fiuba.algo3.titiritero.dibujables.SuperficiePanel;
+import fiuba.algo3.titiritero.modelo.GameLoop;
+import fiuba.algo3.titiritero.modelo.SuperficieDeDibujo;
 
 /**
  * Clase principal del Juego BatallaNavalgo.
@@ -107,32 +98,28 @@ public class BatallaNavalgo {
 		Jugador jugador = new Jugador();
 		Tablero tablero = new Tablero();
 		
-
 		frame = new JFrame();
-		
-//		frame.setForeground(new Color(0, 0, 0));
-//		frame.setBounds(0, 0, 800, 600);
+		frame.setBounds(0, 0, 800, 630);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.getContentPane().setLayout(null);
 		
-//		JButton btnIniciar = new JButton("Iniciar");
-//		btnIniciar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				gameLoop.iniciarEjecucion();
-//			}
-//		});
-//		btnIniciar.setBounds(42, 16, 77, 25);
-//		frame.getContentPane().add(btnIniciar);
-		frame.setSize(300, 400);
-		FondoPanel panelFondo = new FondoPanel("/home/mariano/lancha.jpg");
-		frame.getContentPane().add(panelFondo);
-//		JPanel panel = new SuperficiePanel();
-//		panel.setBackground(new Color(0, 0, 0));
-//		panel.setBounds(0, 0, 600, 600);
-//		frame.getContentPane().add(panel);
-
-//		this.gameLoop = new GameLoop((SuperficieDeDibujo) panel);
-//		this.colocarBarcosEnTablero(tablero);
+		JButton btnIniciar = new JButton("Iniciar");
+		btnIniciar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				gameLoop.iniciarEjecucion();
+			}
+		});
+		
+		btnIniciar.setBounds(700,50,100,50);
+		frame.getContentPane().add(btnIniciar);
+		
+		JPanel panel = new SuperficiePanel();
+		panel.setBounds(0, 0, 630, 630);
+		frame.getContentPane().add(panel);
+		this.gameLoop = new GameLoop((SuperficieDeDibujo) panel);
+		this.colocarBarcosEnTablero(tablero);		
+		
+		Imagen imagen = new VistaTablero(new URL("file:/home/mariano/tablero.PNG"), tablero);
+		gameLoop.agregar(imagen);
 		
 //		jugar(jugador, tablero);
 //		verResultado(jugador, tablero);
@@ -165,8 +152,8 @@ public class BatallaNavalgo {
 	private void colocarBarcosEnTablero(Tablero tablero) {
 		this.colocarLanchas(tablero);
 //		this.colocarDestructores(tablero);
-//		this.colocarBuques(tablero);
-//		this.colocarPortaAviones(tablero);
+		this.colocarBuques(tablero);
+		this.colocarPortaAviones(tablero);
 //		this.colocarRompeHielos(tablero);
 	}
 
@@ -178,7 +165,7 @@ public class BatallaNavalgo {
 	private void colocarLanchas(Tablero tablero) {
 		System.out.println("CARGANDO LANCHAS");
 		for (int i = 0; i < CANT_LANCHAS; i++) {
-			Coordenada coordenada = crearCoordenada();
+			Coordenada coordenada = crearCoordenada(2);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave lancha = new Lancha(coordenada, sentido, movimiento);
@@ -186,7 +173,7 @@ public class BatallaNavalgo {
 				.agregarNave(lancha);
 			this.gameLoop.agregar(lancha);
 			try {
-				Imagen imagen = new VistaNave(new URL("file:/home/mariano/lancha.jpg"), lancha);
+				Imagen imagen = new VistaNave(new URL("file:/home/mariano/lancha.JPG"), lancha);
 				this.gameLoop.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -203,7 +190,7 @@ public class BatallaNavalgo {
 	 */
 	private void colocarDestructores(Tablero tablero) {
 		for (int i = 0; i < CANT_DESTRUCTORES; i++) {
-			Coordenada coordenada = crearCoordenada();
+			Coordenada coordenada = crearCoordenada(3);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave destructor = new Destructor(coordenada,
@@ -221,13 +208,24 @@ public class BatallaNavalgo {
 	 */
 	private void colocarBuques(Tablero tablero) {
 		for (int i = 0; i < CANT_BUQUES; i++) {
-			Coordenada coordenada = crearCoordenada();
+			Coordenada coordenada = crearCoordenada(4);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave buque = new Buque(coordenada, sentido, movimiento);
 			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(buque);
 			this.gameLoop.agregar(buque);
+			try {
+				Imagen imagen = new VistaNave(new URL("file:/home/mariano/buque.jpg"), buque);
+				this.gameLoop.agregar(imagen);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 	}
 
@@ -238,7 +236,7 @@ public class BatallaNavalgo {
 	 */
 	private void colocarPortaAviones(Tablero tablero) {
 		for (int i = 0; i < CANT_PORTA_AVIONES; i++) {
-			Coordenada coordenada = crearCoordenada();
+			Coordenada coordenada = crearCoordenada(5);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave portaAviones = new Portaaviones(coordenada,
@@ -246,6 +244,16 @@ public class BatallaNavalgo {
 			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
 					.agregarNave(portaAviones);
 			this.gameLoop.agregar(portaAviones);
+			try {
+				Imagen imagen = new VistaNave(new URL("file:/home/mariano/portaavion.jpg"), portaAviones);
+				this.gameLoop.agregar(imagen);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -256,7 +264,7 @@ public class BatallaNavalgo {
 	 */
 	private void colocarRompeHielos(Tablero tablero) {
 		for (int i = 0; i < CANT_ROMPE_HIELOS; i++) {
-			Coordenada coordenada = crearCoordenada();
+			Coordenada coordenada = crearCoordenada(3);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave rompeHielos = new RompeHielos(coordenada,
@@ -272,9 +280,9 @@ public class BatallaNavalgo {
 	 * 
 	 * @return Coordenada La coordenada aleatoria donde se ubica el principio de una nave.
 	 */
-	private static Coordenada crearCoordenada() {
-		Integer fila = (int) (Math.random() * 10);
-		Integer columna = (int) (Math.random() * 10);
+	private static Coordenada crearCoordenada(Integer cantPartes) {
+		Integer fila = (int) (Math.random() * (10-cantPartes));
+		Integer columna = (int) (Math.random() * (10-cantPartes));
 		return new Coordenada(fila, columna);
 	}
 

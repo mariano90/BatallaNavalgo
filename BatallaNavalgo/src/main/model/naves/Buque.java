@@ -17,6 +17,7 @@ public class Buque extends Nave {
 	
 	public Buque(Coordenada coordenadaInicio, DireccionSentido sentido, DireccionMovimiento movimiento){
 		this.partes = new ArrayList<Parte> ();
+		this.coordenadaInicio = coordenadaInicio;
 		this.direccionSentido = sentido;
 		this.direccionMovimiento = movimiento;
 		this.agregarPartes(coordenadaInicio, this.CANTIDAD_PARTES);
@@ -27,5 +28,19 @@ public class Buque extends Nave {
 			parteAfectada.recibirDisparo();
 			parteAfectada.destruir();
 		}
+	}
+	
+	public Integer getCANTIDAD_PARTES() {
+		return CANTIDAD_PARTES;
+	}
+
+	@Override
+	public int getX() {
+		return 15 + 60*this.coordenadaInicio.getX();
+	}
+
+	@Override
+	public int getY() {
+		return 10 + 60*this.coordenadaInicio.getY();
 	}
 }

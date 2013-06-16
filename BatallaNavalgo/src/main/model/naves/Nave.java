@@ -115,12 +115,12 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable{
 
 	@Override
 	public int getX() {
-		return 0;
+		return 10;
 	}
 
 	@Override
 	public int getY() {
-		return 0;
+		return 10;
 	}
 	
 	/**

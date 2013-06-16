@@ -17,6 +17,7 @@ public class RompeHielos extends Nave {
 	
 	public RompeHielos(Coordenada coordenadaInicio, DireccionSentido sentido, DireccionMovimiento movimiento){
 		this.partes = new ArrayList<Parte> ();
+		this.coordenadaInicio = coordenadaInicio;
 		this.direccionSentido = sentido;
 		this.direccionMovimiento = movimiento;
 		this.agregarPartes(coordenadaInicio, this.CANTIDAD_PARTES);
@@ -30,4 +31,9 @@ public class RompeHielos extends Nave {
 			parte.recibirDisparo();
 		}
 	}
+
+	public Integer getCANTIDAD_PARTES() {
+		return CANTIDAD_PARTES;
+	}
+
 }

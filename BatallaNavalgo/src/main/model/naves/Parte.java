@@ -1,8 +1,9 @@
 package main.model.naves;
 
+import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
 import main.model.tablero.Coordenada;
 
-public class Parte {
+public class Parte implements ObjetoPosicionable{
 
 	private Coordenada posicion ;
 	private boolean destruida;
@@ -37,6 +38,16 @@ public class Parte {
 
 	public Coordenada getPosicion() {
 		return posicion;
+	}
+
+	@Override
+	public int getX() {
+		return posicion.getX();
+	}
+
+	@Override
+	public int getY() {
+		return posicion.getY();
 	}
 	
 }

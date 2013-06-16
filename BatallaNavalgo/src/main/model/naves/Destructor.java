@@ -17,6 +17,7 @@ public class Destructor extends Nave {
 	
 	public Destructor(Coordenada coordenadaInicio, DireccionSentido sentido, DireccionMovimiento movimiento){
 		this.partes = new ArrayList<Parte> ();
+		this.coordenadaInicio = coordenadaInicio;
 		this.direccionSentido = sentido;
 		this.direccionMovimiento = movimiento;
 		this.agregarPartes(coordenadaInicio, this.CANTIDAD_PARTES);
@@ -25,6 +26,10 @@ public class Destructor extends Nave {
 	@Override
 	public void recibirDisparoDeMinaSubmarina(Disparo disparo, Parte parte) {
 		return;
+	}
+
+	public Integer getCANTIDAD_PARTES() {
+		return CANTIDAD_PARTES;
 	}
 	
 }
