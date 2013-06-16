@@ -118,7 +118,7 @@ public class BatallaNavalgo {
 		this.gameLoop = new GameLoop((SuperficieDeDibujo) panel);
 		this.colocarBarcosEnTablero(tablero);		
 		
-		Imagen imagen = new VistaTablero(new URL("file:/home/mariano/tablero.PNG"), tablero);
+		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), tablero);
 		gameLoop.agregar(imagen);
 		
 //		jugar(jugador, tablero);
@@ -173,7 +173,7 @@ public class BatallaNavalgo {
 				.agregarNave(lancha);
 			this.gameLoop.agregar(lancha);
 			try {
-				Imagen imagen = new VistaNave(new URL("file:/home/mariano/lancha.JPG"), lancha);
+				Imagen imagen = new VistaNave(new URL("file:./images/lancha.JPG"), lancha);
 				this.gameLoop.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -216,7 +216,7 @@ public class BatallaNavalgo {
 				.agregarNave(buque);
 			this.gameLoop.agregar(buque);
 			try {
-				Imagen imagen = new VistaNave(new URL("file:/home/mariano/buque.jpg"), buque);
+				Imagen imagen = new VistaNave(new URL("file:./images/buque.jpg"), buque);
 				this.gameLoop.agregar(imagen);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
@@ -245,7 +245,7 @@ public class BatallaNavalgo {
 					.agregarNave(portaAviones);
 			this.gameLoop.agregar(portaAviones);
 			try {
-				Imagen imagen = new VistaNave(new URL("file:/home/mariano/portaavion.jpg"), portaAviones);
+				Imagen imagen = new VistaNave(new URL("file:./images/portaavion.jpg"), portaAviones);
 				this.gameLoop.agregar(imagen);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
