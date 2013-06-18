@@ -15,12 +15,12 @@ import main.juego.view.naves.VistaNave;
 import main.juego.view.tablero.VistaTablero;
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
+import main.model.naves.EnumDirecciones.DireccionMovimiento;
+import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.naves.Lancha;
 import main.model.naves.Nave;
 import main.model.naves.Portaaviones;
 import main.model.naves.RompeHielos;
-import main.model.naves.EnumDirecciones.DireccionMovimiento;
-import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
 import main.model.tablero.Tablero;
 import fiuba.algo3.titiritero.dibujables.Imagen;
@@ -95,8 +95,7 @@ public class BatallaNavalgo {
 	 * @throws IOException 
 	 */
 	private void initialize() throws IOException {
-		Jugador jugador = new Jugador();
-		Tablero tablero = new Tablero();
+		Tablero tablero = Tablero.getTablero();
 		
 		frame = new JFrame();
 		frame.setBounds(0, 0, 800, 630);
@@ -116,25 +115,25 @@ public class BatallaNavalgo {
 		panel.setBounds(0, 0, 630, 630);
 		frame.getContentPane().add(panel);
 		this.gameLoop = new GameLoop((SuperficieDeDibujo) panel);
-		this.colocarBarcosEnTablero(tablero);		
+		this.colocarBarcosEnTablero();		
 		
-		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), tablero);
+		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), Tablero.getTablero());
 		gameLoop.agregar(imagen);
 		
 //		jugar(jugador, tablero);
 //		verResultado(jugador, tablero);
 	}
 	
-	private static void jugar(Jugador jugador, Tablero tablero){
-		while(jugador.getPuntuacion() > 0 && tablero.tieneBarcosNoDestruidos()){
+	private static void jugar(Jugador jugador){
+		while(jugador.getPuntuacion() > 0 && Tablero.getTablero().tieneBarcosNoDestruidos()){
 //			jugador.restarPuntos(PUNTOS_POR_TURNO);
 			// FALTA QUE MANDEN LAS CLASES QUE DIJERON PARA IMPLEMENTAR LOS TURNOS 
 			
 		}
 	}
 	
-	private static void verResultado(Jugador jugador,Tablero tablero){
-		if(tablero.tieneBarcosNoDestruidos()){
+	private static void verResultado(Jugador jugador){
+		if(Tablero.getTablero().tieneBarcosNoDestruidos()){
 			jugador.setGano(false);
 			System.out.println("El jugador perdio");
 		}
@@ -146,30 +145,26 @@ public class BatallaNavalgo {
 	
 	/**
 	 * Crea y coloca todos las naves en el Tablero.
-	 * 
-	 * @param tablero El Tablero sobre el cual se van a colocar las naves. No puede ser nulo.
 	 */
-	private void colocarBarcosEnTablero(Tablero tablero) {
-		this.colocarLanchas(tablero);
-//		this.colocarDestructores(tablero);
-		this.colocarBuques(tablero);
-		this.colocarPortaAviones(tablero);
-//		this.colocarRompeHielos(tablero);
+	private void colocarBarcosEnTablero() {
+		this.colocarLanchas();
+//		this.colocarDestructores();
+		this.colocarBuques();
+		this.colocarPortaAviones();
+//		this.colocarRompeHielos();
 	}
 
 	/**
 	 * Crea y coloca todas las lanchas en el Tablero.
-	 * 
-	 * @param tablero El tablero sobre el cual se van a colocar las lanchas. No puede ser nulo.
 	 */
-	private void colocarLanchas(Tablero tablero) {
+	private void colocarLanchas() {
 		System.out.println("CARGANDO LANCHAS");
 		for (int i = 0; i < CANT_LANCHAS; i++) {
 			Coordenada coordenada = crearCoordenada(2);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave lancha = new Lancha(coordenada, sentido, movimiento);
-			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
+			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(lancha);
 			this.gameLoop.agregar(lancha);
 			try {
@@ -185,17 +180,15 @@ public class BatallaNavalgo {
 	
 	/**
 	 * Crea y coloca todos los destructores en el Tablero.
-	 * 
-	 * @param tablero El tablero sobre el cual se van a colocar los destructores. No puede ser nulo.
 	 */
-	private void colocarDestructores(Tablero tablero) {
+	private void colocarDestructores() {
 		for (int i = 0; i < CANT_DESTRUCTORES; i++) {
 			Coordenada coordenada = crearCoordenada(3);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave destructor = new Destructor(coordenada,
 				sentido, movimiento);
-			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
+			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(destructor);
 			this.gameLoop.agregar(destructor);
 		}
@@ -203,16 +196,14 @@ public class BatallaNavalgo {
 
 	/**
 	 * Crea y coloca todos los buques en el Tablero.
-	 * 
-	 * @param tablero El tablero sobre el cual se van a colocar los buques. No puede ser nulo.
 	 */
-	private void colocarBuques(Tablero tablero) {
+	private void colocarBuques() {
 		for (int i = 0; i < CANT_BUQUES; i++) {
 			Coordenada coordenada = crearCoordenada(4);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave buque = new Buque(coordenada, sentido, movimiento);
-			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
+			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(buque);
 			this.gameLoop.agregar(buque);
 			try {
@@ -231,17 +222,15 @@ public class BatallaNavalgo {
 
 	/**
 	 * Crea y coloca todos los porta aviones en el Tablero.
-	 * 
-	 * @param tablero El tablero sobre el cual se van a colocar los porta aviones. No puede ser nulo.
 	 */
-	private void colocarPortaAviones(Tablero tablero) {
+	private void colocarPortaAviones() {
 		for (int i = 0; i < CANT_PORTA_AVIONES; i++) {
 			Coordenada coordenada = crearCoordenada(5);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave portaAviones = new Portaaviones(coordenada,
 				sentido, movimiento);
-			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
+			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
 					.agregarNave(portaAviones);
 			this.gameLoop.agregar(portaAviones);
 			try {
@@ -259,17 +248,15 @@ public class BatallaNavalgo {
 
 	/**
 	 * Crea y coloca todos los rompe hielos en el Tablero.
-	 * 
-	 * @param tablero El tablero sobre el cual se van a colocar los rompe hielos. No puede ser nulo.
 	 */
-	private void colocarRompeHielos(Tablero tablero) {
+	private void colocarRompeHielos() {
 		for (int i = 0; i < CANT_ROMPE_HIELOS; i++) {
 			Coordenada coordenada = crearCoordenada(3);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave rompeHielos = new RompeHielos(coordenada,
 				sentido, movimiento);
-			tablero.getCasilleros()[coordenada.getX()][coordenada.getY()]
+			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(rompeHielos);
 			this.gameLoop.agregar(rompeHielos);
 		}
