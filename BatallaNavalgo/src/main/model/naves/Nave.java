@@ -9,13 +9,19 @@ import main.model.disparos.Disparo;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
+import main.model.tablero.Tablero;
 
 /**
  * Clase Abstracta que representa una Nave.
  * 
  * @author melisa.poleschi
  */
-public abstract class Nave implements ObjetoVivo, ObjetoPosicionable{
+public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
+	
+	private final Integer MARGEN_IZQUIERDO = 0;
+	private final Integer MARGEN_DERECHO = 9;
+	private final Integer MARGEN_SUPERIOR = 0;
+	private final Integer MARGEN_INFERIOR = 9;
 
 	/**
 	 * Indica la coordenanda donde empieza la nave.
@@ -40,7 +46,140 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable{
 	/**
 	 * Realiza el movimiento de la Nave.
 	 */
-	public void moverse(){
+	public void moverse() {
+		Tablero.getTablero().removerNave(this);
+		for (Parte parte : partes) {
+			Integer x = parte.getPosicion().getX();
+			Integer y = parte.getPosicion().getY();
+			if (direccionMovimiento == DireccionMovimiento.ESTE) {
+				x = this.moverseAlEste(x);
+			} else if (direccionMovimiento == DireccionMovimiento.OESTE) {
+				x = this.moverseAlOeste(x);
+			} else if (direccionMovimiento == DireccionMovimiento.SUR) {
+				y = this.moverseAlSur(y);
+			} else if (direccionMovimiento == DireccionMovimiento.NORTE) {
+				y = this.moverseAlNorte(y);
+			} else {
+				Coordenada nuevaPosicion;
+				if (direccionMovimiento == DireccionMovimiento.NORESTE) {
+					nuevaPosicion = this.moverseAlNoreste(x,y);
+				} else if (direccionMovimiento == DireccionMovimiento.NOROESTE) {
+					nuevaPosicion = this.moverseAlNoroeste(x,y);
+				} else if (direccionMovimiento == DireccionMovimiento.SUROESTE) {
+					nuevaPosicion = this.moverseAlSuroeste(x,y);
+				} else {
+					nuevaPosicion = this.moverseAlSureste(x,y);
+				}
+				x = nuevaPosicion.getX();
+				y = nuevaPosicion.getY();
+			}
+			parte.setPosicion(x,y);
+		}
+		Tablero.getTablero().reubicarNave(this);
+	}
+	
+	private Integer moverseAlOeste(Integer x) {
+		if (x == MARGEN_IZQUIERDO) {
+			x++;
+			direccionMovimiento = DireccionMovimiento.ESTE;
+		} else {
+			x--;
+		}
+		return x;
+	}
+	
+	private Integer moverseAlEste(Integer x) {
+		if (x == MARGEN_DERECHO) {
+			x--;
+			direccionMovimiento = DireccionMovimiento.OESTE;
+		} else {
+			x++;
+		}
+		return x;
+	}
+	
+	private Integer moverseAlSur(Integer y) {
+		if (y == MARGEN_INFERIOR) {
+			y--;
+			direccionMovimiento = DireccionMovimiento.NORTE;
+		} else {
+			y++;
+		}
+		return y;
+	}
+	
+	private Integer moverseAlNorte(Integer y) {
+		if (y == MARGEN_SUPERIOR) {
+			y++;
+			direccionMovimiento = DireccionMovimiento.SUR;
+		} else {
+			y--;
+		}
+		return y;
+	}
+	
+	private Coordenada moverseAlNoreste(Integer x, Integer y) {
+		if (x == MARGEN_DERECHO) {
+			x--;
+			direccionMovimiento = DireccionMovimiento.SUROESTE;
+		} else {
+			x++;
+			if (y == MARGEN_SUPERIOR) {
+				y--;
+				direccionMovimiento = DireccionMovimiento.SUROESTE;
+			} else {
+				y++;
+			}
+		}
+		return new Coordenada(x,y);
+	}
+	
+	private Coordenada moverseAlNoroeste(Integer x, Integer y) {
+		if (x == MARGEN_IZQUIERDO) {
+			x++;
+			direccionMovimiento = DireccionMovimiento.SURESTE;
+		} else {
+			x--;
+			if (y == MARGEN_SUPERIOR) {
+				y--;
+				direccionMovimiento = DireccionMovimiento.SURESTE;
+			} else {
+				y++;
+			}
+		}
+		return new Coordenada(x,y);
+	}
+	
+	private Coordenada moverseAlSureste(Integer x, Integer y) {
+		if (x == MARGEN_DERECHO) {
+			x--;
+			direccionMovimiento = DireccionMovimiento.NOROESTE;
+		} else {
+			x++;
+			if (y == MARGEN_INFERIOR) {
+				y++;
+				direccionMovimiento = DireccionMovimiento.NOROESTE;
+			} else {
+				y--;
+			}
+		}
+		return new Coordenada(x,y);
+	}
+	
+	private Coordenada moverseAlSuroeste(Integer x, Integer y) {
+		if (x == MARGEN_IZQUIERDO) {
+			x++;
+			direccionMovimiento = DireccionMovimiento.NORESTE;
+		} else {
+			x--;
+			if (y == MARGEN_INFERIOR) {
+				y++;
+				direccionMovimiento = DireccionMovimiento.NORESTE;
+			} else {
+				y--;
+			}
+		}
+		return new Coordenada(x,y);
 	}
 
 	/**
@@ -147,5 +286,4 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable{
 	public ArrayList<Parte> getPartes() {
 		return partes;
 	}
-	
 }

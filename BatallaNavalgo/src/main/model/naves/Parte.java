@@ -50,4 +50,19 @@ public class Parte implements ObjetoPosicionable{
 		return posicion.getY();
 	}
 	
+	public void setPosicion(int x, int y) {
+		Coordenada posicion = new Coordenada(x, y);
+		this.posicion = posicion;
+	}
+
+	@Override
+	public int getX() {
+		return posicion.getX();
+	}
+
+	@Override
+	public int getY() {
+		return posicion.getY();
+	}
+	
 }
