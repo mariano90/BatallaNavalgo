@@ -66,12 +66,12 @@ public class Tablero implements ObjetoPosicionable{
 	
 	public void removerNave (Nave nave) {
 		Parte parte = nave.getPartes().get(0);
-		casilleros[parte.getPosicion().getY()][parte.getPosicion().getX()].removerNave(nave);
+		casilleros[parte.getPosicion().getX()][parte.getPosicion().getY()].removerNave(nave);
 	}
 	
 	public void reubicarNave (Nave nave) {
 		Parte parte = nave.getPartes().get(0);
-		casilleros[parte.getPosicion().getY()][parte.getPosicion().getX()].agregarNave(nave);
+		casilleros[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(nave);
 	}
 	
 	/**

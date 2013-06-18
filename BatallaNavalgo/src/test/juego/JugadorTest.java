@@ -17,7 +17,7 @@ public class JugadorTest {
 	}
 
 	@Test
-	public void restarPuntosTest(){
+	public void restarCantidadDePuntosMenorALaPuntuacionTest(){
 
 		Jugador jugador = new Jugador();
 		jugador.restarPuntos(5000);
@@ -35,13 +35,22 @@ public class JugadorTest {
 		Assert.assertTrue(jugador.getPuntuacion() == 0);
 	}
 
-
 	@Test
-	public void restarPuntosNegativosTest(){
+	public void restarCantidadDePuntosNegativaTest(){
 
 		Jugador jugador = new Jugador();
 		jugador.restarPuntos(-5000);
 		
 		Assert.assertTrue(jugador.getPuntuacion() == 10000);
+	}
+
+	@Test
+	public void restarCantidadDePuntosMayorALaPuntuacionTest(){
+
+		Jugador jugador = new Jugador();
+		jugador.restarPuntos(3000);
+		jugador.restarPuntos(8000);
+
+		Assert.assertTrue(jugador.getPuntuacion() == 0);
 	}
 }
