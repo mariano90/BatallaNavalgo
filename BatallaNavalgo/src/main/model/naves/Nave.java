@@ -74,6 +74,7 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 				y = nuevaPosicion.getY();
 			}
 			parte.setPosicion(x,y);
+			this.coordenadaInicio = new Coordenada(x,y);
 		}
 		Tablero.getTablero().reubicarNave(this);
 	}
