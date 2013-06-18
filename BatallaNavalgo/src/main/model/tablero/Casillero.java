@@ -45,6 +45,10 @@ public class Casillero {
 	public void agregarNave(Nave laNave) {
 		naves.add(laNave);
 	}
+	
+	public void removerNave (Nave laNave) {
+		naves.remove(laNave);
+	}
 
 	/**
 	 * Agrega un Disparo a la lista de disparos que se efectuan sobre el casillero.
