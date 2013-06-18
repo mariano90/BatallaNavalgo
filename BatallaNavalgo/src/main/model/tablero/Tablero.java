@@ -58,7 +58,7 @@ public class Tablero implements ObjetoPosicionable{
 	}
 	
 	public static Tablero getTablero() {
-		if (tablero != null) {
+		if (tablero == null) {
 			tablero = new Tablero();
 		}
 		return tablero;
