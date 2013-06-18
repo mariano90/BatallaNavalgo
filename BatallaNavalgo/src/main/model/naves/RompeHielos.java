@@ -35,5 +35,15 @@ public class RompeHielos extends Nave {
 	public Integer getCANTIDAD_PARTES() {
 		return CANTIDAD_PARTES;
 	}
+	
+	@Override
+	public int getX() {
+		return 15 + 60*this.coordenadaInicio.getX();
+	}
+
+	@Override
+	public int getY() {
+		return 5 + 60*this.coordenadaInicio.getY();
+	}
 
 }

@@ -1,12 +1,14 @@
 package main.juego;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -110,15 +112,16 @@ public class BatallaNavalgo {
 		
 		btnIniciar.setBounds(700,50,100,50);
 		frame.getContentPane().add(btnIniciar);
-		
-		JPanel panel = new SuperficiePanel();
+		SuperficiePanel panel = new SuperficiePanel();
 		panel.setBounds(0, 0, 630, 630);
+//		panel.setImagen((Image)ImageIO.read(new URL("file:./images/tablero.PNG")));
 		frame.getContentPane().add(panel);
-		this.gameLoop = new GameLoop((SuperficieDeDibujo) panel);
-		this.colocarBarcosEnTablero();		
-		
+		this.gameLoop = new GameLoop( panel);
 		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), Tablero.getTablero());
 		gameLoop.agregar(imagen);
+		this.colocarBarcosEnTablero();		
+		
+
 		
 //		jugar(jugador, tablero);
 //		verResultado(jugador, tablero);
@@ -148,17 +151,16 @@ public class BatallaNavalgo {
 	 */
 	private void colocarBarcosEnTablero() {
 		this.colocarLanchas();
-//		this.colocarDestructores();
+		this.colocarDestructores();
 		this.colocarBuques();
 		this.colocarPortaAviones();
-//		this.colocarRompeHielos();
+		this.colocarRompeHielos();
 	}
 
 	/**
 	 * Crea y coloca todas las lanchas en el Tablero.
 	 */
 	private void colocarLanchas() {
-		System.out.println("CARGANDO LANCHAS");
 		for (int i = 0; i < CANT_LANCHAS; i++) {
 			Coordenada coordenada = crearCoordenada(2);
 			DireccionSentido sentido = getSentidoRandom();
@@ -170,10 +172,10 @@ public class BatallaNavalgo {
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
-					imagen = new VistaNave(new URL("file:./images/lanchav.JPG"), lancha);
+					imagen = new VistaNave(new URL("file:./images/lanchav.jpg"), lancha);
 				}
 				else {
-					imagen = new VistaNave(new URL("file:./images/lancha.JPG"), lancha);
+					imagen = new VistaNave(new URL("file:./images/lancha.jpg"), lancha);
 				}
 				this.gameLoop.agregar(imagen);
 			} catch (MalformedURLException e) {
@@ -197,6 +199,20 @@ public class BatallaNavalgo {
 			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(destructor);
 			this.gameLoop.agregar(destructor);
+			try {
+				Imagen imagen;
+				if (sentido.equals(DireccionSentido.VERTICAL)){
+					imagen = new VistaNave(new URL("file:./images/destructorv.jpg"), destructor);
+				}
+				else {
+					imagen = new VistaNave(new URL("file:./images/destructor.jpg"), destructor);
+				}
+				this.gameLoop.agregar(imagen);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -246,10 +262,10 @@ public class BatallaNavalgo {
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
-					imagen = new VistaNave(new URL("file:./images/portaavion.jpg"), portaAviones);
+					imagen = new VistaNave(new URL("file:./images/portaavionv.jpg"), portaAviones);
 				}
 				else {
-					imagen = new VistaNave(new URL("file:./images/portaavionv.jpg"), portaAviones);
+					imagen = new VistaNave(new URL("file:./images/portaavion.jpg"), portaAviones);
 				}
 				this.gameLoop.agregar(imagen);
 			} catch (MalformedURLException e) {
@@ -273,6 +289,20 @@ public class BatallaNavalgo {
 			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
 				.agregarNave(rompeHielos);
 			this.gameLoop.agregar(rompeHielos);
+			try {
+				Imagen imagen;
+				if (sentido.equals(DireccionSentido.VERTICAL)){
+					imagen = new VistaNave(new URL("file:./images/rompehielosv.jpg"), rompeHielos);
+				}
+				else {
+					imagen = new VistaNave(new URL("file:./images/rompehielos.jpg"), rompeHielos);
+				}
+				this.gameLoop.agregar(imagen);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

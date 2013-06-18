@@ -32,4 +32,14 @@ public class Destructor extends Nave {
 		return CANTIDAD_PARTES;
 	}
 	
+	@Override
+	public int getX() {
+		return 10 + 60*this.coordenadaInicio.getX();
+	}
+
+	@Override
+	public int getY() {
+		return 5 + 60*this.coordenadaInicio.getY();
+	}
+	
 }
