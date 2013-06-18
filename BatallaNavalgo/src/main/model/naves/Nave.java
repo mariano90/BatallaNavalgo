@@ -52,13 +52,13 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 			Integer x = parte.getPosicion().getX();
 			Integer y = parte.getPosicion().getY();
 			if (direccionMovimiento == DireccionMovimiento.ESTE) {
-				x = this.moverseAlEste(x);
+				y = this.moverseAlEste(y);
 			} else if (direccionMovimiento == DireccionMovimiento.OESTE) {
-				x = this.moverseAlOeste(x);
+				y = this.moverseAlOeste(y);
 			} else if (direccionMovimiento == DireccionMovimiento.SUR) {
-				y = this.moverseAlSur(y);
+				x = this.moverseAlSur(x);
 			} else if (direccionMovimiento == DireccionMovimiento.NORTE) {
-				y = this.moverseAlNorte(y);
+				x = this.moverseAlNorte(x);
 			} else {
 				Coordenada nuevaPosicion;
 				if (direccionMovimiento == DireccionMovimiento.NORESTE) {
@@ -78,107 +78,91 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 		}
 		Tablero.getTablero().reubicarNave(this);
 	}
-	
-	private Integer moverseAlOeste(Integer x) {
-		if (x == MARGEN_IZQUIERDO) {
-			x++;
+
+	private Integer moverseAlOeste(Integer y) {
+		if (y == MARGEN_IZQUIERDO) {
+			y++;
 			direccionMovimiento = DireccionMovimiento.ESTE;
 		} else {
-			x--;
+			y--;
 		}
-		return x;
+		return y;
 	}
-	
-	private Integer moverseAlEste(Integer x) {
-		if (x == MARGEN_DERECHO) {
-			x--;
+
+	private Integer moverseAlEste(Integer y) {
+		if (y == MARGEN_DERECHO) {
+			y--;
 			direccionMovimiento = DireccionMovimiento.OESTE;
 		} else {
+			y++;
+		}
+		return y;
+	}
+
+	private Integer moverseAlSur(Integer x) {
+		if (x == MARGEN_INFERIOR) {
+			x--;
+			direccionMovimiento = DireccionMovimiento.NORTE;
+		} else {
 			x++;
 		}
 		return x;
 	}
-	
-	private Integer moverseAlSur(Integer y) {
-		if (y == MARGEN_INFERIOR) {
-			y--;
-			direccionMovimiento = DireccionMovimiento.NORTE;
-		} else {
-			y++;
-		}
-		return y;
-	}
-	
-	private Integer moverseAlNorte(Integer y) {
-		if (y == MARGEN_SUPERIOR) {
-			y++;
+
+	private Integer moverseAlNorte(Integer x) {
+		if (x == MARGEN_SUPERIOR) {
+			x++;
 			direccionMovimiento = DireccionMovimiento.SUR;
 		} else {
-			y--;
-		}
-		return y;
-	}
-	
-	private Coordenada moverseAlNoreste(Integer x, Integer y) {
-		if (x == MARGEN_DERECHO) {
 			x--;
+		}
+		return x;
+	}
+
+	private Coordenada moverseAlNoreste(Integer x, Integer y) {
+		if ((x == MARGEN_SUPERIOR) || (y == MARGEN_DERECHO)) {
+			x++;
+			y--;
 			direccionMovimiento = DireccionMovimiento.SUROESTE;
 		} else {
-			x++;
-			if (y == MARGEN_SUPERIOR) {
-				y++;
-				direccionMovimiento = DireccionMovimiento.SUROESTE;
-			} else {
-				y--;
-			}
+			y++;
+			x--;
 		}
 		return new Coordenada(x,y);
 	}
-	
+
 	private Coordenada moverseAlNoroeste(Integer x, Integer y) {
-		if (x == MARGEN_IZQUIERDO) {
+		if ((x == MARGEN_SUPERIOR) || (y == MARGEN_IZQUIERDO)) {
 			x++;
+			y++;
 			direccionMovimiento = DireccionMovimiento.SURESTE;
 		} else {
 			x--;
-			if (y == MARGEN_SUPERIOR) {
-				y++;
-				direccionMovimiento = DireccionMovimiento.SURESTE;
-			} else {
-				y--;
-			}
+			y--;
 		}
 		return new Coordenada(x,y);
 	}
-	
+
 	private Coordenada moverseAlSureste(Integer x, Integer y) {
-		if (x == MARGEN_DERECHO) {
-			x--;
+		if ((x == MARGEN_INFERIOR) || (y == MARGEN_DERECHO)) {
 			direccionMovimiento = DireccionMovimiento.NOROESTE;
+			x--;
+			y--;
 		} else {
 			x++;
-			if (y == MARGEN_INFERIOR) {
-				y--;
-				direccionMovimiento = DireccionMovimiento.NOROESTE;
-			} else {
-				y++;
-			}
+			y++;
 		}
 		return new Coordenada(x,y);
 	}
-	
+
 	private Coordenada moverseAlSuroeste(Integer x, Integer y) {
-		if (x == MARGEN_IZQUIERDO) {
-			x++;
+		if ((x == MARGEN_INFERIOR) || (y == MARGEN_IZQUIERDO)) {
+			x--;
+			y++;
 			direccionMovimiento = DireccionMovimiento.NORESTE;
 		} else {
-			x--;
-			if (y == MARGEN_INFERIOR) {
-				y--;
-				direccionMovimiento = DireccionMovimiento.NORESTE;
-			} else {
-				y++;
-			}
+			x++;
+			y--;
 		}
 		return new Coordenada(x,y);
 	}
@@ -217,10 +201,10 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 	protected Coordenada obtenerSiguienteCoordenada(Coordenada coordenada){
 		Coordenada nuevaCoordenada;
 		if (this.direccionSentido == DireccionSentido.HORIZONTAL){
-			nuevaCoordenada = new Coordenada(coordenada.getX() + 1, coordenada.getY());
+			nuevaCoordenada = new Coordenada(coordenada.getX(), coordenada.getY() + 1);
 		}
 		else {
-			nuevaCoordenada = new Coordenada(coordenada.getX(), coordenada.getY() + 1);
+			nuevaCoordenada = new Coordenada(coordenada.getX() + 1, coordenada.getY());
 		}
 		return nuevaCoordenada;
 	}
