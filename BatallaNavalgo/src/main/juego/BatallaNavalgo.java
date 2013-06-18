@@ -168,7 +168,13 @@ public class BatallaNavalgo {
 				.agregarNave(lancha);
 			this.gameLoop.agregar(lancha);
 			try {
-				Imagen imagen = new VistaNave(new URL("file:./images/lancha.JPG"), lancha);
+				Imagen imagen;
+				if (sentido.equals(DireccionSentido.VERTICAL)){
+					imagen = new VistaNave(new URL("file:./images/lanchav.JPG"), lancha);
+				}
+				else {
+					imagen = new VistaNave(new URL("file:./images/lancha.JPG"), lancha);
+				}
 				this.gameLoop.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -207,13 +213,17 @@ public class BatallaNavalgo {
 				.agregarNave(buque);
 			this.gameLoop.agregar(buque);
 			try {
-				Imagen imagen = new VistaNave(new URL("file:./images/buque.jpg"), buque);
+				Imagen imagen;
+				if (sentido.equals(DireccionSentido.VERTICAL)){
+					imagen = new VistaNave(new URL("file:./images/buquev.jpg"), buque);
+				}
+				else {
+					imagen = new VistaNave(new URL("file:./images/buque.jpg"), buque);
+				}
 				this.gameLoop.agregar(imagen);
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -234,13 +244,17 @@ public class BatallaNavalgo {
 					.agregarNave(portaAviones);
 			this.gameLoop.agregar(portaAviones);
 			try {
-				Imagen imagen = new VistaNave(new URL("file:./images/portaavion.jpg"), portaAviones);
+				Imagen imagen;
+				if (sentido.equals(DireccionSentido.VERTICAL)){
+					imagen = new VistaNave(new URL("file:./images/portaavion.jpg"), portaAviones);
+				}
+				else {
+					imagen = new VistaNave(new URL("file:./images/portaavionv.jpg"), portaAviones);
+				}
 				this.gameLoop.agregar(imagen);
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
