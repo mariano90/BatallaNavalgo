@@ -125,10 +125,10 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 		} else {
 			x++;
 			if (y == MARGEN_SUPERIOR) {
-				y--;
+				y++;
 				direccionMovimiento = DireccionMovimiento.SUROESTE;
 			} else {
-				y++;
+				y--;
 			}
 		}
 		return new Coordenada(x,y);
@@ -141,10 +141,10 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 		} else {
 			x--;
 			if (y == MARGEN_SUPERIOR) {
-				y--;
+				y++;
 				direccionMovimiento = DireccionMovimiento.SURESTE;
 			} else {
-				y++;
+				y--;
 			}
 		}
 		return new Coordenada(x,y);
@@ -157,10 +157,10 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 		} else {
 			x++;
 			if (y == MARGEN_INFERIOR) {
-				y++;
+				y--;
 				direccionMovimiento = DireccionMovimiento.NOROESTE;
 			} else {
-				y--;
+				y++;
 			}
 		}
 		return new Coordenada(x,y);
@@ -173,10 +173,10 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 		} else {
 			x--;
 			if (y == MARGEN_INFERIOR) {
-				y++;
+				y--;
 				direccionMovimiento = DireccionMovimiento.NORESTE;
 			} else {
-				y--;
+				y++;
 			}
 		}
 		return new Coordenada(x,y);
@@ -249,7 +249,7 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 	@Override
 	public void vivir() {
 		System.out.println("VIVE LA NAVE");
-		
+		this.moverse();
 	}
 
 	@Override
