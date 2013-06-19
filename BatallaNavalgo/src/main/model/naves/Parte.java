@@ -40,9 +40,8 @@ public class Parte implements ObjetoPosicionable{
 		return posicion;
 	}
 	
-	public void setPosicion(int x, int y) {
-		Coordenada posicion = new Coordenada(x, y);
-		this.posicion = posicion;
+	public void setPosicion(Coordenada laPosicion) {
+		this.posicion = laPosicion;
 	}
 
 	@Override

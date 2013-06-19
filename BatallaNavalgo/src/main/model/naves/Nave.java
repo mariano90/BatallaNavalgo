@@ -48,79 +48,109 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 	 */
 	public void moverse() {
 		Tablero.getTablero().removerNave(this);
+		ArrayList<Parte> partesFinal = new ArrayList<Parte>();
 		for (Parte parte : partes) {
-			Integer x = parte.getPosicion().getX();
-			Integer y = parte.getPosicion().getY();
+			Coordenada posicionInicial = parte.getPosicion();
+			Coordenada posicionFinal;
 			if (direccionMovimiento == DireccionMovimiento.ESTE) {
-				y = this.moverseAlEste(y);
+				posicionFinal = this.moverseAlEste(posicionInicial);
 			} else if (direccionMovimiento == DireccionMovimiento.OESTE) {
-				y = this.moverseAlOeste(y);
+				posicionFinal = this.moverseAlOeste(posicionInicial);
 			} else if (direccionMovimiento == DireccionMovimiento.SUR) {
-				x = this.moverseAlSur(x);
-			} else if (direccionMovimiento == DireccionMovimiento.NORTE) {
-				x = this.moverseAlNorte(x);
+				posicionFinal = this.moverseAlSur(posicionInicial);
+			} else //if (direccionMovimiento == DireccionMovimiento.NORTE) {
+				posicionFinal = this.moverseAlNorte(posicionInicial);
+			/*} else if (direccionMovimiento == DireccionMovimiento.NORESTE) {
+				posicionFinal = this.moverseAlNoreste(posicionInicial);
+			} else if (direccionMovimiento == DireccionMovimiento.NOROESTE) {
+				posicionFinal = this.moverseAlNoroeste(posicionInicial);
+			} else if (direccionMovimiento == DireccionMovimiento.SUROESTE) {
+				posicionFinal = this.moverseAlSuroeste(posicionInicial);				
 			} else {
-				Coordenada nuevaPosicion;
-				if (direccionMovimiento == DireccionMovimiento.NORESTE) {
-					nuevaPosicion = this.moverseAlNoreste(x,y);
-				} else if (direccionMovimiento == DireccionMovimiento.NOROESTE) {
-					nuevaPosicion = this.moverseAlNoroeste(x,y);
-				} else if (direccionMovimiento == DireccionMovimiento.SUROESTE) {
-					nuevaPosicion = this.moverseAlSuroeste(x,y);
-				} else {
-					nuevaPosicion = this.moverseAlSureste(x,y);
-				}
-				x = nuevaPosicion.getX();
-				y = nuevaPosicion.getY();
-			}
-			parte.setPosicion(x,y);
-			this.coordenadaInicio = new Coordenada(x,y);
+				posicionFinal = this.moverseAlSureste(posicionInicial);
+			} */
+			parte.setPosicion(posicionFinal);
+			partesFinal.add(parte);
 		}
+		partes = partesFinal;
 		Tablero.getTablero().reubicarNave(this);
 	}
 
-	private Integer moverseAlOeste(Integer y) {
+	private Coordenada moverseAlOeste(Coordenada posicionInicial) {
+		int y = posicionInicial.getY();
 		if (y == MARGEN_IZQUIERDO) {
 			y++;
 			direccionMovimiento = DireccionMovimiento.ESTE;
 		} else {
 			y--;
 		}
-		return y;
+		this.coordenadaInicio = new Coordenada(posicionInicial.getX(),y);
+		return new Coordenada(posicionInicial.getX(),y);
 	}
 
-	private Integer moverseAlEste(Integer y) {
-		if (y == MARGEN_DERECHO) {
+	private Coordenada moverseAlEste(Coordenada posicionInicial) {
+		int y = posicionInicial.getY();
+		int ejeY = y;
+		if (direccionSentido == DireccionSentido.HORIZONTAL)
+		{
+			ejeY = (this.partes.size() + y);
+		}
+		if (ejeY == MARGEN_DERECHO) {
 			y--;
 			direccionMovimiento = DireccionMovimiento.OESTE;
 		} else {
 			y++;
 		}
-		return y;
+		this.coordenadaInicio = new Coordenada(posicionInicial.getX(),y);
+		return new Coordenada(posicionInicial.getX(),y);
 	}
 
-	private Integer moverseAlSur(Integer x) {
-		if (x == MARGEN_INFERIOR) {
+	private Coordenada moverseAlSur(Coordenada posicionInicial) {
+		int x = posicionInicial.getX();
+		int ejeX = x;
+		if (direccionSentido == DireccionSentido.VERTICAL)
+		{
+			ejeX += this.partes.size();
+		}
+		if (ejeX == MARGEN_INFERIOR) {
 			x--;
 			direccionMovimiento = DireccionMovimiento.NORTE;
+			if (direccionSentido == DireccionSentido.VERTICAL) {
+				this.coordenadaInicio = new Coordenada(MARGEN_INFERIOR - this.partes.size(),posicionInicial.getY());
+			} else {
+				this.coordenadaInicio = new Coordenada(x,posicionInicial.getY());
+			}
 		} else {
 			x++;
+			this.coordenadaInicio = new Coordenada(x,posicionInicial.getY());
 		}
-		return x;
+		return new Coordenada(x,posicionInicial.getY());
 	}
 
-	private Integer moverseAlNorte(Integer x) {
+	private Coordenada moverseAlNorte(Coordenada posicionInicial) {
+		int x = posicionInicial.getX();
 		if (x == MARGEN_SUPERIOR) {
 			x++;
 			direccionMovimiento = DireccionMovimiento.SUR;
+			if (direccionSentido == DireccionSentido.VERTICAL) {
+				this.coordenadaInicio = new Coordenada(this.partes.size()-1,posicionInicial.getY());
+			} else {
+				this.coordenadaInicio = new Coordenada(x,posicionInicial.getY());
+			}
 		} else {
 			x--;
+			this.coordenadaInicio = new Coordenada(x,posicionInicial.getY());
 		}
-		return x;
+		return new Coordenada(x,posicionInicial.getY());
 	}
 
 	private Coordenada moverseAlNoreste(Integer x, Integer y) {
-		if ((x == MARGEN_SUPERIOR) || (y == MARGEN_DERECHO)) {
+		int ejeY = y;
+		if (direccionSentido == DireccionSentido.HORIZONTAL)
+		{
+			ejeY += this.partes.size();
+		}
+		if ((x == MARGEN_SUPERIOR) || (ejeY == MARGEN_DERECHO)) {
 			x++;
 			y--;
 			direccionMovimiento = DireccionMovimiento.SUROESTE;
@@ -144,7 +174,15 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 	}
 
 	private Coordenada moverseAlSureste(Integer x, Integer y) {
-		if ((x == MARGEN_INFERIOR) || (y == MARGEN_DERECHO)) {
+		int ejeY = y;
+		int ejeX = x;
+		if (direccionSentido == DireccionSentido.HORIZONTAL)
+		{
+			ejeY += this.partes.size();
+		} else {
+			ejeX += this.partes.size();
+		}
+		if ((ejeX == MARGEN_INFERIOR) || (ejeY == MARGEN_DERECHO)) {
 			direccionMovimiento = DireccionMovimiento.NOROESTE;
 			x--;
 			y--;
@@ -156,7 +194,12 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 	}
 
 	private Coordenada moverseAlSuroeste(Integer x, Integer y) {
-		if ((x == MARGEN_INFERIOR) || (y == MARGEN_IZQUIERDO)) {
+		int ejeX = x;
+		if (direccionSentido == DireccionSentido.VERTICAL)
+		{
+			ejeX += this.partes.size();
+		}
+		if ((ejeX == MARGEN_INFERIOR) || (y == MARGEN_IZQUIERDO)) {
 			x--;
 			y++;
 			direccionMovimiento = DireccionMovimiento.NORESTE;
