@@ -2,7 +2,6 @@ package test.model.disparos;
 
 import main.model.disparos.Disparo;
 import main.model.disparos.PorContacto;
-import main.model.naves.Parte;
 import main.model.tablero.Coordenada;
 
 import org.junit.Assert;
@@ -20,11 +19,9 @@ public class PorContactoTest {
 	@Test
 	public void accionarDisparoTest(){
 		Disparo disparo = new PorContacto(new Coordenada(1, 2));
-		Parte parte = new Parte(new Coordenada(2, 2));
-		boolean debeExplotar = disparo.debeExplotar(parte);
+		boolean debeExplotar = disparo.debeExplotar(false);
 		Assert.assertFalse(debeExplotar);
-		Parte parte2 = new Parte(new Coordenada(1, 2));
-		debeExplotar = disparo.debeExplotar(parte2);
+		debeExplotar = disparo.debeExplotar(true);
 		Assert.assertTrue(debeExplotar);
 	}
 	

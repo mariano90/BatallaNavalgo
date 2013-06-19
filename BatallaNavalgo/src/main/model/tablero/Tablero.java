@@ -1,15 +1,20 @@
 package main.model.tablero;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import main.model.disparos.Disparo;
 import main.model.naves.Nave;
 import main.model.naves.Parte;
 import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
+import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 
 /**
  * Representa el Tablero de juego.
  * 
  * @author daniel.pilla
  */
-public class Tablero implements ObjetoPosicionable{
+public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 
 	/*
 	 * Declaracion de constantes
@@ -76,6 +81,10 @@ public class Tablero implements ObjetoPosicionable{
 		}
 	}
 	
+	public void agregarDisparo(Disparo disparo) {
+		casilleros[disparo.getCoordenada().getY()][disparo.getCoordenada().getX()].agregarDisparo(disparo);
+	}
+	
 	/**
 	 * Devuelve la matriz de Casilleros del Tablero.
 	 *
@@ -94,4 +103,38 @@ public class Tablero implements ObjetoPosicionable{
 	public int getY() {
 		return 0;
 	}
+
+	@Override
+	public void vivir() {
+		System.out.println("VIVE EL TABLERO");
+		for (int fila = 0; fila < FILAS_TABLERO; fila++) {
+			for (int columna = 0; columna < COLUMNAS_TABLERO; columna++) {
+				for (Disparo disparo : casilleros[fila][columna].getDisparos()) {
+					// Reformular esto
+					if (disparo.debeExplotar(true)){
+						System.out.println("DISPARO DEBE EXPLOTAR");
+					}
+				}
+			}
+		}
+	}
+	
+	private void buscarPartes(Coordenada coordenada, Integer radio){
+		Integer x = coordenada.getX();
+		Integer y = coordenada.getY();
+		List<Coordenada> coordenadas = new ArrayList<Coordenada>();
+		coordenadas.add(coordenada);
+		for (int i = 1; i < radio+1; i++) {
+			if(x-i >= 0){
+				Coordenada coordenadaRadiox = new Coordenada(x-i, y); 
+				coordenadas.add(coordenadaRadiox);
+				if(y-i >=0){
+					Coordenada coordenadaRadioy = new Coordenada(x-i, y-i); 
+					coordenadas.add(coordenadaRadioy);
+				}
+			}
+			
+		}
+	}
+
 }

@@ -1,6 +1,5 @@
 package main.model.disparos;
 
-import main.model.naves.Parte;
 import main.model.tablero.Coordenada;
 
 /**
@@ -23,11 +22,8 @@ public class PorContacto extends MinaSubmarina{
 	}
 	
 	@Override
-	public boolean debeExplotar(Parte parte){
-		if(this.coordenada.equals(parte.getPosicion())){
-			return true;
-		}
-		return false;
+	public boolean debeExplotar(Boolean hayParteEnElLugar){
+		return hayParteEnElLugar;
 	}
 	
 }

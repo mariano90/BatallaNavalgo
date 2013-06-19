@@ -1,34 +1,33 @@
 package main.juego;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import main.juego.view.naves.VistaNave;
+import main.juego.view.tablero.BotonCelda;
 import main.juego.view.tablero.VistaTablero;
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
-import main.model.naves.EnumDirecciones.DireccionMovimiento;
-import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.naves.Lancha;
 import main.model.naves.Nave;
 import main.model.naves.Portaaviones;
 import main.model.naves.RompeHielos;
+import main.model.naves.EnumDirecciones.DireccionMovimiento;
+import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
 import main.model.tablero.Tablero;
 import fiuba.algo3.titiritero.dibujables.Imagen;
 import fiuba.algo3.titiritero.dibujables.SuperficiePanel;
 import fiuba.algo3.titiritero.modelo.GameLoop;
-import fiuba.algo3.titiritero.modelo.SuperficieDeDibujo;
 
 /**
  * Clase principal del Juego BatallaNavalgo.
@@ -51,10 +50,7 @@ public class BatallaNavalgo {
 	private final static DireccionSentido sentidosNave[] = 
 		{DireccionSentido.HORIZONTAL, DireccionSentido.VERTICAL};
 	private final static DireccionMovimiento movimientosNave[] =
-		{DireccionMovimiento.ESTE, DireccionMovimiento.NORESTE, 
-		DireccionMovimiento.NOROESTE, DireccionMovimiento.NORTE,
-		DireccionMovimiento.OESTE, DireccionMovimiento.SUR,
-		DireccionMovimiento.SURESTE, DireccionMovimiento.SUROESTE};
+		{DireccionMovimiento.ESTE,DireccionMovimiento.OESTE,DireccionMovimiento.NORTE, DireccionMovimiento.SUR};
 
 	private JFrame frame;
 	private GameLoop gameLoop;
@@ -99,30 +95,70 @@ public class BatallaNavalgo {
 	private void initialize() throws IOException {
 		Tablero tablero = Tablero.getTablero();
 		
-		frame = new JFrame();
-		frame.setBounds(0, 0, 800, 630);
+		frame = new JFrame("Batalla Navalgo");
+		frame.setBounds(0, 0, 1050, 630);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+
+		JPanel bottom = new JPanel();
+        bottom.setLayout(null);
+		
+		SuperficiePanel panel = new SuperficiePanel();
+		panel.setLocation(0, 0);
+		panel.setSize(630,630);
+		
+		bottom.add(panel);
+		
+		JPanel panelControles = new JPanel();
+		panelControles.setLayout(null);
+		panelControles.setLocation(640, 0);
+		panelControles.setSize(410,630);
+		panelControles.setBackground(Color.CYAN);
+		bottom.add(panelControles);
+		
+		JPanel panelControlesNorte = new JPanel();
+		panelControles.setLayout(null);
+		panelControlesNorte.setLocation(0, 0);
+		panelControlesNorte.setSize(410,200);
+		panelControlesNorte.setBackground(Color.CYAN);
 		
 		JButton btnIniciar = new JButton("Iniciar");
+		btnIniciar.setLocation(0, 0);
+		btnIniciar.setSize(50, 50);
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				gameLoop.iniciarEjecucion();
 			}
 		});
+		panelControlesNorte.add(btnIniciar);
+		panelControles.add(panelControlesNorte);
 		
-		btnIniciar.setBounds(700,50,100,50);
-		frame.getContentPane().add(btnIniciar);
-		SuperficiePanel panel = new SuperficiePanel();
-		panel.setBounds(0, 0, 630, 630);
-//		panel.setImagen((Image)ImageIO.read(new URL("file:./images/tablero.PNG")));
-		frame.getContentPane().add(panel);
-		this.gameLoop = new GameLoop( panel);
+		
+		JPanel panelControlesSur = new JPanel();
+		panelControles.setLayout(null);
+		panelControlesSur.setLocation(0, 200);
+		panelControlesSur.setSize(410,430);
+		panelControlesSur.setBackground(Color.CYAN);
+		
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				JButton boton = new BotonCelda(new Coordenada(i, j));
+				boton.setBackground(Color.RED);
+//				boton.setLocation(15+i*5, 15+j*5);
+//				boton.setSize(5, 5);
+				panelControlesSur.add(boton);
+			}
+		}
+			
+		panelControles.add(panelControlesSur);
+
+		bottom.setOpaque(true);
+		frame.getContentPane().add(bottom);
+		this.gameLoop = new GameLoop(panel);
 		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), Tablero.getTablero());
 		gameLoop.agregar(imagen);
 		this.colocarBarcosEnTablero();		
-		
-
-		
+		gameLoop.agregar(tablero);
 //		jugar(jugador, tablero);
 //		verResultado(jugador, tablero);
 	}
@@ -332,6 +368,6 @@ public class BatallaNavalgo {
 	 * @return DireccionMovimiento Valor aleatorio de direccion de movimiento de la nave.
 	 */
 	private static DireccionMovimiento getMovimientoRandom() {
-		return movimientosNave[(int)(Math.random()*8)];
+		return movimientosNave[(int)(Math.random()*3)];
 	}
 }

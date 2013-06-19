@@ -40,7 +40,7 @@ public abstract class Disparo {
 		nave.recibirDisparo(this, parte);
 	}
 	
-	public boolean debeExplotar(Parte parte){
+	public boolean debeExplotar(Boolean hayParteEnElLugar){
 		this.cantTurnos = cantTurnos -1;
 		if(this.cantTurnos <= 0){
 			return true;
@@ -73,6 +73,10 @@ public abstract class Disparo {
 	 */
 	public Integer getCantTurnos() {
 		return cantTurnos;
+	}
+
+	public Coordenada getCoordenada() {
+		return coordenada;
 	}
 	
 }
