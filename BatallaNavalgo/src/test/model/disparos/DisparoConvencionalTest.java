@@ -18,7 +18,7 @@ public class DisparoConvencionalTest {
 	@Test
 	public void accionarDisparoTest(){
 		Disparo disparo = new DisparoConvencional(new Coordenada(1, 2));
-		boolean debeExplotar = disparo.debeExplotar(null);
+		boolean debeExplotar = disparo.debeExplotar();
 		Assert.assertTrue(debeExplotar);
 	}
 	

@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import main.juego.view.naves.VistaNave;
 import main.juego.view.tablero.BotonCelda;
 import main.juego.view.tablero.VistaTablero;
+import main.model.disparos.DobleConRetardo;
+import main.model.disparos.MinaSubmarina;
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
 import main.model.naves.Lancha;
@@ -157,10 +159,21 @@ public class BatallaNavalgo {
 		this.gameLoop = new GameLoop(panel);
 		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), Tablero.getTablero());
 		gameLoop.agregar(imagen);
-		this.colocarBarcosEnTablero();		
+		this.colocarBarcosEnTablero();
+		this.colocarMinasEnTablero();
 		gameLoop.agregar(tablero);
 //		jugar(jugador, tablero);
 //		verResultado(jugador, tablero);
+	}
+	
+	public void colocarMinasEnTablero() {
+		for (int i= 0; i<5; i++) {
+			Integer fila = (int) (Math.random() * 10);
+			Integer columna = (int) (Math.random() * 10);
+			Coordenada coordenada = new Coordenada(fila, columna);
+			DobleConRetardo mina = new DobleConRetardo(coordenada);
+			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()].agregarDisparo(mina);
+		}
 	}
 	
 	private static void jugar(Jugador jugador){

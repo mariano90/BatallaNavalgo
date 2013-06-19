@@ -19,11 +19,11 @@ public class TripleConRetardoTest {
 	@Test
 	public void accionarDisparoTest(){
 		Disparo disparo = new TripleConRetardo(new Coordenada(1, 2));
-		boolean debeExplotar = disparo.debeExplotar(null);
+		boolean debeExplotar = disparo.debeExplotar();
 		Assert.assertFalse(debeExplotar);
-		debeExplotar = disparo.debeExplotar(null);
+		debeExplotar = disparo.debeExplotar();
 		Assert.assertFalse(debeExplotar);
-		debeExplotar = disparo.debeExplotar(null);
+		debeExplotar = disparo.debeExplotar();
 		Assert.assertTrue(debeExplotar);
 	}
 	
