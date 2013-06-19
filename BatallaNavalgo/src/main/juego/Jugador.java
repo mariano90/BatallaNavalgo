@@ -45,7 +45,12 @@ public class Jugador {
 	 */
 	public void restarPuntos (Integer puntos){
 		if ((this.puntuacion != 0) && (puntos>0)){
-			this.puntuacion = this.puntuacion - puntos;
+			if ((this.puntuacion - puntos) > 0){
+				this.puntuacion = this.puntuacion - puntos;
+			}
+			else {
+				this.puntuacion = 0;
+			}
 		}
 	}
 
