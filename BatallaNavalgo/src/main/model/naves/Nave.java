@@ -53,95 +53,82 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 			Coordenada posicionInicial = parte.getPosicion();
 			Coordenada posicionFinal;
 			if (direccionMovimiento == DireccionMovimiento.ESTE) {
-				posicionFinal = this.moverseAlEste(posicionInicial);
+				posicionFinal = this.moverseAlEste(posicionInicial, partesFinal.size()+1);
 			} else if (direccionMovimiento == DireccionMovimiento.OESTE) {
-				posicionFinal = this.moverseAlOeste(posicionInicial);
+				posicionFinal = this.moverseAlOeste(posicionInicial, partesFinal.size()+1);
 			} else if (direccionMovimiento == DireccionMovimiento.SUR) {
-				posicionFinal = this.moverseAlSur(posicionInicial);
-			} else //if (direccionMovimiento == DireccionMovimiento.NORTE) {
-				posicionFinal = this.moverseAlNorte(posicionInicial);
+				posicionFinal = this.moverseAlSur(posicionInicial, partesFinal.size()+1);
+			} else// if (direccionMovimiento == DireccionMovimiento.NORTE) {
+				posicionFinal = this.moverseAlNorte(posicionInicial, partesFinal.size()+1);
 			/*} else if (direccionMovimiento == DireccionMovimiento.NORESTE) {
-				posicionFinal = this.moverseAlNoreste(posicionInicial);
+				posicionFinal = this.moverseAlNoreste(posicionInicial, partesFinal.size()+1);
 			} else if (direccionMovimiento == DireccionMovimiento.NOROESTE) {
-				posicionFinal = this.moverseAlNoroeste(posicionInicial);
+				posicionFinal = this.moverseAlNoroeste(posicionInicial, partesFinal.size()+1);
 			} else if (direccionMovimiento == DireccionMovimiento.SUROESTE) {
-				posicionFinal = this.moverseAlSuroeste(posicionInicial);				
+				posicionFinal = this.moverseAlSuroeste(posicionInicial, partesFinal.size()+1);				
 			} else {
-				posicionFinal = this.moverseAlSureste(posicionInicial);
+				posicionFinal = this.moverseAlSureste(posicionInicial, partesFinal.size()+1);
 			} */
 			parte.setPosicion(posicionFinal);
+			if(partesFinal.size()==0) this.coordenadaInicio = new Coordenada(posicionFinal.getX(), posicionFinal.getY());
 			partesFinal.add(parte);
 		}
 		partes = partesFinal;
 		Tablero.getTablero().reubicarNave(this);
 	}
 
-	private Coordenada moverseAlOeste(Coordenada posicionInicial) {
-		int y = posicionInicial.getY();
-		if (y == MARGEN_IZQUIERDO) {
-			y++;
-			direccionMovimiento = DireccionMovimiento.ESTE;
+	private Coordenada moverseAlOeste(Coordenada posicionInicial, Integer restar) {
+		int x = posicionInicial.getX();
+		if (x == MARGEN_IZQUIERDO) {
+			x++;
+			if (partes.size() - restar == 0) direccionMovimiento = DireccionMovimiento.ESTE;
 		} else {
-			y--;
+			x--;
 		}
-		this.coordenadaInicio = new Coordenada(posicionInicial.getX(),y);
-		return new Coordenada(posicionInicial.getX(),y);
+		return new Coordenada(x, posicionInicial.getY());
 	}
 
-	private Coordenada moverseAlEste(Coordenada posicionInicial) {
-		int y = posicionInicial.getY();
-		int ejeY = y;
-		if (direccionSentido == DireccionSentido.HORIZONTAL)
-		{
-			ejeY = (this.partes.size() + y);
-		}
-		if (ejeY == MARGEN_DERECHO) {
-			y--;
-			direccionMovimiento = DireccionMovimiento.OESTE;
-		} else {
-			y++;
-		}
-		this.coordenadaInicio = new Coordenada(posicionInicial.getX(),y);
-		return new Coordenada(posicionInicial.getX(),y);
-	}
-
-	private Coordenada moverseAlSur(Coordenada posicionInicial) {
+	private Coordenada moverseAlEste(Coordenada posicionInicial, Integer restar) {
 		int x = posicionInicial.getX();
 		int ejeX = x;
-		if (direccionSentido == DireccionSentido.VERTICAL)
+		if (direccionSentido == DireccionSentido.HORIZONTAL)
 		{
-			ejeX += this.partes.size();
+			ejeX = (this.partes.size() - restar + x);
 		}
-		if (ejeX == MARGEN_INFERIOR) {
+		if (ejeX == MARGEN_DERECHO) {
 			x--;
-			direccionMovimiento = DireccionMovimiento.NORTE;
-			if (direccionSentido == DireccionSentido.VERTICAL) {
-				this.coordenadaInicio = new Coordenada(MARGEN_INFERIOR - this.partes.size(),posicionInicial.getY());
-			} else {
-				this.coordenadaInicio = new Coordenada(x,posicionInicial.getY());
-			}
+			if (partes.size() - restar == 0) direccionMovimiento = DireccionMovimiento.OESTE;
 		} else {
 			x++;
-			this.coordenadaInicio = new Coordenada(x,posicionInicial.getY());
 		}
-		return new Coordenada(x,posicionInicial.getY());
+		return new Coordenada(x, posicionInicial.getY());
 	}
 
-	private Coordenada moverseAlNorte(Coordenada posicionInicial) {
-		int x = posicionInicial.getX();
-		if (x == MARGEN_SUPERIOR) {
-			x++;
-			direccionMovimiento = DireccionMovimiento.SUR;
-			if (direccionSentido == DireccionSentido.VERTICAL) {
-				this.coordenadaInicio = new Coordenada(this.partes.size()-1,posicionInicial.getY());
-			} else {
-				this.coordenadaInicio = new Coordenada(x,posicionInicial.getY());
-			}
-		} else {
-			x--;
-			this.coordenadaInicio = new Coordenada(x,posicionInicial.getY());
+	private Coordenada moverseAlSur(Coordenada posicionInicial, Integer restar) {
+		int y = posicionInicial.getY();
+		int ejeY = y;
+		if (direccionSentido == DireccionSentido.VERTICAL)
+		{
+			ejeY = (this.partes.size() - restar + y);
 		}
-		return new Coordenada(x,posicionInicial.getY());
+		if (ejeY == MARGEN_INFERIOR) {
+			y--;
+			if (partes.size() - restar == 0) direccionMovimiento = DireccionMovimiento.NORTE;
+		} else {
+			y++;
+		}
+		return new Coordenada(posicionInicial.getX(), y);
+	}
+
+	private Coordenada moverseAlNorte(Coordenada posicionInicial, Integer restar) {
+		int y = posicionInicial.getY();
+		if (y == MARGEN_SUPERIOR) {
+			y++;
+			if (partes.size() - restar == 0) direccionMovimiento = DireccionMovimiento.SUR;
+		} else {
+			y--;
+		}
+		return new Coordenada(posicionInicial.getX(), y);
 	}
 
 	private Coordenada moverseAlNoreste(Integer x, Integer y) {
@@ -244,10 +231,10 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 	protected Coordenada obtenerSiguienteCoordenada(Coordenada coordenada){
 		Coordenada nuevaCoordenada;
 		if (this.direccionSentido == DireccionSentido.HORIZONTAL){
-			nuevaCoordenada = new Coordenada(coordenada.getX(), coordenada.getY() + 1);
+			nuevaCoordenada = new Coordenada(coordenada.getX() + 1, coordenada.getY());
 		}
 		else {
-			nuevaCoordenada = new Coordenada(coordenada.getX() + 1, coordenada.getY());
+			nuevaCoordenada = new Coordenada(coordenada.getX(), coordenada.getY() + 1);
 		}
 		return nuevaCoordenada;
 	}
