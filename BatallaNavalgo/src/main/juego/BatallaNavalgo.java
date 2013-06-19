@@ -52,7 +52,9 @@ public class BatallaNavalgo {
 	private final static DireccionSentido sentidosNave[] = 
 		{DireccionSentido.HORIZONTAL, DireccionSentido.VERTICAL};
 	private final static DireccionMovimiento movimientosNave[] =
-		{DireccionMovimiento.ESTE,DireccionMovimiento.OESTE,DireccionMovimiento.NORTE, DireccionMovimiento.SUR};
+		{DireccionMovimiento.ESTE,DireccionMovimiento.OESTE,DireccionMovimiento.NORTE, DireccionMovimiento.SUR,
+		DireccionMovimiento.NORESTE, DireccionMovimiento.SURESTE, DireccionMovimiento.SUROESTE,
+		DireccionMovimiento.NOROESTE};
 
 	private JFrame frame;
 	private GameLoop gameLoop;
@@ -381,6 +383,6 @@ public class BatallaNavalgo {
 	 * @return DireccionMovimiento Valor aleatorio de direccion de movimiento de la nave.
 	 */
 	private static DireccionMovimiento getMovimientoRandom() {
-		return movimientosNave[(int)(Math.random()*3)];
+		return movimientosNave[(int)(Math.random()*7)];
 	}
 }
