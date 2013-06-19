@@ -10,6 +10,8 @@ import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
 import main.model.tablero.Tablero;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class BuqueTest {
@@ -188,5 +190,192 @@ public class BuqueTest {
 		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(4,6)));
 		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(4,7)));
 		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(4,8)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaArribaEnElMargenSuperiorTest(){
+		Coordenada coordenada = new Coordenada(1,6);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NORTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(2,6)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(3,6)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(4,6)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(5,6)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaAbajoEnElMargenInferiorTest(){
+		Coordenada coordenada = new Coordenada(9,5);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.SUR;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(8,5)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(7,5)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(6,5)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(5,5)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaElEsteEnElMargenDerechoTest(){
+		Coordenada coordenada = new Coordenada(4,9);
+		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.ESTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(4,8)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(4,7)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(4,6)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(4,5)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaElOesteEnElMargenIzquierdo(){
+		Coordenada coordenada = new Coordenada(3,0);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.OESTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(3,1)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(4,1)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(5,1)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(6,1)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaElNoresteEnElMargenDerechoTest(){
+		Coordenada coordenada = new Coordenada(5,9);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NORESTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(6,8)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(7,8)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(8,8)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(9,8)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaElNoroesteEnElMargenIzquierdoTest(){
+		Coordenada coordenada = new Coordenada(4,0);
+		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NOROESTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(5,1)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(5,2)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(5,3)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(5,4)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaElSuresteEnElMargenDerechoTest(){
+		Coordenada coordenada = new Coordenada(6,9);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.SURESTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(5,8)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(4,8)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(3,8)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(2,8)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaElSuroesteEnElMargenIzquierdoTest(){
+		Coordenada coordenada = new Coordenada(5,0);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.SUROESTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(4,1)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(3,1)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(2,1)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(1,1)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaElNoresteEnLaEsquinaSuperiorDerechaTest(){
+		Coordenada coordenada = new Coordenada(0,9);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NORESTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(1,8)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(2,8)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(3,8)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(4,8)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaElNoroesteEnLaEsquinaSuperiorIzquierdaTest(){
+		Coordenada coordenada = new Coordenada(0,0);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NOROESTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(1,1)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(2,1)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(3,1)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(4,1)));
+	}
+
+	@Ignore
+	@Test
+	public void moverseHaciaElSuresteEnLaEsquinaInferiorDerechaTest(){
+		Coordenada coordenada = new Coordenada(9,9);
+		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NORESTE;
+		Nave buque = new Buque(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(buque);
+		buque.moverse();
+
+		Assert.assertTrue(buque.getPartes().get(0).getPosicion().equals(new Coordenada(8,8)));
+		Assert.assertTrue(buque.getPartes().get(1).getPosicion().equals(new Coordenada(8,7)));
+		Assert.assertTrue(buque.getPartes().get(2).getPosicion().equals(new Coordenada(8,6)));
+		Assert.assertTrue(buque.getPartes().get(3).getPosicion().equals(new Coordenada(8,5)));
 	}
 }
