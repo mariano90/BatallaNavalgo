@@ -19,9 +19,7 @@ public class PorContactoTest {
 	@Test
 	public void accionarDisparoTest(){
 		Disparo disparo = new PorContacto(new Coordenada(1, 2));
-		boolean debeExplotar = disparo.debeExplotar(false);
-		Assert.assertFalse(debeExplotar);
-		debeExplotar = disparo.debeExplotar(true);
+		boolean debeExplotar = disparo.debeExplotar();
 		Assert.assertTrue(debeExplotar);
 	}
 	

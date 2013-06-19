@@ -20,10 +20,4 @@ public class PorContacto extends MinaSubmarina{
 		this.costo = COSTO;
 		this.radio = RADIO;
 	}
-	
-	@Override
-	public boolean debeExplotar(Boolean hayParteEnElLugar){
-		return hayParteEnElLugar;
-	}
-	
 }

@@ -107,15 +107,31 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 	@Override
 	public void vivir() {
 		System.out.println("VIVE EL TABLERO");
-		for (int fila = 0; fila < FILAS_TABLERO; fila++) {
-			for (int columna = 0; columna < COLUMNAS_TABLERO; columna++) {
-				for (Disparo disparo : casilleros[fila][columna].getDisparos()) {
-					// Reformular esto
-					if (disparo.debeExplotar(true)){
+		for (Casillero[] filas : casilleros) {
+			for(Casillero casillero : filas) {
+				ArrayList<Disparo> disparosEfectivos = new ArrayList<Disparo>();
+				for (Disparo disparo : casillero.getDisparos()) {
+					if (disparo.debeExplotar()) {
 						System.out.println("DISPARO DEBE EXPLOTAR");
+						for (Nave nave : casillero.getNaves()) {
+							for (Parte parte : nave.getPartes()) {
+								if (!parte.estaDestruida() && casillero.getCoordenada().equals(parte.getPosicion())) {
+									System.out.println("ACCIONAR MINA");
+									disparo.accionarMina(nave, parte);
+								}
+								disparosEfectivos.add(disparo);
+							}
+						}
 					}
 				}
+				eliminarDisparos(disparosEfectivos,casillero);
 			}
+		}
+	}
+	
+	private void eliminarDisparos(ArrayList<Disparo> disparosEfectivos, Casillero casillero) {
+		for (Disparo disparo : disparosEfectivos) {
+			casillero.getDisparos().remove(disparo);
 		}
 	}
 	
