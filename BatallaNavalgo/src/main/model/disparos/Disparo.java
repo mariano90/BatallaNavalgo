@@ -40,7 +40,7 @@ public abstract class Disparo {
 		nave.recibirDisparo(this, parte);
 	}
 	
-	public boolean debeExplotar(Boolean hayParteEnElLugar){
+	public boolean debeExplotar(){
 		this.cantTurnos = cantTurnos -1;
 		if(this.cantTurnos <= 0){
 			return true;
