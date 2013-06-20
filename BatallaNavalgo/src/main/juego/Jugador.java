@@ -1,11 +1,13 @@
 package main.juego;
 
+import fiuba.algo3.titiritero.modelo.ObjetoVivo;
+
 /**
  * Representa a un Jugador del juego BatallaNavalgo.
  * 
  * @author melisa.poleschi
  */
-public class Jugador {
+public class Jugador implements ObjetoVivo{
 
 	/*
 	 * Definicion de constantes.
@@ -60,6 +62,11 @@ public class Jugador {
 
 	public void setGano(boolean gano) {
 		this.gano = gano;
+	}
+
+	@Override
+	public void vivir() {
+		this.restarPuntos(10);
 	}
 	
 }
