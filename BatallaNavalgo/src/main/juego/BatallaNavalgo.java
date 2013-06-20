@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import main.juego.view.naves.VistaNave;
 import main.juego.view.tablero.BotonCelda;
+import main.juego.view.tablero.VistaTablero;
 import main.model.disparos.DobleConRetardo;
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
