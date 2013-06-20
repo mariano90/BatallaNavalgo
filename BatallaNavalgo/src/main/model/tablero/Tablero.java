@@ -109,48 +109,92 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 		System.out.println("VIVE EL TABLERO");
 		for (Casillero[] filas : casilleros) {
 			for(Casillero casillero : filas) {
-				ArrayList<Disparo> disparosEfectivos = new ArrayList<Disparo>();
-				for (Disparo disparo : casillero.getDisparos()) {
-					if (disparo.debeExplotar()) {
-						System.out.println("DISPARO DEBE EXPLOTAR");
-						for (Nave nave : casillero.getNaves()) {
-							for (Parte parte : nave.getPartes()) {
-								if (!parte.estaDestruida() && casillero.getCoordenada().equals(parte.getPosicion())) {
-									System.out.println("ACCIONAR MINA");
-									disparo.accionarMina(nave, parte);
-								}
-								disparosEfectivos.add(disparo);
-							}
-						}
-					}
-				}
-				eliminarDisparos(disparosEfectivos,casillero);
+				this.verificarCasillero(casillero);
 			}
 		}
 	}
 	
-	private void eliminarDisparos(ArrayList<Disparo> disparosEfectivos, Casillero casillero) {
-		for (Disparo disparo : disparosEfectivos) {
+	private void verificarCasillero(Casillero casillero){
+		ArrayList<Disparo> disparosRealizados = new ArrayList<Disparo>();
+		for (Disparo disparo : casillero.getDisparos()) {
+			if (disparo.debeExplotar()) {
+				System.out.println("DISPARO DEBE EXPLOTAR");
+				ArrayList<Nave> naves = this.buscarNaves(casillero, disparo.getRadio());
+				ArrayList<Coordenada> coordenadas = this.buscarCoordenadas(casillero.getCoordenada(), disparo.getRadio());
+				for (Nave nave : naves) {
+					for (Parte parte : nave.getPartes()) {
+						if (!parte.estaDestruida() && coordenadas.contains((parte.getPosicion()))) {
+							System.out.println("ACCIONAR MINA");
+							disparo.accionarMina(nave, parte);
+						}
+					}
+				}
+				disparosRealizados.add(disparo);
+			}
+		}
+		this.eliminarDisparos(disparosRealizados,casillero);
+	}
+	
+	private void eliminarDisparos(ArrayList<Disparo> disparosRealizados, Casillero casillero) {
+		for (Disparo disparo : disparosRealizados) {
 			casillero.getDisparos().remove(disparo);
 		}
 	}
 	
-	private void buscarPartes(Coordenada coordenada, Integer radio){
-		Integer x = coordenada.getX();
-		Integer y = coordenada.getY();
-		List<Coordenada> coordenadas = new ArrayList<Coordenada>();
-		coordenadas.add(coordenada);
+	private ArrayList<Nave> buscarNaves(Casillero casillero, Integer radio){
+		Integer x = casillero.getCoordenada().getX();
+		Integer y = casillero.getCoordenada().getY();
+		ArrayList<Nave> naves = new ArrayList<Nave>();
+		naves.addAll(casillero.getNaves());
+		if (radio == 0) return naves;
 		for (int i = 1; i < radio+1; i++) {
-			if(x-i >= 0){
-				Coordenada coordenadaRadiox = new Coordenada(x-i, y); 
-				coordenadas.add(coordenadaRadiox);
-				if(y-i >=0){
-					Coordenada coordenadaRadioy = new Coordenada(x-i, y-i); 
-					coordenadas.add(coordenadaRadioy);
+			if (x-i >= 0){
+				naves.addAll(this.casilleros[x-i][y].getNaves());
+				for (int j = 1; j < radio+1; j++) {
+					if (y-j >= 0) naves.addAll(this.casilleros[x-i][y-j].getNaves());
+					if (y+j <= FILAS_TABLERO-1) naves.addAll(this.casilleros[x-i][y+j].getNaves());
 				}
 			}
-			
+			if (x+i <= COLUMNAS_TABLERO-1){
+				for (int j = 1; j < radio+1; j++) {
+					if (y-j >= 0) naves.addAll(this.casilleros[x+i][y-j].getNaves());
+					if (y+j <= FILAS_TABLERO-1) naves.addAll(this.casilleros[x+i][y+j].getNaves());					
+				}
+			}
 		}
+		for (int j = 1; j < radio+1; j++) {
+			if (y-j >= 0) naves.addAll(this.casilleros[x][y-j].getNaves());
+			if (y+j <= FILAS_TABLERO-1) naves.addAll(this.casilleros[x][y+j].getNaves());					
+		}
+		return naves;
+	}
+	
+	private ArrayList<Coordenada> buscarCoordenadas(Coordenada coordenada, Integer radio){
+		Integer x = coordenada.getX();
+		Integer y = coordenada.getY();
+		ArrayList<Coordenada> coordenadas = new ArrayList<Coordenada>();
+		coordenadas.add(coordenada);
+		if (radio == 0) return coordenadas;
+		for (int i = 1; i < radio+1; i++) {
+			if (x-i >= 0){
+				coordenadas.add(new Coordenada(x-i, y));
+				for (int j = 1; j < radio+1; j++) {
+					if (y-j >= 0) coordenadas.add(new Coordenada(x-i, y-j));
+					if (y+j <= FILAS_TABLERO-1) coordenadas.add(new Coordenada(x-i, y+j));
+				}
+			}
+			if (x+i <= COLUMNAS_TABLERO-1){
+				for (int j = 1; j < radio+1; j++) {
+					if (y-j >= 0) coordenadas.add(new Coordenada(x+i, y-j));
+					if (y+j <= FILAS_TABLERO-1) coordenadas.add(new Coordenada(x+i, y+j));					
+				}
+			}
+		}
+		for (int j = 1; j < radio+1; j++) {
+			if (y-j >= 0) coordenadas.add(new Coordenada(x, y-j));
+			if (y+j <= FILAS_TABLERO-1) coordenadas.add(new Coordenada(x, y+j));					
+		}
+		return coordenadas;
 	}
 
 }

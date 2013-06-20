@@ -14,13 +14,12 @@ import javax.swing.JPanel;
 
 import main.juego.view.naves.VistaNave;
 import main.juego.view.tablero.BotonCelda;
-import main.juego.view.tablero.VistaTablero;
 import main.model.disparos.DobleConRetardo;
-import main.model.disparos.MinaSubmarina;
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
 import main.model.naves.Lancha;
 import main.model.naves.Nave;
+import main.model.naves.Parte;
 import main.model.naves.Portaaviones;
 import main.model.naves.RompeHielos;
 import main.model.naves.EnumDirecciones.DireccionMovimiento;
@@ -50,12 +49,12 @@ public class BatallaNavalgo {
 	private final static Integer CANT_ROMPE_HIELOS = 1;
 	
 	private final static DireccionSentido sentidosNave[] = 
-		{DireccionSentido.HORIZONTAL, DireccionSentido.VERTICAL};
+		{DireccionSentido.VERTICAL};
 	private final static DireccionMovimiento movimientosNave[] =
 		{DireccionMovimiento.ESTE,DireccionMovimiento.OESTE,DireccionMovimiento.NORTE, DireccionMovimiento.SUR,
 		DireccionMovimiento.NORESTE, DireccionMovimiento.SURESTE, DireccionMovimiento.SUROESTE,
 		DireccionMovimiento.NOROESTE};
-
+	
 	private JFrame frame;
 	private GameLoop gameLoop;
 	
@@ -148,8 +147,8 @@ public class BatallaNavalgo {
 			for (int j = 0; j < 10; j++) {
 				JButton boton = new BotonCelda(new Coordenada(i, j));
 				boton.setBackground(Color.RED);
-//				boton.setLocation(15+i*5, 15+j*5);
-//				boton.setSize(5, 5);
+				boton.setLocation(15+i*5, 15+j*5);
+				boton.setSize(5, 5);
 				panelControlesSur.add(boton);
 			}
 		}
@@ -158,11 +157,11 @@ public class BatallaNavalgo {
 
 		bottom.setOpaque(true);
 		frame.getContentPane().add(bottom);
-		this.gameLoop = new GameLoop(panel);
+		this.gameLoop = new GameLoop(700,panel);
 		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), Tablero.getTablero());
 		gameLoop.agregar(imagen);
 		this.colocarBarcosEnTablero();
-		this.colocarMinasEnTablero();
+//		this.colocarMinasEnTablero();
 		gameLoop.agregar(tablero);
 //		jugar(jugador, tablero);
 //		verResultado(jugador, tablero);
@@ -217,8 +216,9 @@ public class BatallaNavalgo {
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave lancha = new Lancha(coordenada, sentido, movimiento);
-			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
-				.agregarNave(lancha);
+			for (Parte parte : lancha.getPartes()) {
+				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(lancha);
+			}
 			this.gameLoop.agregar(lancha);
 			try {
 				Imagen imagen;
@@ -245,10 +245,10 @@ public class BatallaNavalgo {
 			Coordenada coordenada = crearCoordenada(3);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
-			Nave destructor = new Destructor(coordenada,
-				sentido, movimiento);
-			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
-				.agregarNave(destructor);
+			Nave destructor = new Destructor(coordenada, sentido, movimiento);
+			for (Parte parte : destructor.getPartes()) {
+				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(destructor);
+			}
 			this.gameLoop.agregar(destructor);
 			try {
 				Imagen imagen;
@@ -276,8 +276,9 @@ public class BatallaNavalgo {
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
 			Nave buque = new Buque(coordenada, sentido, movimiento);
-			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
-				.agregarNave(buque);
+			for (Parte parte : buque.getPartes()) {
+				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(buque);
+			}
 			this.gameLoop.agregar(buque);
 			try {
 				Imagen imagen;
@@ -305,10 +306,10 @@ public class BatallaNavalgo {
 			Coordenada coordenada = crearCoordenada(5);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
-			Nave portaAviones = new Portaaviones(coordenada,
-				sentido, movimiento);
-			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
-					.agregarNave(portaAviones);
+			Nave portaAviones = new Portaaviones(coordenada, sentido, movimiento);
+			for (Parte parte : portaAviones.getPartes()) {
+				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(portaAviones);
+			}
 			this.gameLoop.agregar(portaAviones);
 			try {
 				Imagen imagen;
@@ -335,10 +336,10 @@ public class BatallaNavalgo {
 			Coordenada coordenada = crearCoordenada(3);
 			DireccionSentido sentido = getSentidoRandom();
 			DireccionMovimiento movimiento = getMovimientoRandom();
-			Nave rompeHielos = new RompeHielos(coordenada,
-				sentido, movimiento);
-			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
-				.agregarNave(rompeHielos);
+			Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+			for (Parte parte : rompeHielos.getPartes()) {
+				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(rompeHielos);
+			}
 			this.gameLoop.agregar(rompeHielos);
 			try {
 				Imagen imagen;
@@ -374,7 +375,7 @@ public class BatallaNavalgo {
 	 * @return DireccionSentido Valor aleatorio de sentido de ubicacion de la nave.
 	 */
 	private static DireccionSentido getSentidoRandom() {
-		return sentidosNave[(int)(Math.random()*1)];
+		return sentidosNave[(int)(Math.random()*0)];
 	}
 
 	/**
