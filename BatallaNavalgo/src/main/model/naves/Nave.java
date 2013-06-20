@@ -240,11 +240,17 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 	 */
 	protected Coordenada obtenerSiguienteCoordenada(Coordenada coordenada){
 		Coordenada nuevaCoordenada;
-		if (this.direccionSentido == DireccionSentido.HORIZONTAL){
+		if ((this.partes.size() + this.coordenadaInicio.getX() <= 9) && 
+				(this.direccionSentido == DireccionSentido.HORIZONTAL)) {
 			nuevaCoordenada = new Coordenada(coordenada.getX() + 1, coordenada.getY());
-		}
-		else {
-			nuevaCoordenada = new Coordenada(coordenada.getX(), coordenada.getY() + 1);
+		} else if  ((this.partes.size() + this.coordenadaInicio.getX() > 9) && 
+				(this.direccionSentido == DireccionSentido.HORIZONTAL)) {
+			nuevaCoordenada = new Coordenada(coordenada.getX() -1, coordenada.getY());
+		} else if ((this.partes.size() + this.coordenadaInicio.getY() <= 9) && 
+				(this.direccionSentido == DireccionSentido.VERTICAL)) {
+			nuevaCoordenada = new Coordenada(coordenada.getX(), coordenada.getY()+1);
+		} else {
+			nuevaCoordenada = new Coordenada(coordenada.getX(), coordenada.getY()-1);
 		}
 		return nuevaCoordenada;
 	}
