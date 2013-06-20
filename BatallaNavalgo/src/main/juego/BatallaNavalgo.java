@@ -98,9 +98,9 @@ public class BatallaNavalgo {
 	 */
 	private void initialize() throws IOException {
 		Tablero tablero = Tablero.getTablero();
-		
+		Jugador jugador = new Jugador();
 		frame = new JFrame("Batalla Navalgo");
-		frame.setBounds(0, 0, 1050, 630);
+		frame.setBounds(0, 0, 1270, 630);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 
@@ -116,15 +116,15 @@ public class BatallaNavalgo {
 		JPanel panelControles = new JPanel();
 		panelControles.setLayout(null);
 		panelControles.setLocation(640, 0);
-		panelControles.setSize(410,630);
-		panelControles.setBackground(Color.CYAN);
+		panelControles.setSize(650,630);
+		panelControles.setBackground(Color.GRAY);
 		bottom.add(panelControles);
 		
 		JPanel panelControlesNorte = new JPanel();
 		panelControles.setLayout(null);
 		panelControlesNorte.setLocation(0, 0);
-		panelControlesNorte.setSize(410,200);
-		panelControlesNorte.setBackground(Color.CYAN);
+		panelControlesNorte.setSize(650,200);
+		panelControlesNorte.setBackground(Color.GRAY);
 		
 		JButton btnIniciar = new JButton("Iniciar");
 		btnIniciar.setLocation(0, 0);
@@ -141,15 +141,15 @@ public class BatallaNavalgo {
 		JPanel panelControlesSur = new JPanel();
 		panelControles.setLayout(null);
 		panelControlesSur.setLocation(0, 200);
-		panelControlesSur.setSize(410,430);
-		panelControlesSur.setBackground(Color.CYAN);
+		panelControlesSur.setSize(650,430);
+		panelControlesSur.setBackground(Color.GRAY);
 		
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				JButton boton = new BotonCelda(new Coordenada(i, j));
-				boton.setBackground(Color.RED);
 				boton.setLocation(15+i*5, 15+j*5);
 				boton.setSize(5, 5);
+				boton.setText(i+":"+j);
 				panelControlesSur.add(boton);
 			}
 		}
@@ -158,7 +158,8 @@ public class BatallaNavalgo {
 
 		bottom.setOpaque(true);
 		frame.getContentPane().add(bottom);
-		this.gameLoop = new GameLoop(700,panel);
+		this.gameLoop = new GameLoop(1500,panel);
+		this.gameLoop.agregar(jugador);
 		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), Tablero.getTablero());
 		gameLoop.agregar(imagen);
 		this.colocarBarcosEnTablero();
