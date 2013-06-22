@@ -72,8 +72,8 @@ public class RompeHielosTests {
 		Nave rompeHielos = new RompeHielos(coordenadaInicio, sentido, movimiento);
 
 		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(coordenadaInicio));
-		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(4,6)));
-		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(4,7)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(5,5)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(6,5)));
 	}
 
 	@Test
@@ -86,9 +86,9 @@ public class RompeHielosTests {
 			.agregarNave(rompeHielos);
 		rompeHielos.moverse();
 
-		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(4,5)));
-		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(4,6)));
-		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(4,7)));
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(5,4)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(6,4)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(7,4)));
 	}
 
 	@Test
@@ -101,9 +101,9 @@ public class RompeHielosTests {
 			.agregarNave(rompeHielos);
 		rompeHielos.moverse();
 
-		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(5,3)));
-		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(6,3)));
-		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(7,3)));
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(4,4)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(4,5)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(4,6)));
 	}
 
 	@Test
@@ -116,9 +116,9 @@ public class RompeHielosTests {
 			.agregarNave(rompeHielos);
 		rompeHielos.moverse();
 
-		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(3,7)));
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(4,6)));
 		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(4,7)));
-		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(5,7)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(4,8)));
 	}
 
 	@Test
@@ -131,9 +131,9 @@ public class RompeHielosTests {
 			.agregarNave(rompeHielos);
 		rompeHielos.moverse();
 
-		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(6,5)));
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(5,6)));
 		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(6,6)));
-		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(6,7)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(7,6)));
 	}
 
 	@Test
@@ -146,8 +146,8 @@ public class RompeHielosTests {
 			.agregarNave(rompeHielos);
 		rompeHielos.moverse();
 
-		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(4,5)));
-		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(5,5)));
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(6,3)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(6,4)));
 		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(6,5)));
 	}
 
@@ -162,8 +162,8 @@ public class RompeHielosTests {
 		rompeHielos.moverse();
 
 		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(5,4)));
-		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(5,5)));
-		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(5,6)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(6,4)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(7,4)));
 	}
 
 	@Test
@@ -177,8 +177,8 @@ public class RompeHielosTests {
 		rompeHielos.moverse();
 
 		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(5,4)));
-		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(6,4)));
-		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(7,4)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(5,5)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(5,6)));
 	}
 
 	@Test
@@ -191,8 +191,174 @@ public class RompeHielosTests {
 			.agregarNave(rompeHielos);
 		rompeHielos.moverse();
 
-		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(4,5)));
-		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(4,6)));
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(2,7)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(3,7)));
 		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(4,7)));
 	}
+
+	@Test
+	public void moverseHaciaArribaEnElMargenSuperiorTest(){
+		Coordenada coordenada = new Coordenada(3,0);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NORTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(3,1)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(3,2)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(3,3)));
+	}
+
+	@Test
+	public void moverseHaciaAbajoEnElMargenInferiorTest(){
+		Coordenada coordenada = new Coordenada(5,9);
+		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.SUR;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(5,8)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(6,8)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(7,8)));
+	}
+
+	@Test
+	public void moverseHaciaElEsteEnElMargenDerechoTest(){
+		Coordenada coordenada = new Coordenada(9,4);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.ESTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(8,4)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(8,5)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(8,6)));
+	}
+
+	@Test
+	public void moverseHaciaElOesteEnElMargenIzquierdo(){
+		Coordenada coordenada = new Coordenada(0,3);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.OESTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(1,3)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(1,4)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(1,5)));
+	}
+
+	@Test
+	public void moverseHaciaElNoresteEnElMargenDerechoTest(){
+		Coordenada coordenada = new Coordenada(9,5);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NORESTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(8,6)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(8,7)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(8,8)));
+	}
+
+	@Test
+	public void moverseHaciaElNoroesteEnElMargenIzquierdoTest(){
+		Coordenada coordenada = new Coordenada(0,5);
+		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NOROESTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(1,6)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(2,6)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(3,6)));
+	}
+
+	@Test
+	public void moverseHaciaElSuresteEnElMargenDerechoTest(){
+		Coordenada coordenada = new Coordenada(9,4);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.SURESTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(8,3)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(8,4)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(8,5)));
+	}
+
+	@Test
+	public void moverseHaciaElSuroesteEnElMargenIzquierdoTest(){
+		Coordenada coordenada = new Coordenada(0,6);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.SUROESTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(1,5)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(1,6)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(1,7)));
+	}
+
+	@Test
+	public void moverseHaciaElNoresteEnLaEsquinaSuperiorDerechaTest(){
+		Coordenada coordenada = new Coordenada(9,0);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NORESTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(8,1)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(8,2)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(8,3)));
+	}
+
+	@Test
+	public void moverseHaciaElNoroesteEnLaEsquinaSuperiorIzquierdaTest(){
+		Coordenada coordenada = new Coordenada(0,0);
+		DireccionSentido sentido = DireccionSentido.VERTICAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.NOROESTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(1,1)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(1,2)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(1,3)));
+	}
+
+	@Test
+	public void moverseHaciaElSuresteEnLaEsquinaInferiorDerechaTest(){
+		Coordenada coordenada = new Coordenada(7,9);
+		DireccionSentido sentido = DireccionSentido.HORIZONTAL;
+		DireccionMovimiento movimiento = DireccionMovimiento.SURESTE;
+		Nave rompeHielos = new RompeHielos(coordenada, sentido, movimiento);
+		Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()]
+			.agregarNave(rompeHielos);
+		rompeHielos.moverse();
+
+		Assert.assertTrue(rompeHielos.getPartes().get(0).getPosicion().equals(new Coordenada(6,8)));
+		Assert.assertTrue(rompeHielos.getPartes().get(1).getPosicion().equals(new Coordenada(7,8)));
+		Assert.assertTrue(rompeHielos.getPartes().get(2).getPosicion().equals(new Coordenada(8,8)));
+	}
+
 }
