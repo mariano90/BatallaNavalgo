@@ -33,7 +33,7 @@ import fiuba.algo3.titiritero.modelo.GameLoop;
 
 /**
  * Clase principal del Juego BatallaNavalgo.
- * Se encarga de manejar la l�gica del juego.
+ * Se encarga de manejar la l���gica del juego.
  * 
  * @author daniel.pilla
  */
