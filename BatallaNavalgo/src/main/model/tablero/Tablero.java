@@ -1,7 +1,6 @@
 package main.model.tablero;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import main.model.disparos.Disparo;
 import main.model.naves.Nave;
