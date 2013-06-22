@@ -12,6 +12,11 @@ import main.model.tablero.Tablero;
 
 public class BotonCelda extends JButton{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Coordenada coordenada;
 
 	public BotonCelda(Coordenada coordenada){
