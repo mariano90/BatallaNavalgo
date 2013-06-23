@@ -13,6 +13,15 @@ public class TripleConRetardo extends MinaSubmarina{
 	protected final Integer RADIO = 2;
 	protected final Integer CANTIDAD_TURNOS = 3;
 	
+	/**
+	 * Constructor por defecto.
+	 */
+	public TripleConRetardo(){
+		this.costo = COSTO;
+		this.radio = RADIO;
+		this.cantTurnos = CANTIDAD_TURNOS;
+	}
+	
 	public TripleConRetardo(Coordenada coordenada){
 		this.coordenada = coordenada;
 		this.costo = COSTO;

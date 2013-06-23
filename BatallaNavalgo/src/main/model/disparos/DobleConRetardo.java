@@ -16,6 +16,12 @@ public class DobleConRetardo extends MinaSubmarina{
 	/**
 	 * Constructor por defecto.
 	 */
+	public DobleConRetardo(){
+		this.costo = COSTO;
+		this.radio = RADIO;
+		this.cantTurnos = CANTIDAD_TURNOS;		
+	}
+
 	public DobleConRetardo(Coordenada coordenada){
 		this.coordenada = coordenada;
 		this.costo = COSTO;

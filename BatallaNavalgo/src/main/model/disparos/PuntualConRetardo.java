@@ -16,6 +16,12 @@ public class PuntualConRetardo extends MinaSubmarina{
 	/**
 	 * Constructor por defecto.
 	 */
+	public PuntualConRetardo(){
+		this.costo = COSTO;
+		this.radio = RADIO;
+		this.cantTurnos = CANTIDAD_TURNOS;
+	}
+	
 	public PuntualConRetardo(Coordenada coordenada){
 		this.coordenada = coordenada;
 		this.costo = COSTO;

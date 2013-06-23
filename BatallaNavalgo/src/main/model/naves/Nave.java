@@ -279,7 +279,6 @@ public abstract class Nave implements ObjetoVivo, ObjetoPosicionable {
 	
 	@Override
 	public void vivir() {
-		System.out.println("VIVE LA NAVE");
 		this.moverse();
 	}
 

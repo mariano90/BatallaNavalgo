@@ -1,0 +1,96 @@
+package main.juego.view.tablero;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URL;
+
+import fiuba.algo3.titiritero.modelo.GameLoop;
+
+import main.view.disparos.VistaDisparo;
+import main.model.disparos.Disparo;
+import main.model.tablero.Coordenada;
+import main.model.tablero.Tablero;
+
+public class SuperficiePanelListener implements MouseListener {
+
+	private GameLoop gameLoop;
+	private Disparo disparo;
+	private URL urlImagen;
+	private int x;
+	private int y;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -656393156072573350L;
+	
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		System.out.println("HIZO CLICK");
+		this.x = arg0.getX();
+		this.y = arg0.getY();
+		if (disparo != null) this.colocarDisparo();
+		else System.out.println("DISPARO ES NULL");
+	}
+
+	public void colocarDisparo(){
+		Coordenada coordenada = this.obtenerCoordenada();
+		if(coordenada != null){
+			disparo.setCoordenada(coordenada);
+			Tablero.getTablero().agregarDisparo(disparo);
+			System.out.println("AGREGO EL DISPARO");
+			try {
+				VistaDisparo vista = new VistaDisparo(this.urlImagen, disparo);
+				this.gameLoop.agregar(vista);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public Coordenada obtenerCoordenada(){
+		Coordenada coordenada = null;
+		int x=0;
+		int y=0;
+		for (int i = 60; i < 660; i=i+60) {
+			for (int j = 60; j < 660; j=j+60) {
+				if (this.y<j && this.x<i && this.x>=i-60){
+					coordenada = new Coordenada(x, y);
+					System.out.println("x: "+coordenada.getX() + " y: " +coordenada.getY());
+					return coordenada;
+				}
+			y++;
+			}
+			y=0;
+			x++;
+		}
+		return null;
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent arg0) {}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
+
+	public void setDisparo(Disparo disparo) {
+		this.disparo = disparo;
+	}
+
+	public void setGameLoop(GameLoop gameLoop) {
+		this.gameLoop = gameLoop;
+	}
+
+	public void setUrlImagen(URL urlImagen) {
+		this.urlImagen = urlImagen;
+	}
+	
+}

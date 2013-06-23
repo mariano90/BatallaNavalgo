@@ -16,6 +16,12 @@ public class DisparoConvencional extends Disparo{
 	/**
 	 * Constructor por defecto.
 	 */
+	public DisparoConvencional(){
+		this.costo = COSTO;
+		this.radio = RADIO;
+		this.cantTurnos = CANTIDAD_TURNOS;
+	}
+	
 	public DisparoConvencional(Coordenada coordenada){
 		this.coordenada = coordenada;
 		this.costo = COSTO;

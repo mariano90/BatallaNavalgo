@@ -11,10 +11,15 @@ public class PorContacto extends MinaSubmarina{
 	
 	protected final Integer COSTO = 150;
 	protected final Integer RADIO = 0;
-
+	
 	/**
 	 * Constructor por defecto.
 	 */
+	public PorContacto(){
+		this.costo = COSTO;
+		this.radio = RADIO;
+	}
+
 	public PorContacto(Coordenada coordenada){
 		this.coordenada = coordenada;
 		this.costo = COSTO;

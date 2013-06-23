@@ -13,6 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import main.juego.view.tablero.BotonDisparo;
+import main.juego.view.tablero.BotonDisparoConvencional;
+import main.juego.view.tablero.BotonDobleConRetardo;
+import main.juego.view.tablero.BotonPorContacto;
+import main.juego.view.tablero.BotonPuntualConRetardo;
+import main.juego.view.tablero.BotonTripleConRetardo;
+import main.juego.view.tablero.SuperficiePanelListener;
+import main.model.disparos.Disparo;
+import main.model.disparos.DisparoConvencional;
 import main.model.disparos.DobleConRetardo;
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
@@ -35,7 +44,7 @@ import fiuba.algo3.titiritero.modelo.GameLoop;
 
 /**
  * Clase principal del Juego BatallaNavalgo.
- * Se encarga de manejar la l���gica del juego.
+ * Se encarga de manejar la l�gica del juego.
  * 
  * @author daniel.pilla
  */
@@ -56,13 +65,14 @@ public class BatallaNavalgo {
 		{DireccionMovimiento.ESTE,DireccionMovimiento.OESTE,DireccionMovimiento.NORTE, DireccionMovimiento.SUR,
 		DireccionMovimiento.NORESTE, DireccionMovimiento.SURESTE, DireccionMovimiento.SUROESTE,
 		DireccionMovimiento.NOROESTE};
-	
+
 	private static JFrame frame;
 	private static GameLoop gameLoop;
 	private static DibujablesList objetosDibujables;
 	private static JPanel panelControlesNorte;
 	private static JButton btnIniciar;
 	private static JButton btnReiniciar;
+	private static Disparo disparoAcolocar;
 	
 	/**
 	 * Metodo principal del Programa. Inicia un Tablero, un Jugador,
@@ -106,7 +116,7 @@ public class BatallaNavalgo {
 		Jugador jugador = new Jugador();
 		objetosDibujables = new DibujablesList();
 		frame = new JFrame("Batalla Navalgo");
-		frame.setBounds(0, 0, 1270, 630);
+		frame.setBounds(0, 0, 800, 630);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 
@@ -114,6 +124,8 @@ public class BatallaNavalgo {
         bottom.setLayout(null);
 		
 		SuperficiePanel panel = new SuperficiePanel();
+		SuperficiePanelListener mouseListener = new SuperficiePanelListener();
+		panel.addMouseListener(mouseListener);
 		panel.setLocation(0, 0);
 		panel.setSize(600,600);
 		
@@ -121,15 +133,15 @@ public class BatallaNavalgo {
 		
 		JPanel panelControles = new JPanel();
 		panelControles.setLayout(null);
-		panelControles.setLocation(620, 0);
-		panelControles.setSize(650,630);
+		panelControles.setLocation(600, 0);
+		panelControles.setSize(200,630);
 		panelControles.setBackground(Color.GRAY);
 		bottom.add(panelControles);
 			
 		panelControlesNorte = new JPanel();
 		panelControles.setLayout(null);
 		panelControlesNorte.setLocation(0, 0);
-		panelControlesNorte.setSize(650,200);
+		panelControlesNorte.setSize(200,200);
 		panelControlesNorte.setBackground(Color.GRAY);
 		
 		btnIniciar = new JButton("Iniciar");
@@ -147,18 +159,25 @@ public class BatallaNavalgo {
 		JPanel panelControlesSur = new JPanel();
 		panelControles.setLayout(null);
 		panelControlesSur.setLocation(0, 200);
-		panelControlesSur.setSize(650,430);
+		panelControlesSur.setSize(200,430);
 		panelControlesSur.setBackground(Color.GRAY);
+
 		
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
-				JButton boton = new BotonCelda(new Coordenada(i, j));
-				boton.setLocation(15+i*5, 15+j*5);
-				boton.setSize(5, 5);
-				boton.setText(i+":"+j);
-				panelControlesSur.add(boton);
-			}
-		}
+		JButton botonDispConv = new BotonDisparoConvencional(disparoAcolocar, mouseListener);
+		botonDispConv.setBackground(Color.BLACK);
+		panelControlesSur.add(botonDispConv);
+		JButton botonPuntualRet = new BotonPuntualConRetardo(disparoAcolocar, mouseListener);
+		botonPuntualRet.setBackground(Color.BLACK);
+		panelControlesSur.add(botonPuntualRet);
+		JButton botonDobleRet = new BotonDobleConRetardo(disparoAcolocar, mouseListener);
+		botonDobleRet.setBackground(Color.BLACK);
+		panelControlesSur.add(botonDobleRet);
+		JButton botonTripleRet = new BotonTripleConRetardo(disparoAcolocar, mouseListener);
+		botonTripleRet.setBackground(Color.BLACK);
+		panelControlesSur.add(botonTripleRet);
+		JButton botonPorContacto = new BotonPorContacto(disparoAcolocar, mouseListener);
+		botonPorContacto.setBackground(Color.BLACK);
+		panelControlesSur.add(botonPorContacto);
 			
 		panelControles.add(panelControlesSur);
 
@@ -170,18 +189,10 @@ public class BatallaNavalgo {
 		gameLoop.agregar(objetosDibujables);
 		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), Tablero.getTablero());
 		objetosDibujables.agregar(imagen);
-		colocarBarcosEnTablero();
 		gameLoop.agregarObservador(new Observador());
-	}
-	
-	public void colocarMinasEnTablero() {
-		for (int i= 0; i<5; i++) {
-			Integer fila = (int) (Math.random() * 10);
-			Integer columna = (int) (Math.random() * 10);
-			Coordenada coordenada = new Coordenada(fila, columna);
-			DobleConRetardo mina = new DobleConRetardo(coordenada);
-			Tablero.getTablero().getCasilleros()[coordenada.getX()][coordenada.getY()].agregarDisparo(mina);
-		}
+		colocarBarcosEnTablero();
+		mouseListener.setGameLoop(gameLoop);
+		tablero.setGameLoop(gameLoop);
 	}
 	
 	/**
@@ -211,10 +222,10 @@ public class BatallaNavalgo {
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
-					imagen = new VistaNave(new URL("file:./images/lanchav.jpg"), lancha);
+					imagen = new VistaNave(new URL("file:./images/naves/lanchav.jpg"), lancha);
 				}
 				else {
-					imagen = new VistaNave(new URL("file:./images/lancha.jpg"), lancha);
+					imagen = new VistaNave(new URL("file:./images/naves/lancha.jpg"), lancha);
 				}
 				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
@@ -241,10 +252,10 @@ public class BatallaNavalgo {
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
-					imagen = new VistaNave(new URL("file:./images/destructorv.jpg"), destructor);
+					imagen = new VistaNave(new URL("file:./images/naves/destructorv.jpg"), destructor);
 				}
 				else {
-					imagen = new VistaNave(new URL("file:./images/destructor.jpg"), destructor);
+					imagen = new VistaNave(new URL("file:./images/naves/destructor.jpg"), destructor);
 				}
 				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
@@ -271,10 +282,10 @@ public class BatallaNavalgo {
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
-					imagen = new VistaNave(new URL("file:./images/buquev.jpg"), buque);
+					imagen = new VistaNave(new URL("file:./images/naves/buquev.jpg"), buque);
 				}
 				else {
-					imagen = new VistaNave(new URL("file:./images/buque.jpg"), buque);
+					imagen = new VistaNave(new URL("file:./images/naves/buque.jpg"), buque);
 				}
 				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
@@ -302,10 +313,10 @@ public class BatallaNavalgo {
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
-					imagen = new VistaNave(new URL("file:./images/portaavionv.jpg"), portaAviones);
+					imagen = new VistaNave(new URL("file:./images/naves/portaavionv.jpg"), portaAviones);
 				}
 				else {
-					imagen = new VistaNave(new URL("file:./images/portaavion.jpg"), portaAviones);
+					imagen = new VistaNave(new URL("file:./images/naves/portaavion.jpg"), portaAviones);
 				}
 				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
@@ -332,10 +343,10 @@ public class BatallaNavalgo {
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
-					imagen = new VistaNave(new URL("file:./images/rompehielosv.jpg"), rompeHielos);
+					imagen = new VistaNave(new URL("file:./images/naves/rompehielosv.jpg"), rompeHielos);
 				}
 				else {
-					imagen = new VistaNave(new URL("file:./images/rompehielos.jpg"), rompeHielos);
+					imagen = new VistaNave(new URL("file:./images/naves/rompehielos.jpg"), rompeHielos);
 				}
 				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {

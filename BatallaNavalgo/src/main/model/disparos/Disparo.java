@@ -1,5 +1,6 @@
 package main.model.disparos;
 
+import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
 import main.model.naves.Nave;
 import main.model.naves.Parte;
 import main.model.tablero.Coordenada;
@@ -9,7 +10,7 @@ import main.model.tablero.Coordenada;
  * 
  * @author mariano.sanchez
  */
-public abstract class Disparo {
+public abstract class Disparo implements ObjetoPosicionable{
 
 	protected Coordenada coordenada;
 	
@@ -77,6 +78,20 @@ public abstract class Disparo {
 
 	public Coordenada getCoordenada() {
 		return coordenada;
+	}
+
+	public void setCoordenada(Coordenada coordenada) {
+		this.coordenada = coordenada;
+	}
+	
+	@Override
+	public int getX() {
+		return 0 + coordenada.getX()*60;
+	}
+
+	@Override
+	public int getY() {
+		return 0 + coordenada.getY()*60;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import main.model.disparos.Disparo;
 import main.model.naves.Nave;
 import main.model.naves.Parte;
+import fiuba.algo3.titiritero.modelo.GameLoop;
 import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
 import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 
@@ -18,6 +19,7 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 	/*
 	 * Declaracion de constantes
 	 */
+	private GameLoop gameLoop;
 	private final int FILAS_TABLERO = 10;
 	private final int COLUMNAS_TABLERO = 10;
 	private static Tablero tablero;
@@ -105,7 +107,6 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 
 	@Override
 	public void vivir() {
-		System.out.println("VIVE EL TABLERO");
 		for (Casillero[] filas : casilleros) {
 			for(Casillero casillero : filas) {
 				this.verificarDisparosEnCasillero(casillero);
@@ -200,4 +201,8 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 		return coordenadas;
 	}
 
+	public void setGameLoop(GameLoop gameLoop) {
+		this.gameLoop = gameLoop;
+	}
+	
 }
