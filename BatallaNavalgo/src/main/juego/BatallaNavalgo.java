@@ -12,9 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import main.juego.view.naves.VistaNave;
-import main.juego.view.tablero.BotonCelda;
-import main.juego.view.tablero.VistaTablero;
 import main.model.disparos.DobleConRetardo;
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
@@ -27,6 +24,10 @@ import main.model.naves.EnumDirecciones.DireccionMovimiento;
 import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
 import main.model.tablero.Tablero;
+import main.view.juego.DibujablesList;
+import main.view.naves.VistaNave;
+import main.view.tablero.BotonCelda;
+import main.view.tablero.VistaTablero;
 import fiuba.algo3.titiritero.dibujables.Imagen;
 import fiuba.algo3.titiritero.dibujables.SuperficiePanel;
 import fiuba.algo3.titiritero.modelo.GameLoop;
@@ -58,6 +59,7 @@ public class BatallaNavalgo {
 	
 	private JFrame frame;
 	private GameLoop gameLoop;
+	private DibujablesList objetosDibujables;
 	
 	/**
 	 * Metodo principal del Programa. Inicia un Tablero, un Jugador,
@@ -99,6 +101,7 @@ public class BatallaNavalgo {
 	private void initialize() throws IOException {
 		Tablero tablero = Tablero.getTablero();
 		Jugador jugador = new Jugador();
+		objetosDibujables = new DibujablesList();
 		frame = new JFrame("Batalla Navalgo");
 		frame.setBounds(0, 0, 1270, 630);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,17 +112,17 @@ public class BatallaNavalgo {
 		
 		SuperficiePanel panel = new SuperficiePanel();
 		panel.setLocation(0, 0);
-		panel.setSize(630,630);
+		panel.setSize(600,600);
 		
 		bottom.add(panel);
 		
 		JPanel panelControles = new JPanel();
 		panelControles.setLayout(null);
-		panelControles.setLocation(640, 0);
+		panelControles.setLocation(620, 0);
 		panelControles.setSize(650,630);
 		panelControles.setBackground(Color.GRAY);
 		bottom.add(panelControles);
-		
+			
 		JPanel panelControlesNorte = new JPanel();
 		panelControles.setLayout(null);
 		panelControlesNorte.setLocation(0, 0);
@@ -158,13 +161,14 @@ public class BatallaNavalgo {
 
 		bottom.setOpaque(true);
 		frame.getContentPane().add(bottom);
-		this.gameLoop = new GameLoop(1500,panel);
+		this.gameLoop = new GameLoop(1000,panel);
 		this.gameLoop.agregar(jugador);
+		gameLoop.agregar(tablero);
+		gameLoop.agregar(objetosDibujables);
 		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), Tablero.getTablero());
-		gameLoop.agregar(imagen);
+		objetosDibujables.agregar(imagen);
 		this.colocarBarcosEnTablero();
 //		this.colocarMinasEnTablero();
-		gameLoop.agregar(tablero);
 //		jugar(jugador, tablero);
 //		verResultado(jugador, tablero);
 	}
@@ -230,7 +234,7 @@ public class BatallaNavalgo {
 				else {
 					imagen = new VistaNave(new URL("file:./images/lancha.jpg"), lancha);
 				}
-				this.gameLoop.agregar(imagen);
+				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -260,7 +264,7 @@ public class BatallaNavalgo {
 				else {
 					imagen = new VistaNave(new URL("file:./images/destructor.jpg"), destructor);
 				}
-				this.gameLoop.agregar(imagen);
+				this.objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -290,7 +294,7 @@ public class BatallaNavalgo {
 				else {
 					imagen = new VistaNave(new URL("file:./images/buque.jpg"), buque);
 				}
-				this.gameLoop.agregar(imagen);
+				this.objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -321,7 +325,7 @@ public class BatallaNavalgo {
 				else {
 					imagen = new VistaNave(new URL("file:./images/portaavion.jpg"), portaAviones);
 				}
-				this.gameLoop.agregar(imagen);
+				this.objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -351,7 +355,7 @@ public class BatallaNavalgo {
 				else {
 					imagen = new VistaNave(new URL("file:./images/rompehielos.jpg"), rompeHielos);
 				}
-				this.gameLoop.agregar(imagen);
+				this.objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
