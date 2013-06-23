@@ -12,12 +12,12 @@ public class Jugador implements ObjetoVivo{
 	/*
 	 * Definicion de constantes.
 	 */
-	private final Integer PUNTAJE_INICIAL = 10000;
+	private final Integer PUNTAJE_INICIAL = 8;
 
 	/**
 	 * Numero entero que indica la puntuacion del jugador.
 	 */
-	private Integer puntuacion;
+	private static Integer puntuacion;
 	
 	/**
 	 * Booleano que indica si el jugador gano el juego o no.
@@ -28,7 +28,7 @@ public class Jugador implements ObjetoVivo{
 	 * Constructor por defecto.
 	 */
 	public Jugador() {
-		this.puntuacion = PUNTAJE_INICIAL;
+		puntuacion = PUNTAJE_INICIAL;
 	}
 
 	/**
@@ -46,12 +46,12 @@ public class Jugador implements ObjetoVivo{
 	 * @param puntos Puntos a restar. Debe ser mayor a 0.
 	 */
 	public void restarPuntos (Integer puntos){
-		if ((this.puntuacion != 0) && (puntos>0)){
-			if ((this.puntuacion - puntos) > 0){
-				this.puntuacion = this.puntuacion - puntos;
+		if ((puntuacion != 0) && (puntos>0)){
+			if ((puntuacion - puntos) > 0){
+				puntuacion = puntuacion - puntos;
 			}
 			else {
-				this.puntuacion = 0;
+				puntuacion = 0;
 			}
 		}
 	}
@@ -67,6 +67,14 @@ public class Jugador implements ObjetoVivo{
 	@Override
 	public void vivir() {
 		this.restarPuntos(10);
+	}
+	
+	public static boolean tienePuntos() {
+		if (puntuacion >= 10) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
