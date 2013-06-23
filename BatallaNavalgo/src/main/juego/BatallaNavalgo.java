@@ -10,6 +10,7 @@ import java.net.URL;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import main.model.disparos.DobleConRetardo;
@@ -43,7 +44,6 @@ public class BatallaNavalgo {
 	/*
 	 * Definicion de constantes.
 	 */
-	private final static Integer PUNTOS_POR_TURNO = 10;
 	private final static Integer CANT_LANCHAS = 2;
 	private final static Integer CANT_DESTRUCTORES = 2;
 	private final static Integer CANT_BUQUES = 1;
@@ -57,9 +57,12 @@ public class BatallaNavalgo {
 		DireccionMovimiento.NORESTE, DireccionMovimiento.SURESTE, DireccionMovimiento.SUROESTE,
 		DireccionMovimiento.NOROESTE};
 	
-	private JFrame frame;
-	private GameLoop gameLoop;
-	private DibujablesList objetosDibujables;
+	private static JFrame frame;
+	private static GameLoop gameLoop;
+	private static DibujablesList objetosDibujables;
+	private static JPanel panelControlesNorte;
+	private static JButton btnIniciar;
+	private static JButton btnReiniciar;
 	
 	/**
 	 * Metodo principal del Programa. Inicia un Tablero, un Jugador,
@@ -74,8 +77,8 @@ public class BatallaNavalgo {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BatallaNavalgo window = new BatallaNavalgo();
-					window.frame.setVisible(true);
+					initialize();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -98,7 +101,7 @@ public class BatallaNavalgo {
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
 	 */
-	private void initialize() throws IOException {
+	private static void initialize() throws IOException {
 		Tablero tablero = Tablero.getTablero();
 		Jugador jugador = new Jugador();
 		objetosDibujables = new DibujablesList();
@@ -123,13 +126,13 @@ public class BatallaNavalgo {
 		panelControles.setBackground(Color.GRAY);
 		bottom.add(panelControles);
 			
-		JPanel panelControlesNorte = new JPanel();
+		panelControlesNorte = new JPanel();
 		panelControles.setLayout(null);
 		panelControlesNorte.setLocation(0, 0);
 		panelControlesNorte.setSize(650,200);
 		panelControlesNorte.setBackground(Color.GRAY);
 		
-		JButton btnIniciar = new JButton("Iniciar");
+		btnIniciar = new JButton("Iniciar");
 		btnIniciar.setLocation(0, 0);
 		btnIniciar.setSize(50, 50);
 		btnIniciar.addActionListener(new ActionListener() {
@@ -161,16 +164,14 @@ public class BatallaNavalgo {
 
 		bottom.setOpaque(true);
 		frame.getContentPane().add(bottom);
-		this.gameLoop = new GameLoop(1000,panel);
-		this.gameLoop.agregar(jugador);
+		gameLoop = new GameLoop(1000,panel);
+		gameLoop.agregar(jugador);
 		gameLoop.agregar(tablero);
 		gameLoop.agregar(objetosDibujables);
 		Imagen imagen = new VistaTablero(new URL("file:./images/tablero.PNG"), Tablero.getTablero());
 		objetosDibujables.agregar(imagen);
-		this.colocarBarcosEnTablero();
-//		this.colocarMinasEnTablero();
-//		jugar(jugador, tablero);
-//		verResultado(jugador, tablero);
+		colocarBarcosEnTablero();
+		gameLoop.agregarObservador(new Observador());
 	}
 	
 	public void colocarMinasEnTablero() {
@@ -183,40 +184,21 @@ public class BatallaNavalgo {
 		}
 	}
 	
-	private static void jugar(Jugador jugador){
-		while(jugador.getPuntuacion() > 0 && Tablero.getTablero().tieneBarcosNoDestruidos()){
-//			jugador.restarPuntos(PUNTOS_POR_TURNO);
-			// FALTA QUE MANDEN LAS CLASES QUE DIJERON PARA IMPLEMENTAR LOS TURNOS 
-			
-		}
-	}
-	
-	private static void verResultado(Jugador jugador){
-		if(Tablero.getTablero().tieneBarcosNoDestruidos()){
-			jugador.setGano(false);
-			System.out.println("El jugador perdio");
-		}
-		else {
-			jugador.setGano(true);
-			System.out.println("El jugador gano");
-		}
-	}
-	
 	/**
 	 * Crea y coloca todos las naves en el Tablero.
 	 */
-	private void colocarBarcosEnTablero() {
-		this.colocarLanchas();
-		this.colocarDestructores();
-		this.colocarBuques();
-		this.colocarPortaAviones();
-		this.colocarRompeHielos();
+	private static void colocarBarcosEnTablero() {
+		colocarLanchas();
+		colocarDestructores();
+		colocarBuques();
+		colocarPortaAviones();
+		colocarRompeHielos();
 	}
 
 	/**
 	 * Crea y coloca todas las lanchas en el Tablero.
 	 */
-	private void colocarLanchas() {
+	private static void colocarLanchas() {
 		for (int i = 0; i < CANT_LANCHAS; i++) {
 			Coordenada coordenada = crearCoordenada(2);
 			DireccionSentido sentido = getSentidoRandom();
@@ -225,7 +207,7 @@ public class BatallaNavalgo {
 			for (Parte parte : lancha.getPartes()) {
 				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(lancha);
 			}
-			this.gameLoop.agregar(lancha);
+			gameLoop.agregar(lancha);
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
@@ -246,7 +228,7 @@ public class BatallaNavalgo {
 	/**
 	 * Crea y coloca todos los destructores en el Tablero.
 	 */
-	private void colocarDestructores() {
+	private static void colocarDestructores() {
 		for (int i = 0; i < CANT_DESTRUCTORES; i++) {
 			Coordenada coordenada = crearCoordenada(3);
 			DireccionSentido sentido = getSentidoRandom();
@@ -255,7 +237,7 @@ public class BatallaNavalgo {
 			for (Parte parte : destructor.getPartes()) {
 				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(destructor);
 			}
-			this.gameLoop.agregar(destructor);
+			gameLoop.agregar(destructor);
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
@@ -264,7 +246,7 @@ public class BatallaNavalgo {
 				else {
 					imagen = new VistaNave(new URL("file:./images/destructor.jpg"), destructor);
 				}
-				this.objetosDibujables.agregar(imagen);
+				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -276,7 +258,7 @@ public class BatallaNavalgo {
 	/**
 	 * Crea y coloca todos los buques en el Tablero.
 	 */
-	private void colocarBuques() {
+	private static void colocarBuques() {
 		for (int i = 0; i < CANT_BUQUES; i++) {
 			Coordenada coordenada = crearCoordenada(4);
 			DireccionSentido sentido = getSentidoRandom();
@@ -285,7 +267,7 @@ public class BatallaNavalgo {
 			for (Parte parte : buque.getPartes()) {
 				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(buque);
 			}
-			this.gameLoop.agregar(buque);
+			gameLoop.agregar(buque);
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
@@ -294,7 +276,7 @@ public class BatallaNavalgo {
 				else {
 					imagen = new VistaNave(new URL("file:./images/buque.jpg"), buque);
 				}
-				this.objetosDibujables.agregar(imagen);
+				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -307,7 +289,7 @@ public class BatallaNavalgo {
 	/**
 	 * Crea y coloca todos los porta aviones en el Tablero.
 	 */
-	private void colocarPortaAviones() {
+	private static void colocarPortaAviones() {
 		for (int i = 0; i < CANT_PORTA_AVIONES; i++) {
 			Coordenada coordenada = crearCoordenada(5);
 			DireccionSentido sentido = getSentidoRandom();
@@ -316,7 +298,7 @@ public class BatallaNavalgo {
 			for (Parte parte : portaAviones.getPartes()) {
 				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(portaAviones);
 			}
-			this.gameLoop.agregar(portaAviones);
+			gameLoop.agregar(portaAviones);
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
@@ -325,7 +307,7 @@ public class BatallaNavalgo {
 				else {
 					imagen = new VistaNave(new URL("file:./images/portaavion.jpg"), portaAviones);
 				}
-				this.objetosDibujables.agregar(imagen);
+				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -337,7 +319,7 @@ public class BatallaNavalgo {
 	/**
 	 * Crea y coloca todos los rompe hielos en el Tablero.
 	 */
-	private void colocarRompeHielos() {
+	private static void colocarRompeHielos() {
 		for (int i = 0; i < CANT_ROMPE_HIELOS; i++) {
 			Coordenada coordenada = crearCoordenada(3);
 			DireccionSentido sentido = getSentidoRandom();
@@ -346,7 +328,7 @@ public class BatallaNavalgo {
 			for (Parte parte : rompeHielos.getPartes()) {
 				Tablero.getTablero().getCasilleros()[parte.getPosicion().getX()][parte.getPosicion().getY()].agregarNave(rompeHielos);
 			}
-			this.gameLoop.agregar(rompeHielos);
+			gameLoop.agregar(rompeHielos);
 			try {
 				Imagen imagen;
 				if (sentido.equals(DireccionSentido.VERTICAL)){
@@ -355,7 +337,7 @@ public class BatallaNavalgo {
 				else {
 					imagen = new VistaNave(new URL("file:./images/rompehielos.jpg"), rompeHielos);
 				}
-				this.objetosDibujables.agregar(imagen);
+				objetosDibujables.agregar(imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -391,5 +373,29 @@ public class BatallaNavalgo {
 	 */
 	private static DireccionMovimiento getMovimientoRandom() {
 		return movimientosNave[(int)(Math.random()*7)];
+	}
+	
+	public static void finalizarJuego() {
+		panelControlesNorte.remove(btnIniciar);
+		panelControlesNorte = new JPanel();
+		panelControlesNorte.setLocation(0, 0);
+		panelControlesNorte.setSize(650,200);
+		panelControlesNorte.setBackground(Color.GRAY);
+		
+		btnReiniciar = new JButton("Reiniciar");
+		btnReiniciar.setLocation(0, 0);
+		btnReiniciar.setSize(50, 50);
+		btnReiniciar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				gameLoop.iniciarEjecucion();
+			}
+		});
+		panelControlesNorte.add(btnReiniciar);
+		if (!Jugador.tienePuntos()) {
+			JOptionPane.showMessageDialog(frame, "El jugador perdio");
+		} else {
+			JOptionPane.showMessageDialog(frame, "El jugador ganó");
+		}
+		gameLoop.detenerEjecucion();
 	}
 }
