@@ -1,4 +1,4 @@
-package main.juego.view.tablero;
+package main.view.tablero;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,17 +8,17 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 
 import main.model.disparos.Disparo;
-import main.model.disparos.DisparoConvencional;
+import main.model.disparos.PorContacto;
 
-public class BotonDisparoConvencional extends BotonDisparo{
+public class BotonPorContacto extends BotonDisparo{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1662052988821033613L;
 
-	public BotonDisparoConvencional(Disparo disparo, SuperficiePanelListener mouseListener){
-		this.setIcon(new ImageIcon("./images/disparos/disparoConvencional.PNG"));
+	public BotonPorContacto(Disparo disparo, SuperficiePanelListener mouseListener){
+		this.setIcon(new ImageIcon("./images/disparos/porContacto.PNG"));
 		this.disparo = disparo;
 		this.mouseListener = mouseListener;
 		this.addActionListener(new ActionListener() {
@@ -30,11 +30,11 @@ public class BotonDisparoConvencional extends BotonDisparo{
 	
 	@Override
 	public void crearDisparo() {
-		this.disparo = new DisparoConvencional();		
-		System.out.println("SE CREO EL DISPARO");
+		this.disparo = new PorContacto();		
+		System.out.println("SE CREO EL DISPARO por contacto");
 		this.mouseListener.setDisparo(this.disparo);
 		try {
-			this.mouseListener.setUrlImagen(new URL("file:./images/disparos/disparoConvencional.PNG"));
+			this.mouseListener.setUrlImagen(new URL("file:./images/disparos/porContacto.PNG"));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

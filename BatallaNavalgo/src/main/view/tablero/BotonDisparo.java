@@ -1,4 +1,4 @@
-package main.juego.view.tablero;
+package main.view.tablero;
 
 import javax.swing.JButton;
 
