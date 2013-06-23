@@ -108,30 +108,34 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 		System.out.println("VIVE EL TABLERO");
 		for (Casillero[] filas : casilleros) {
 			for(Casillero casillero : filas) {
-				this.verificarCasillero(casillero);
+				this.verificarDisparosEnCasillero(casillero);
 			}
 		}
 	}
 	
-	private void verificarCasillero(Casillero casillero){
+	private void verificarDisparosEnCasillero(Casillero casillero){
 		ArrayList<Disparo> disparosRealizados = new ArrayList<Disparo>();
 		for (Disparo disparo : casillero.getDisparos()) {
 			if (disparo.debeExplotar()) {
 				System.out.println("DISPARO DEBE EXPLOTAR");
-				ArrayList<Nave> naves = this.buscarNaves(casillero, disparo.getRadio());
-				ArrayList<Coordenada> coordenadas = this.buscarCoordenadas(casillero.getCoordenada(), disparo.getRadio());
-				for (Nave nave : naves) {
-					for (Parte parte : nave.getPartes()) {
-						if (!parte.estaDestruida() && coordenadas.contains((parte.getPosicion()))) {
-							System.out.println("ACCIONAR MINA");
-							disparo.accionarMina(nave, parte);
-						}
-					}
-				}
+				this.verificarSiHayNaveEnCasillero(casillero, disparo);
 				disparosRealizados.add(disparo);
 			}
 		}
 		this.eliminarDisparos(disparosRealizados,casillero);
+	}
+	
+	private void verificarSiHayNaveEnCasillero(Casillero casillero, Disparo disparo) {
+		ArrayList<Nave> naves = this.buscarNaves(casillero, disparo.getRadio());
+		ArrayList<Coordenada> coordenadas = this.buscarCoordenadas(casillero.getCoordenada(), disparo.getRadio());
+		for (Nave nave : naves) {
+			for (Parte parte : nave.getPartes()) {
+				if (!parte.estaDestruida() && coordenadas.contains((parte.getPosicion()))) {
+					System.out.println("ACCIONAR MINA");
+					disparo.accionarMina(nave, parte);
+				}
+			}
+		}
 	}
 	
 	private void eliminarDisparos(ArrayList<Disparo> disparosRealizados, Casillero casillero) {
