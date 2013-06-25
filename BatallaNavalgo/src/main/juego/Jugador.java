@@ -12,7 +12,7 @@ public class Jugador implements ObjetoVivo{
 	/*
 	 * Definicion de constantes.
 	 */
-	private final Integer PUNTAJE_INICIAL = 1000;
+	private final Integer PUNTAJE_INICIAL = 10000;
 
 	/**
 	 * Numero entero que indica la puntuacion del jugador.
