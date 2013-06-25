@@ -70,6 +70,10 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 		return tablero;
 	}
 	
+	public static void reiniciarTablero() {
+		tablero = null;
+	}
+	
 	public void removerNave (Nave nave) {
 		for (Parte parte : nave.getPartes()) {
 			casilleros[parte.getPosicion().getX()][parte.getPosicion().getY()].removerNave(nave);
