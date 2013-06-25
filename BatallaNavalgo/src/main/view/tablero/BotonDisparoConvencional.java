@@ -27,7 +27,7 @@ public class BotonDisparoConvencional extends BotonDisparo{
 	}
 	
 	@Override
-	public void crearDisparo() {
+	protected void crearDisparo() {
 		this.disparo = new DisparoConvencional();		
 		System.out.println("SE CREO EL DISPARO");
 		this.mouseListener.setDisparo(this.disparo);

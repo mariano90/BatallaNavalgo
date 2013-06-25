@@ -27,7 +27,7 @@ public class BotonPorContacto extends BotonDisparo{
 	}
 	
 	@Override
-	public void crearDisparo() {
+	protected void crearDisparo() {
 		this.disparo = new PorContacto();		
 		System.out.println("SE CREO EL DISPARO por contacto");
 		this.mouseListener.setDisparo(this.disparo);
