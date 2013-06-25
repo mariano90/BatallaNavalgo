@@ -14,5 +14,5 @@ public abstract class BotonDisparo extends JButton{
 	protected Disparo disparo;
 	protected SuperficiePanelListener mouseListener;
 	
-	public abstract void crearDisparo();
+	protected abstract void crearDisparo();
 }

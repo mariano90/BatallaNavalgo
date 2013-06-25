@@ -27,7 +27,7 @@ public class BotonDobleConRetardo extends BotonDisparo{
 	}
 	
 	@Override
-	public void crearDisparo() {
+	protected void crearDisparo() {
 		this.disparo = new DobleConRetardo();		
 		System.out.println("SE CREO EL DISPARO d con retardo");
 		this.mouseListener.setDisparo(this.disparo);

@@ -1,6 +1,8 @@
 package main.model.disparos;
 
+import main.model.tablero.Casillero;
 import main.model.tablero.Coordenada;
+import main.model.tablero.Tablero;
 
 /**
  * Representa a una Mina Submarina por Contacto.
@@ -24,5 +26,14 @@ public class PorContacto extends MinaSubmarina{
 		this.coordenada = coordenada;
 		this.costo = COSTO;
 		this.radio = RADIO;
+	}
+	
+	@Override
+	public boolean debeExplotar() {
+		Casillero casillero = Tablero.getTablero().getCasilleros()[this.coordenada.getX()][this.coordenada.getY()];
+		if (casillero.getNaves().size() > 0) {
+			return true;
+		}
+		return false;
 	}
 }
