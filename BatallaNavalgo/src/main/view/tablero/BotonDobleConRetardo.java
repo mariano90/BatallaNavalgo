@@ -7,7 +7,6 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-import main.model.disparos.Disparo;
 import main.model.disparos.DobleConRetardo;
 
 public class BotonDobleConRetardo extends BotonDisparo{
@@ -17,9 +16,8 @@ public class BotonDobleConRetardo extends BotonDisparo{
 	 */
 	private static final long serialVersionUID = -1662052988821033613L;
 
-	public BotonDobleConRetardo(Disparo disparo, SuperficiePanelListener mouseListener){
+	public BotonDobleConRetardo(SuperficiePanelListener mouseListener){
 		this.setIcon(new ImageIcon("./images/disparos/dobleConRetardo.PNG"));
-		this.disparo = disparo;
 		this.mouseListener = mouseListener;
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

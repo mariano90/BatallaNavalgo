@@ -5,16 +5,15 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URL;
 
-import fiuba.algo3.titiritero.modelo.GameLoop;
-
-import main.view.disparos.VistaDisparo;
+import main.juego.MapsModeloVista;
 import main.model.disparos.Disparo;
 import main.model.tablero.Coordenada;
 import main.model.tablero.Tablero;
+import main.view.disparos.VistaDisparo;
+import main.view.juego.DibujablesList;
 
 public class SuperficiePanelListener implements MouseListener {
 
-	private GameLoop gameLoop;
 	private Disparo disparo;
 	private URL urlImagen;
 	private int x;
@@ -30,7 +29,10 @@ public class SuperficiePanelListener implements MouseListener {
 		System.out.println("HIZO CLICK");
 		this.x = arg0.getX();
 		this.y = arg0.getY();
-		if (disparo != null) this.colocarDisparo();
+		if (disparo != null){
+			this.colocarDisparo();
+			this.disparo = null;
+		}
 		else System.out.println("DISPARO ES NULL");
 	}
 
@@ -42,12 +44,12 @@ public class SuperficiePanelListener implements MouseListener {
 			System.out.println("AGREGO EL DISPARO");
 			try {
 				VistaDisparo vista = new VistaDisparo(this.urlImagen, disparo);
-				this.gameLoop.agregar(vista);
+				DibujablesList.getDibujablesList().agregar(vista);
+				MapsModeloVista.getMapsModeloVista().agregarDisparo(disparo, vista);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	public Coordenada obtenerCoordenada(){
@@ -83,10 +85,6 @@ public class SuperficiePanelListener implements MouseListener {
 
 	public void setDisparo(Disparo disparo) {
 		this.disparo = disparo;
-	}
-
-	public void setGameLoop(GameLoop gameLoop) {
-		this.gameLoop = gameLoop;
 	}
 
 	public void setUrlImagen(URL urlImagen) {

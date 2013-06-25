@@ -7,10 +7,18 @@ import fiuba.algo3.titiritero.modelo.SuperficieDeDibujo;
 
 public class DibujablesList implements ObjetoDibujable {
 	
+	public static DibujablesList dibujablesList;
 	private ArrayList<ObjetoDibujable> objetosDibujables;
 	
 	public DibujablesList() {
 		objetosDibujables = new ArrayList<ObjetoDibujable>();
+	}
+	
+	public static DibujablesList getDibujablesList(){
+		if (dibujablesList == null) {
+			dibujablesList = new DibujablesList();
+		}
+		return dibujablesList;
 	}
 
 	@Override
@@ -22,5 +30,9 @@ public class DibujablesList implements ObjetoDibujable {
 	
 	public void agregar(ObjetoDibujable objeto) {
 		this.objetosDibujables.add(objeto);
+	}
+	
+	public void remover(ObjetoDibujable objeto) {
+		this.objetosDibujables.remove(objeto);
 	}
 }

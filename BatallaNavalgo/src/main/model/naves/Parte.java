@@ -46,12 +46,12 @@ public class Parte implements ObjetoPosicionable{
 
 	@Override
 	public int getX() {
-		return posicion.getX();
+		return 25 + posicion.getX() * 60;
 	}
 
 	@Override
 	public int getY() {
-		return posicion.getY();
+		return 25 + posicion.getY() * 60;
 	}
 	
 }

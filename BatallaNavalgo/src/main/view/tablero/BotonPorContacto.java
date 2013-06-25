@@ -7,7 +7,6 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-import main.model.disparos.Disparo;
 import main.model.disparos.PorContacto;
 
 public class BotonPorContacto extends BotonDisparo{
@@ -17,9 +16,8 @@ public class BotonPorContacto extends BotonDisparo{
 	 */
 	private static final long serialVersionUID = -1662052988821033613L;
 
-	public BotonPorContacto(Disparo disparo, SuperficiePanelListener mouseListener){
+	public BotonPorContacto(SuperficiePanelListener mouseListener){
 		this.setIcon(new ImageIcon("./images/disparos/porContacto.PNG"));
-		this.disparo = disparo;
 		this.mouseListener = mouseListener;
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

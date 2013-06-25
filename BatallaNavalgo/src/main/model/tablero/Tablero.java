@@ -1,11 +1,20 @@
 package main.model.tablero;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
+import main.juego.MapsModeloVista;
 import main.model.disparos.Disparo;
 import main.model.naves.Nave;
 import main.model.naves.Parte;
-import fiuba.algo3.titiritero.modelo.GameLoop;
+import main.view.juego.DibujablesList;
+import main.view.naves.VistaParteDaniada;
+import fiuba.algo3.titiritero.dibujables.Imagen;
 import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
 import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 
@@ -19,7 +28,6 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 	/*
 	 * Declaracion de constantes
 	 */
-	private GameLoop gameLoop;
 	private final int FILAS_TABLERO = 10;
 	private final int COLUMNAS_TABLERO = 10;
 	private static Tablero tablero;
@@ -111,11 +119,13 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 
 	@Override
 	public void vivir() {
+		System.out.println("VIVE EL TABLERO");
 		for (Casillero[] filas : casilleros) {
 			for(Casillero casillero : filas) {
 				this.verificarDisparosEnCasillero(casillero);
 			}
 		}
+		this.eliminarNavesDestruidas();
 	}
 	
 	private void verificarDisparosEnCasillero(Casillero casillero){
@@ -123,6 +133,8 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 		for (Disparo disparo : casillero.getDisparos()) {
 			if (disparo.debeExplotar()) {
 				System.out.println("DISPARO DEBE EXPLOTAR");
+				DibujablesList.getDibujablesList().remover(MapsModeloVista.getMapsModeloVista().getMapDisparos().get(disparo));
+				MapsModeloVista.getMapsModeloVista().removerDisparo(disparo);
 				this.verificarSiHayNaveEnCasillero(casillero, disparo);
 				disparosRealizados.add(disparo);
 			}
@@ -131,13 +143,23 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 	}
 	
 	private void verificarSiHayNaveEnCasillero(Casillero casillero, Disparo disparo) {
-		ArrayList<Nave> naves = this.buscarNaves(casillero, disparo.getRadio());
+		HashSet<Nave> naves = this.buscarNaves(casillero, disparo.getRadio());
 		ArrayList<Coordenada> coordenadas = this.buscarCoordenadas(casillero.getCoordenada(), disparo.getRadio());
 		for (Nave nave : naves) {
 			for (Parte parte : nave.getPartes()) {
 				if (!parte.estaDestruida() && coordenadas.contains((parte.getPosicion()))) {
 					System.out.println("ACCIONAR MINA");
 					disparo.accionarMina(nave, parte);
+					Imagen parteDaniada = null;
+					try {
+						parteDaniada = new VistaParteDaniada(new URL("file:./images/fuego.png"), parte);
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					MapsModeloVista.getMapsModeloVista().agregarParte(parte, parteDaniada);
+					DibujablesList.getDibujablesList().agregar(parteDaniada);
 				}
 			}
 		}
@@ -149,10 +171,10 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 		}
 	}
 	
-	private ArrayList<Nave> buscarNaves(Casillero casillero, Integer radio){
+	private HashSet<Nave> buscarNaves(Casillero casillero, Integer radio){
 		Integer x = casillero.getCoordenada().getX();
 		Integer y = casillero.getCoordenada().getY();
-		ArrayList<Nave> naves = new ArrayList<Nave>();
+		HashSet<Nave> naves = new HashSet<Nave>();
 		naves.addAll(casillero.getNaves());
 		if (radio == 0) return naves;
 		for (int i = 1; i < radio+1; i++) {
@@ -205,8 +227,32 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 		return coordenadas;
 	}
 
-	public void setGameLoop(GameLoop gameLoop) {
-		this.gameLoop = gameLoop;
+	private void eliminarNavesDestruidas(){
+		System.out.println("PASA POR ELIMINAR NAVES");
+		for (Casillero[] filas : casilleros) {
+			for(Casillero casillero : filas) {
+				ArrayList<Nave> navesEnCasillero = casillero.getNaves();
+				ArrayList<Nave> navesEliminar = new ArrayList<Nave>();
+				for (Nave nave : navesEnCasillero) {
+					if (nave.estaDestruida()){
+						System.out.println("NAVE ESTA DESTRUIDA");
+						Imagen naveEliminar =  MapsModeloVista.getMapsModeloVista().getMapNaves().get(nave);
+						DibujablesList.getDibujablesList().remover(naveEliminar);
+						for (Parte parte : nave.getPartes()) {
+							System.out.println("SE REMUEVE UNA PARTE");
+							Imagen parteEliminar = MapsModeloVista.getMapsModeloVista().getMapPartes().get(parte);
+							DibujablesList.getDibujablesList().remover(parteEliminar);
+							MapsModeloVista.getMapsModeloVista().removerParte(parte);
+						}
+						MapsModeloVista.getMapsModeloVista().removerNave(nave);
+						navesEliminar.add(nave);
+					}
+				}
+				for (Nave nave : navesEliminar) {
+					casillero.removerNave(nave);
+				}
+			}
+		}
 	}
 	
 }

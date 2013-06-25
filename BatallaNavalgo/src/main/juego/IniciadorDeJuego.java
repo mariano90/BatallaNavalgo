@@ -12,16 +12,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import main.model.disparos.Disparo;
 import main.model.naves.Buque;
 import main.model.naves.Destructor;
-import main.model.naves.EnumDirecciones.DireccionMovimiento;
-import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.naves.Lancha;
 import main.model.naves.Nave;
 import main.model.naves.Parte;
 import main.model.naves.Portaaviones;
 import main.model.naves.RompeHielos;
+import main.model.naves.EnumDirecciones.DireccionMovimiento;
+import main.model.naves.EnumDirecciones.DireccionSentido;
 import main.model.tablero.Coordenada;
 import main.model.tablero.Tablero;
 import main.view.juego.DibujablesList;
@@ -61,7 +60,6 @@ public class IniciadorDeJuego {
 	private JPanel panelControlesNorte;
 	private JButton btnIniciar;
 	private JButton btnReiniciar;
-	private Disparo disparoAcolocar;
 	private JPanel panelControles;
 	
 	/**
@@ -71,7 +69,7 @@ public class IniciadorDeJuego {
 	public void initialize() throws IOException {
 		Tablero tablero = Tablero.getTablero();
 		Jugador jugador = new Jugador();
-		objetosDibujables = new DibujablesList();
+		objetosDibujables = DibujablesList.getDibujablesList();
 		frame = new JFrame("Batalla Navalgo");
 		frame.setBounds(0, 0, 800, 630);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,19 +117,19 @@ public class IniciadorDeJuego {
 		panelControlesSur.setBackground(Color.GRAY);
 
 		
-		JButton botonDispConv = new BotonDisparoConvencional(disparoAcolocar, mouseListener);
+		JButton botonDispConv = new BotonDisparoConvencional(mouseListener);
 		botonDispConv.setBackground(Color.BLACK);
 		panelControlesSur.add(botonDispConv);
-		JButton botonPuntualRet = new BotonPuntualConRetardo(disparoAcolocar, mouseListener);
+		JButton botonPuntualRet = new BotonPuntualConRetardo(mouseListener);
 		botonPuntualRet.setBackground(Color.BLACK);
 		panelControlesSur.add(botonPuntualRet);
-		JButton botonDobleRet = new BotonDobleConRetardo(disparoAcolocar, mouseListener);
+		JButton botonDobleRet = new BotonDobleConRetardo(mouseListener);
 		botonDobleRet.setBackground(Color.BLACK);
 		panelControlesSur.add(botonDobleRet);
-		JButton botonTripleRet = new BotonTripleConRetardo(disparoAcolocar, mouseListener);
+		JButton botonTripleRet = new BotonTripleConRetardo(mouseListener);
 		botonTripleRet.setBackground(Color.BLACK);
 		panelControlesSur.add(botonTripleRet);
-		JButton botonPorContacto = new BotonPorContacto(disparoAcolocar, mouseListener);
+		JButton botonPorContacto = new BotonPorContacto(mouseListener);
 		botonPorContacto.setBackground(Color.BLACK);
 		panelControlesSur.add(botonPorContacto);
 			
@@ -147,8 +145,6 @@ public class IniciadorDeJuego {
 		objetosDibujables.agregar(imagen);
 		gameLoop.agregarObservador(new Observador());
 		colocarBarcosEnTablero();
-		mouseListener.setGameLoop(gameLoop);
-		tablero.setGameLoop(gameLoop);
 		frame.setVisible(true);
 	}
 	
@@ -185,6 +181,7 @@ public class IniciadorDeJuego {
 					imagen = new VistaNave(new URL("file:./images/naves/lancha.jpg"), lancha);
 				}
 				objetosDibujables.agregar(imagen);
+				MapsModeloVista.getMapsModeloVista().agregarNave(lancha, imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -215,6 +212,7 @@ public class IniciadorDeJuego {
 					imagen = new VistaNave(new URL("file:./images/naves/destructor.jpg"), destructor);
 				}
 				objetosDibujables.agregar(imagen);
+				MapsModeloVista.getMapsModeloVista().agregarNave(destructor, imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -245,6 +243,7 @@ public class IniciadorDeJuego {
 					imagen = new VistaNave(new URL("file:./images/naves/buque.jpg"), buque);
 				}
 				objetosDibujables.agregar(imagen);
+				MapsModeloVista.getMapsModeloVista().agregarNave(buque, imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -276,6 +275,7 @@ public class IniciadorDeJuego {
 					imagen = new VistaNave(new URL("file:./images/naves/portaavion.jpg"), portaAviones);
 				}
 				objetosDibujables.agregar(imagen);
+				MapsModeloVista.getMapsModeloVista().agregarNave(portaAviones, imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -306,6 +306,7 @@ public class IniciadorDeJuego {
 					imagen = new VistaNave(new URL("file:./images/naves/rompehielos.jpg"), rompeHielos);
 				}
 				objetosDibujables.agregar(imagen);
+				MapsModeloVista.getMapsModeloVista().agregarNave(rompeHielos, imagen);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
