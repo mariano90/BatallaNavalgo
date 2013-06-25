@@ -39,7 +39,7 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 	 * Constructor por defecto. Instancia un Tablero con sus Casilleros y Coordenadas.
 	 */
 	private Tablero () {
-		casilleros = new Casillero[FILAS_TABLERO][COLUMNAS_TABLERO];
+		casilleros = new Casillero[COLUMNAS_TABLERO][FILAS_TABLERO];
 		crearCoordenadas();
 	}
 
@@ -47,10 +47,10 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 	 * Crea y asigna las coordenadas a los Casilleros del tablero.
 	 */
 	private void crearCoordenadas() {
-		for (int fila = 0; fila < FILAS_TABLERO; fila++) {
-			for(int columna = 0; columna < COLUMNAS_TABLERO; columna++) {
+		for (int fila = 0; fila < COLUMNAS_TABLERO; fila++) {
+			for(int columna = 0; columna < FILAS_TABLERO; columna++) {
 				Coordenada coordenada = new Coordenada(fila, columna);
-				casilleros[fila][columna] = new Casillero(coordenada);
+				casilleros[columna][fila] = new Casillero(coordenada);
 			}
 		}
 	}
@@ -117,7 +117,6 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 
 	@Override
 	public void vivir() {
-		System.out.println("VIVE EL TABLERO");
 		for (Casillero[] filas : casilleros) {
 			for(Casillero casillero : filas) {
 				this.verificarDisparosEnCasillero(casillero);
@@ -130,7 +129,6 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 		ArrayList<Disparo> disparosRealizados = new ArrayList<Disparo>();
 		for (Disparo disparo : casillero.getDisparos()) {
 			if (disparo.debeExplotar()) {
-				System.out.println("DISPARO DEBE EXPLOTAR");
 				DibujablesList.getDibujablesList().remover(MapsModeloVista.getMapsModeloVista().getMapDisparos().get(disparo));
 				MapsModeloVista.getMapsModeloVista().removerDisparo(disparo);
 				this.verificarSiHayNaveEnCasillero(casillero, disparo);
@@ -146,7 +144,6 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 		for (Nave nave : naves) {
 			for (Parte parte : nave.getPartes()) {
 				if (!parte.estaDestruida() && coordenadas.contains((parte.getPosicion()))) {
-					System.out.println("ACCIONAR MINA");
 					disparo.accionarMina(nave, parte);
 					Imagen parteDaniada = null;
 					try {
@@ -184,6 +181,7 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 				}
 			}
 			if (x+i <= COLUMNAS_TABLERO-1){
+				naves.addAll(this.casilleros[x+i][y].getNaves());
 				for (int j = 1; j < radio+1; j++) {
 					if (y-j >= 0) naves.addAll(this.casilleros[x+i][y-j].getNaves());
 					if (y+j <= FILAS_TABLERO-1) naves.addAll(this.casilleros[x+i][y+j].getNaves());					
@@ -212,6 +210,7 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 				}
 			}
 			if (x+i <= COLUMNAS_TABLERO-1){
+				coordenadas.add(new Coordenada(x+i, y));
 				for (int j = 1; j < radio+1; j++) {
 					if (y-j >= 0) coordenadas.add(new Coordenada(x+i, y-j));
 					if (y+j <= FILAS_TABLERO-1) coordenadas.add(new Coordenada(x+i, y+j));					
@@ -226,17 +225,13 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 	}
 
 	private void eliminarNavesDestruidas(){
-		System.out.println("PASA POR ELIMINAR NAVES");
 		HashSet<Nave> navesEnTablero = this.obtenerNavesEnTablero();
-		System.out.println("CANTIDAD DE NAVES: " + navesEnTablero.size());
 		ArrayList<Nave> navesEliminar = new ArrayList<Nave>();
 		for (Nave nave : navesEnTablero) {
 			if (nave.estaDestruida()){
-				System.out.println("NAVE ESTA DESTRUIDA");
 				Imagen naveEliminar =  MapsModeloVista.getMapsModeloVista().getMapNaves().get(nave);
 				DibujablesList.getDibujablesList().remover(naveEliminar);
 				for (Parte parte : nave.getPartes()) {
-					System.out.println("SE REMUEVE UNA PARTE");
 					Imagen parteEliminar = MapsModeloVista.getMapsModeloVista().getMapPartes().get(parte);
 					DibujablesList.getDibujablesList().remover(parteEliminar);
 					MapsModeloVista.getMapsModeloVista().removerParte(parte);
