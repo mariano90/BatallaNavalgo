@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URL;
 
+import main.juego.Jugador;
 import main.juego.MapsModeloVista;
 import main.model.disparos.Disparo;
 import main.model.tablero.Coordenada;
@@ -26,14 +27,15 @@ public class SuperficiePanelListener implements MouseListener {
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("HIZO CLICK");
 		this.x = arg0.getX();
 		this.y = arg0.getY();
-		if (disparo != null){
+		if (disparo != null && !Jugador.getJugador().isPusoDisparo() && Jugador.getJugador().getPuntuacion() >= disparo.getCosto()){
+			Jugador.getJugador().restarPuntos(disparo.getCosto());
+			Jugador.getJugador().setPusoDisparo(true);
 			this.colocarDisparo();
 			this.disparo = null;
 		}
-		else System.out.println("DISPARO ES NULL");
+		else System.out.println("NO SE PUEDE CREAR DISPARO");
 	}
 
 	public void colocarDisparo(){
@@ -41,7 +43,6 @@ public class SuperficiePanelListener implements MouseListener {
 		if(coordenada != null){
 			disparo.setCoordenada(coordenada);
 			Tablero.getTablero().agregarDisparo(disparo);
-			System.out.println("AGREGO EL DISPARO");
 			try {
 				VistaDisparo vista = new VistaDisparo(this.urlImagen, disparo);
 				DibujablesList.getDibujablesList().agregar(vista);

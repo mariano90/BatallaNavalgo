@@ -14,6 +14,9 @@ public class Jugador implements ObjetoVivo{
 	 */
 	private final Integer PUNTAJE_INICIAL = 10000;
 
+	public static Jugador jugador;
+	public boolean pusoDisparo;
+	
 	/**
 	 * Numero entero que indica la puntuacion del jugador.
 	 */
@@ -29,6 +32,13 @@ public class Jugador implements ObjetoVivo{
 	 */
 	public Jugador() {
 		puntuacion = PUNTAJE_INICIAL;
+	}
+	
+	public static Jugador getJugador() {
+		if (jugador == null) {
+			jugador = new Jugador();
+		}
+		return jugador;
 	}
 
 	/**
@@ -67,6 +77,7 @@ public class Jugador implements ObjetoVivo{
 	@Override
 	public void vivir() {
 		this.restarPuntos(10);
+		this.pusoDisparo = false;
 	}
 	
 	public static boolean tienePuntos() {
@@ -75,6 +86,14 @@ public class Jugador implements ObjetoVivo{
 		} else {
 			return false;
 		}
+	}
+
+	public boolean isPusoDisparo() {
+		return pusoDisparo;
+	}
+
+	public void setPusoDisparo(boolean pusoDisparo) {
+		this.pusoDisparo = pusoDisparo;
 	}
 	
 }

@@ -68,10 +68,10 @@ public class IniciadorDeJuego {
 	 */
 	public void initialize() throws IOException {
 		Tablero tablero = Tablero.getTablero();
-		Jugador jugador = new Jugador();
+		Jugador jugador = Jugador.getJugador();
 		objetosDibujables = DibujablesList.getDibujablesList();
 		frame = new JFrame("Batalla Navalgo");
-		frame.setBounds(0, 0, 800, 630);
+		frame.setBounds(0, 0, 750, 630);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 
@@ -89,14 +89,14 @@ public class IniciadorDeJuego {
 		panelControles = new JPanel();
 		panelControles.setLayout(null);
 		panelControles.setLocation(600, 0);
-		panelControles.setSize(200,630);
+		panelControles.setSize(150,630);
 		panelControles.setBackground(Color.GRAY);
 		bottom.add(panelControles);
 			
 		panelControlesNorte = new JPanel();
 		panelControles.setLayout(null);
 		panelControlesNorte.setLocation(0, 0);
-		panelControlesNorte.setSize(200,200);
+		panelControlesNorte.setSize(150,200);
 		panelControlesNorte.setBackground(Color.GRAY);
 		
 		btnIniciar = new JButton("Iniciar");
@@ -113,7 +113,7 @@ public class IniciadorDeJuego {
 		JPanel panelControlesSur = new JPanel();
 		panelControles.setLayout(null);
 		panelControlesSur.setLocation(0, 200);
-		panelControlesSur.setSize(200,430);
+		panelControlesSur.setSize(150,430);
 		panelControlesSur.setBackground(Color.GRAY);
 
 		
