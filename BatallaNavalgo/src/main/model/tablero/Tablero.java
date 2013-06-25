@@ -63,7 +63,7 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 	public boolean tieneBarcosNoDestruidos(){
 		for (int fila = 0; fila < FILAS_TABLERO; fila++) {
 			for(int columna = 0; columna < COLUMNAS_TABLERO; columna++) {
-				if(!casilleros[fila][columna].tieneBarcosNoDestruidos()) return true; 
+				if(casilleros[fila][columna].tieneBarcosNoDestruidos()) return true; 
 			}
 		}
 		return false;
@@ -145,16 +145,18 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 			for (Parte parte : nave.getPartes()) {
 				if (!parte.estaDestruida() && coordenadas.contains((parte.getPosicion()))) {
 					disparo.accionarMina(nave, parte);
-					Imagen parteDaniada = null;
-					try {
-						parteDaniada = new VistaParteDaniada(new URL("file:./images/fuego.png"), parte);
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
+					if (parte.estaDestruida()){
+						Imagen parteDaniada = null;
+						try {
+							parteDaniada = new VistaParteDaniada(new URL("file:./images/fuego.png"), parte);
+						} catch (MalformedURLException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						MapsModeloVista.getMapsModeloVista().agregarParte(parte, parteDaniada);
+						DibujablesList.getDibujablesList().agregar(parteDaniada);
 					}
-					MapsModeloVista.getMapsModeloVista().agregarParte(parte, parteDaniada);
-					DibujablesList.getDibujablesList().agregar(parteDaniada);
 				}
 			}
 		}
