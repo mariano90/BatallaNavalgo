@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 
 import main.juego.MapsModeloVista;
 import main.model.disparos.Disparo;
@@ -229,30 +227,43 @@ public class Tablero implements ObjetoVivo, ObjetoPosicionable{
 
 	private void eliminarNavesDestruidas(){
 		System.out.println("PASA POR ELIMINAR NAVES");
-		for (Casillero[] filas : casilleros) {
-			for(Casillero casillero : filas) {
-				ArrayList<Nave> navesEnCasillero = casillero.getNaves();
-				ArrayList<Nave> navesEliminar = new ArrayList<Nave>();
-				for (Nave nave : navesEnCasillero) {
-					if (nave.estaDestruida()){
-						System.out.println("NAVE ESTA DESTRUIDA");
-						Imagen naveEliminar =  MapsModeloVista.getMapsModeloVista().getMapNaves().get(nave);
-						DibujablesList.getDibujablesList().remover(naveEliminar);
-						for (Parte parte : nave.getPartes()) {
-							System.out.println("SE REMUEVE UNA PARTE");
-							Imagen parteEliminar = MapsModeloVista.getMapsModeloVista().getMapPartes().get(parte);
-							DibujablesList.getDibujablesList().remover(parteEliminar);
-							MapsModeloVista.getMapsModeloVista().removerParte(parte);
-						}
-						MapsModeloVista.getMapsModeloVista().removerNave(nave);
-						navesEliminar.add(nave);
-					}
+		HashSet<Nave> navesEnTablero = this.obtenerNavesEnTablero();
+		System.out.println("CANTIDAD DE NAVES: " + navesEnTablero.size());
+		ArrayList<Nave> navesEliminar = new ArrayList<Nave>();
+		for (Nave nave : navesEnTablero) {
+			if (nave.estaDestruida()){
+				System.out.println("NAVE ESTA DESTRUIDA");
+				Imagen naveEliminar =  MapsModeloVista.getMapsModeloVista().getMapNaves().get(nave);
+				DibujablesList.getDibujablesList().remover(naveEliminar);
+				for (Parte parte : nave.getPartes()) {
+					System.out.println("SE REMUEVE UNA PARTE");
+					Imagen parteEliminar = MapsModeloVista.getMapsModeloVista().getMapPartes().get(parte);
+					DibujablesList.getDibujablesList().remover(parteEliminar);
+					MapsModeloVista.getMapsModeloVista().removerParte(parte);
 				}
-				for (Nave nave : navesEliminar) {
-					casillero.removerNave(nave);
+				MapsModeloVista.getMapsModeloVista().removerNave(nave);
+				navesEliminar.add(nave);
+			}
+		}
+		for (Nave nave : navesEliminar) {
+			for (Casillero[] filas : casilleros) {
+				for(Casillero casillero : filas) {
+					if (casillero.getNaves().contains(nave)){
+						casillero.removerNave(nave);
+					}
 				}
 			}
 		}
+	}
+
+	private HashSet<Nave> obtenerNavesEnTablero(){
+		HashSet<Nave> naves = new HashSet<Nave>();
+		for (Casillero[] filas : casilleros) {
+			for(Casillero casillero : filas) {
+				naves.addAll(casillero.getNaves());
+			}
+		}
+		return naves;
 	}
 	
 }
