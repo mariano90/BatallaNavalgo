@@ -46,6 +46,7 @@ public class IniciadorDeJuego {
 	private final Integer CANT_BUQUES = 1;
 	private final Integer CANT_PORTA_AVIONES = 1;
 	private final Integer CANT_ROMPE_HIELOS = 1;
+	private boolean mostrarFrame = true;
 	
 	private final DireccionSentido sentidosNave[] = 
 		{DireccionSentido.VERTICAL};
@@ -145,7 +146,7 @@ public class IniciadorDeJuego {
 		objetosDibujables.agregar(imagen);
 		gameLoop.agregarObservador(new Observador());
 		colocarBarcosEnTablero();
-		frame.setVisible(true);
+		frame.setVisible(mostrarFrame);
 	}
 	
 	/**
@@ -372,5 +373,9 @@ public class IniciadorDeJuego {
 			JOptionPane.showMessageDialog(frame, "El jugador ganó");
 		}
 		gameLoop.detenerEjecucion();
+	}
+	
+	public void setMostrarFrame(boolean debeMostrarse) {
+		mostrarFrame = debeMostrarse;
 	}
 }
