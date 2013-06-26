@@ -20,11 +20,6 @@ public class SuperficiePanelListener implements MouseListener {
 	private int x;
 	private int y;
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -656393156072573350L;
-	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		this.x = arg0.getX();

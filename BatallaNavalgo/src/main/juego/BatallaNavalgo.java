@@ -47,6 +47,7 @@ public class BatallaNavalgo {
 	
 	public static void reiniciarJuego() {
 		Tablero.reiniciarTablero();
+		Jugador.reiniciarJugador();
 		iniciarJuego();
 	}
 }
