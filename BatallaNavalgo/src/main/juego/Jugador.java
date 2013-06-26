@@ -13,8 +13,9 @@ public class Jugador implements ObjetoVivo{
 	 * Definicion de constantes.
 	 */
 	private final Integer PUNTAJE_INICIAL = 10000;
-
-	public static Jugador jugador;
+	
+	private static Jugador jugador;
+	
 	public boolean pusoDisparo;
 	
 	/**
@@ -30,7 +31,7 @@ public class Jugador implements ObjetoVivo{
 	/**
 	 * Constructor por defecto.
 	 */
-	public Jugador() {
+	private Jugador() {
 		puntuacion = PUNTAJE_INICIAL;
 	}
 	
@@ -39,6 +40,10 @@ public class Jugador implements ObjetoVivo{
 			jugador = new Jugador();
 		}
 		return jugador;
+	}
+	
+	public static void reiniciarJugador() {
+		jugador = null;
 	}
 
 	/**
