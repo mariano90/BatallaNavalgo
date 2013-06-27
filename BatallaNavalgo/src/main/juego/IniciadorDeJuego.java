@@ -49,7 +49,7 @@ public class IniciadorDeJuego {
 	private boolean mostrarFrame = true;
 	
 	private final DireccionSentido sentidosNave[] = 
-		{DireccionSentido.VERTICAL};
+		{DireccionSentido.HORIZONTAL,DireccionSentido.VERTICAL};
 	private final DireccionMovimiento movimientosNave[] =
 		{DireccionMovimiento.ESTE,DireccionMovimiento.OESTE,DireccionMovimiento.NORTE, DireccionMovimiento.SUR,
 		DireccionMovimiento.NORESTE, DireccionMovimiento.SURESTE, DireccionMovimiento.SUROESTE,
@@ -333,7 +333,7 @@ public class IniciadorDeJuego {
 	 * @return DireccionSentido Valor aleatorio de sentido de ubicacion de la nave.
 	 */
 	private DireccionSentido getSentidoRandom() {
-		return sentidosNave[(int)(Math.random()*0)];
+		return sentidosNave[(int)(Math.random()*2)];
 	}
 
 	/**
@@ -342,7 +342,7 @@ public class IniciadorDeJuego {
 	 * @return DireccionMovimiento Valor aleatorio de direccion de movimiento de la nave.
 	 */
 	private DireccionMovimiento getMovimientoRandom() {
-		return movimientosNave[(int)(Math.random()*7)];
+		return movimientosNave[(int)(Math.random()*8)];
 	}
 	
 	public void finalizarJuego() {
